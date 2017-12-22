@@ -1,0 +1,11 @@
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PrinterPlc.tmc
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcSandbox.Tests.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcSandbox.Tests.pdb
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\nunit.framework.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcSandbox.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcSandbox.pdb
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\nunit.framework.xml
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.csprojResolveAssemblyReference.cache
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.csproj.CoreCompileInputs.cache
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.pdb
