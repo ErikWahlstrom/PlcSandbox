@@ -33,7 +33,46 @@
         PushIndent("\t");        
         foreach (var prop in tree.Symbols)
         {
-            WriteLine($"public static PlcAddress {prop.Name.Split('.').Last()}");
+            switch (prop.Type)
+            {
+                case "BOOL":
+                    WriteLine($"public static PlcBoolAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "BYTE":
+                    WriteLine($"public static PlcByteAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "REAL":
+                    WriteLine($"public static PlcFloatAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "UDINT":
+                    WriteLine($"public static PlcUintAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "UINT":
+                    WriteLine($"public static PlcUshortAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "INT":
+                    WriteLine($"public static PlcShortAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "DINT":
+                    WriteLine($"public static PlcIntAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "LREAL":
+                    WriteLine($"public static PlcDoubleAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "DWORD":
+                    WriteLine($"public static PlcUintAddress {prop.Name.Split('.').Last()}");
+                    break;
+                case "WORD":
+                    WriteLine($"public static PlcShortAddress {prop.Name.Split('.').Last()}");
+                    break;                
+                default :
+                    if (prop.Type.StartsWith("STRING"))
+                    {
+                        WriteLine($"public static PlcStringAddress {prop.Name.Split('.').Last()}");
+                        break;
+                    }                    
+                    break;
+            }
 }
         if (tree.Children != null)
         {
