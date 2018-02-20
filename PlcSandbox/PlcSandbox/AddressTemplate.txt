@@ -1,13 +1,13 @@
 ﻿public static class MC
 {
-	public static PlcBoolAddress bDone
-	public static PlcBoolAddress bError
-	public static PlcBoolAddress bBusyToHmi
+	public static PlcBoolAddress bDone { get; }
+	public static PlcBoolAddress bError { get; }
+	public static PlcBoolAddress bBusyToHmi { get; }
 	public static PlcFloatAddress lrActPosToHmi
 	public static PlcUintAddress iErrorId
 	public static PlcDoubleAddress lrActPos
-	public static PlcBoolAddress startPulse
-	public static PlcBoolAddress bResetServo
+	public static PlcBoolAddress startPulse { get; }
+	public static PlcBoolAddress bResetServo { get; }
 	public static PlcDoubleAddress lrVelocity
 	public static PlcDoubleAddress rAcceleration
 	public static PlcDoubleAddress lrAcceleration
@@ -19,13 +19,13 @@
 }
 public static class MC_2
 {
-	public static PlcBoolAddress bDone
-	public static PlcBoolAddress bError
+	public static PlcBoolAddress bDone { get; }
+	public static PlcBoolAddress bError { get; }
 	public static PlcFloatAddress lrActPos
 	public static PlcUintAddress iErrorId
-	public static PlcBoolAddress bBusyToHmi
-	public static PlcBoolAddress startPulse
-	public static PlcBoolAddress bResetServo
+	public static PlcBoolAddress bBusyToHmi { get; }
+	public static PlcBoolAddress startPulse { get; }
+	public static PlcBoolAddress bResetServo { get; }
 	public static PlcDoubleAddress lrVelocity
 	public static PlcDoubleAddress rAcceleration
 	public static PlcDoubleAddress lrAcceleration
@@ -174,43 +174,43 @@ public static class Global_Variables
 }
 public static class MAIN
 {
-	public static PlcBoolAddress bBuildingBoxConnected
-	public static PlcBoolAddress bPowderBox1Connected
-	public static PlcBoolAddress bPowderBox2Connected
-	public static PlcBoolAddress bRedLight
-	public static PlcBoolAddress bProtectionCoverClosed
-	public static PlcBoolAddress bPower
+	public static PlcBoolAddress bBuildingBoxConnected { get; }
+	public static PlcBoolAddress bPowderBox1Connected { get; }
+	public static PlcBoolAddress bPowderBox2Connected { get; }
+	public static PlcBoolAddress bRedLight { get; }
+	public static PlcBoolAddress bProtectionCoverClosed { get; }
+	public static PlcBoolAddress bPower { get; }
 	public static PlcIntAddress iPowderHeightBuildBox
 	public static PlcIntAddress iPowderHeightPowderBox1
 	public static PlcIntAddress iPowderHeightPowderBox2
 	public static PlcFloatAddress rGlueHeight
-	public static PlcBoolAddress bGreen
-	public static PlcBoolAddress bYellow
-	public static PlcBoolAddress bRed
+	public static PlcBoolAddress bGreen { get; }
+	public static PlcBoolAddress bYellow { get; }
+	public static PlcBoolAddress bRed { get; }
 	public static PlcStringAddress sFileName
-	public static PlcBoolAddress bOpenFile
-	public static PlcBoolAddress bStepForward
-	public static PlcBoolAddress bRun
-	public static PlcBoolAddress TestBoolIn
+	public static PlcBoolAddress bOpenFile { get; }
+	public static PlcBoolAddress bStepForward { get; }
+	public static PlcBoolAddress bRun { get; }
+	public static PlcBoolAddress TestBoolIn { get; }
 	public static PlcShortAddress rGlueLevel
 	public static PlcFloatAddress rPosition
-	public static PlcBoolAddress TestBoolOut
-	public static PlcBoolAddress LightOn
-	public static PlcBoolAddress IsLightOn
-	public static PlcBoolAddress TrigSequenceRequest
+	public static PlcBoolAddress TestBoolOut { get; }
+	public static PlcBoolAddress LightOn { get; }
+	public static PlcBoolAddress IsLightOn { get; }
+	public static PlcBoolAddress TrigSequenceRequest { get; }
 	public static PlcIntAddress TestIntIn
 	public static PlcIntAddress TestIntOut
 	public static PlcStringAddress TestStringIn
 	public static PlcStringAddress TestStringOut
-	public static PlcBoolAddress SequenceRequest
-	public static PlcBoolAddress SequenceDone
+	public static PlcBoolAddress SequenceRequest { get; }
+	public static PlcBoolAddress SequenceDone { get; }
 	public static PlcIntAddress SequenceError
-	public static PlcBoolAddress lXAxisEnable
+	public static PlcBoolAddress lXAxisEnable { get; }
 }
 public static class Position_Control
 {
-	public static PlcBoolAddress bPositioningDone2
-	public static PlcBoolAddress bPositioningDone1
+	public static PlcBoolAddress bPositioningDone2 { get; }
+	public static PlcBoolAddress bPositioningDone1 { get; }
 	public static PlcDoubleAddress lrServo1CurrentPos
 	public static PlcDoubleAddress lrServo2CurrentPos
 	public static PlcDoubleAddress lrServo1Position1
@@ -220,13 +220,13 @@ public static class Position_Control
 }
 public static class BackForthSequence
 {
-	public static PlcBoolAddress start_ui
+	public static PlcBoolAddress start_ui { get; }
 }
 public static class Constants
 {
-	public static PlcBoolAddress bLittleEndian
-	public static PlcBoolAddress bSimulationMode
-	public static PlcBoolAddress bFPUSupport
+	public static PlcBoolAddress bLittleEndian { get; }
+	public static PlcBoolAddress bSimulationMode { get; }
+	public static PlcBoolAddress bFPUSupport { get; }
 	public static PlcShortAddress nRegisterSize
 	public static PlcUshortAddress nPackMode
 	public static PlcUintAddress RuntimeVersionNumeric
