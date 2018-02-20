@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ReadBeckhoffOnlineConfig
+﻿namespace ReadBeckhoffOnlineConfig
 {
+    using System;
     using System.Diagnostics;
+    using System.Linq;
     using System.Threading;
     using NUnit.Framework;
     using TcEventLoggerAdsProxyLib;
