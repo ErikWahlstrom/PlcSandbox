@@ -16,7 +16,7 @@
     var dte = serviceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
     var solutionDirectory = System.IO.Path.GetDirectoryName(dte.Solution.FullName);
 
-	var trees = ReadPlcSymbolFile(solutionDirectory+ "\\PlcSandbox\\PrinterPlc.tmc");
+	var trees = ParsePlcSymbolFile.ReadFile(solutionDirectory + "\\PlcSandbox\\PrinterPlc.tmc");
 				ClassTree currentTree;
 	foreach(var tree in trees)		
 				{
@@ -85,73 +85,98 @@
 
 
 }
-											
-								public static IEnumerable<ClassTree> ReadPlcSymbolFile(string includedFile)
-								{
-												var xml = XDocument.Load(includedFile);
-												var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
-												var classNames = new List<string>();
 
-												var symbols = new List<PlcSymbol>();
+    // Insert copy paste-code here from ReadPlcSymbolFile
 
-												foreach (var dataArea in dataAreas)
-												{
-																var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y=>y.Value.ToString()).Distinct();
-																foreach (var dist in distinctName)
-																{
-																				var splitted = dist.Split('.');
-																				var currentClassName = string.Join(".", splitted.Take(splitted.Length - 1));
-																				if (classNames.Any(x => x.Contains(currentClassName) && x.StartsWith(currentClassName)))
-																				{
-																								continue;
-																				}
 
-																				var existingClassName = classNames.SingleOrDefault(x => currentClassName.Contains(x) && currentClassName.StartsWith(x));
-																				if (existingClassName != null)
-																				{
-																								classNames.Remove(existingClassName);
-																				}
+    public class ParsePlcSymbolFile
+    {
+        public static IEnumerable<ClassTree> ReadFile(string path)
+        {
+            var xml = XDocument.Load(path);
+            var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
+            var classNames = new List<string>();
 
-																				classNames.Add(currentClassName);
-																}
+            var symbols = new List<PlcSymbol>();
 
-																foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
-																{
-																				symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value));
-																}
-												}
+            foreach (var dataArea in dataAreas)
+            {
+                var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y=>y.Value.ToString()).Distinct();
+                foreach (var dist in distinctName)
+                {
+                    var splitted = dist.Split('.');
+                    var currentClassName = string.Join(".", splitted.Take(splitted.Length - 1));
+                    if (classNames.Any(x => x.Contains(currentClassName) && x.StartsWith(currentClassName)))
+                    {
+                        continue;
+                    }
 
-												var trees = new List<ClassTree>();
+                    var existingClassName = classNames.SingleOrDefault(x => currentClassName.Contains(x) && currentClassName.StartsWith(x));
+                    if (existingClassName != null)
+                    {
+                        classNames.Remove(existingClassName);
+                    }
 
-												foreach (var nameSpace in classNames.Distinct())
-												{
-																trees.Add(new ClassTree(nameSpace));
-												}
+                    classNames.Add(currentClassName);
+                }
 
-												foreach (var plcSymbol in symbols)
-												{
-																MapToTree(trees, plcSymbol);
-												}
+                foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
+                {
+                    symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value, int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value)));
+                }
+            }
 
-												return trees;
-								}
+            var trees = new List<ClassTree>();
 
-								static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
-								{
-												var choppedUpSymbol = symbol.Name.Split('.');
-												var possibleTrees = trees;
-												for (int i = 0; i < choppedUpSymbol.Length-2; i++)
-												{
-																possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x=>x.Children).ToArray();
-												}
-												if (!possibleTrees.Any())
-												{
-																throw new InvalidOperationException("Free flying symbol...");
-												}
-												possibleTrees.Single(x=>x.Name == choppedUpSymbol[choppedUpSymbol.Length-2]).AddSymbol(symbol);
-								}
+            foreach (var nameSpace in classNames.Distinct())
+            {
+                trees.Add(new ClassTree(nameSpace));
+            }
 
-	public class ClassTree
+            foreach (var plcSymbol in symbols)
+            {
+                MapToTree(trees, plcSymbol);
+            }
+
+            return trees;
+        }
+
+        public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
+        {
+            var choppedUpSymbol = symbol.Name.Split('.');
+            var possibleTrees = trees;
+            for (int i = 0; i < choppedUpSymbol.Length - 2; i++)
+            {
+                possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x => x.Children).ToArray();
+            }
+            if (!possibleTrees.Any())
+            {
+                throw new InvalidOperationException("Free flying symbol...");
+            }
+            possibleTrees.Single(x => x.Name == choppedUpSymbol[choppedUpSymbol.Length - 2]).AddSymbol(symbol);
+        }
+    }
+
+    public class PlcSymbol
+    {
+        public PlcSymbol(string name, string type, int bitSize, int bitOffset)
+        {
+            Name = name;
+            Type = type;
+            BitSize = bitSize;
+            BitOffset = bitOffset;
+        }
+
+        public string Name { get; }
+
+        public string Type { get; }
+
+        public int BitSize { get; }
+
+        public int BitOffset { get; }
+    }
+
+    public class ClassTree
     {
         public ClassTree(string name)
         {
@@ -178,19 +203,7 @@
 
         public IList<PlcSymbol> Symbols { get; }
     }
+	
 
-	public class PlcSymbol
-    {
-        public string Name { get; }
-        public string Type { get; }
-
-        public PlcSymbol(string name, string type)
-        {
-            Name = name;
-            Type = type;
-        }
-    }
-
-
-
+    //End of copy paste code
 #>

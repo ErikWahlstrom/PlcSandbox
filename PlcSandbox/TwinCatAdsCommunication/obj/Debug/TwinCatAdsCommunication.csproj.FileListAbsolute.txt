@@ -1,0 +1,6 @@
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\TwinCatAdsCommunication.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\TwinCatAdsCommunication.pdb
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommunication.csprojResolveAssemblyReference.cache
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommunication.csproj.CoreCompileInputs.cache
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommunication.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommunication.pdb

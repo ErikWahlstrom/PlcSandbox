@@ -14,10 +14,10 @@ namespace PlcSandbox.Tests
         [Test]
         public void TestIt()
         {
-            var parsedFile = new ReadPlcSymbolFile(TestContext.CurrentContext.TestDirectory);
+            var parsedFile = ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PrinterPlc.tmc");
 
             Console.WriteLine("____________ClassTrees_________________");
-            foreach (var parsedFileClassTree in parsedFile.ClassTrees)
+            foreach (var parsedFileClassTree in parsedFile)
             {
                 PrintTree(parsedFileClassTree);
             }
@@ -30,7 +30,7 @@ namespace PlcSandbox.Tests
             Console.WriteLine("__Symbols");
             foreach (var plcSymbol in parsedFileClassTree.Symbols)
             {
-                WriteLineWithIndent($"{plcSymbol.Name} : {plcSymbol.Type}", indent + 1);
+                WriteLineWithIndent($"{plcSymbol.Name} : {plcSymbol.Type} __ : {plcSymbol.BitOffset} :  {plcSymbol.BitSize} ", indent + 1);
             }
             
             var child = parsedFileClassTree.Children;

@@ -1,1 +1,238 @@
-﻿ErrorGeneratingOutput
+﻿public static class MC
+{
+	public static PlcBoolAddress bDone { get; } = new PlcBoolAddress(8, "MC.bDone", 4117832)
+	public static PlcBoolAddress bError { get; } = new PlcBoolAddress(8, "MC.bError", 4117840)
+	public static PlcBoolAddress bBusyToHmi { get; } = new PlcBoolAddress(8, "MC.bBusyToHmi", 4117848)
+	public static PlcFloatAddress lrActPosToHmi
+	public static PlcUintAddress iErrorId
+	public static PlcDoubleAddress lrActPos
+	public static PlcBoolAddress startPulse { get; } = new PlcBoolAddress(8, "MC.startPulse", 4142848)
+	public static PlcBoolAddress bResetServo { get; } = new PlcBoolAddress(8, "MC.bResetServo", 4142856)
+	public static PlcDoubleAddress lrVelocity
+	public static PlcDoubleAddress rAcceleration
+	public static PlcDoubleAddress lrAcceleration
+	public static PlcDoubleAddress lrDeceleration
+
+	public static class AxisRef
+	{
+	}
+}
+public static class MC_2
+{
+	public static PlcBoolAddress bDone { get; } = new PlcBoolAddress(8, "MC_2.bDone", 4142864)
+	public static PlcBoolAddress bError { get; } = new PlcBoolAddress(8, "MC_2.bError", 4142872)
+	public static PlcFloatAddress lrActPos
+	public static PlcUintAddress iErrorId
+	public static PlcBoolAddress bBusyToHmi { get; } = new PlcBoolAddress(8, "MC_2.bBusyToHmi", 4161312)
+	public static PlcBoolAddress startPulse { get; } = new PlcBoolAddress(8, "MC_2.startPulse", 4161320)
+	public static PlcBoolAddress bResetServo { get; } = new PlcBoolAddress(8, "MC_2.bResetServo", 4161328)
+	public static PlcDoubleAddress lrVelocity
+	public static PlcDoubleAddress rAcceleration
+	public static PlcDoubleAddress lrAcceleration
+	public static PlcDoubleAddress lrDeceleration
+
+	public static class AxisRef
+	{
+	}
+}
+public static class Global_Variables
+{
+	public static PlcUshortAddress AMSPORT_LOGGER
+	public static PlcUshortAddress AMSPORT_EVENTLOG
+	public static PlcUshortAddress AMSPORT_R0_RTIME
+	public static PlcUshortAddress AMSPORT_R0_IO
+	public static PlcUshortAddress AMSPORT_R0_NC
+	public static PlcUshortAddress AMSPORT_R0_NCSAF
+	public static PlcUshortAddress AMSPORT_R0_NCSVB
+	public static PlcUshortAddress AMSPORT_R0_ISG
+	public static PlcUshortAddress AMSPORT_R0_CNC
+	public static PlcUshortAddress AMSPORT_R0_LINE
+	public static PlcUshortAddress AMSPORT_R0_PLC
+	public static PlcUshortAddress AMSPORT_R0_PLC_RTS1
+	public static PlcUshortAddress AMSPORT_R0_PLC_RTS2
+	public static PlcUshortAddress AMSPORT_R0_PLC_RTS3
+	public static PlcUshortAddress AMSPORT_R0_PLC_RTS4
+	public static PlcUshortAddress AMSPORT_R0_CAM
+	public static PlcUshortAddress AMSPORT_R0_CAMTOOL
+	public static PlcUshortAddress AMSPORT_R3_SYSSERV
+	public static PlcUshortAddress AMSPORT_R3_SCOPESERVER
+	public static PlcUshortAddress ADSSTATE_INVALID
+	public static PlcUshortAddress ADSSTATE_IDLE
+	public static PlcUshortAddress ADSSTATE_RESET
+	public static PlcUshortAddress ADSSTATE_INIT
+	public static PlcUshortAddress ADSSTATE_START
+	public static PlcUshortAddress ADSSTATE_RUN
+	public static PlcUshortAddress ADSSTATE_STOP
+	public static PlcUshortAddress ADSSTATE_SAVECFG
+	public static PlcUshortAddress ADSSTATE_LOADCFG
+	public static PlcUshortAddress ADSSTATE_POWERFAILURE
+	public static PlcUshortAddress ADSSTATE_POWERGOOD
+	public static PlcUshortAddress ADSSTATE_ERROR
+	public static PlcUshortAddress ADSSTATE_SHUTDOWN
+	public static PlcUshortAddress ADSSTATE_SUSPEND
+	public static PlcUshortAddress ADSSTATE_RESUME
+	public static PlcUshortAddress ADSSTATE_CONFIG
+	public static PlcUshortAddress ADSSTATE_RECONFIG
+	public static PlcUshortAddress ADSSTATE_STOPPING
+	public static PlcUshortAddress ADSSTATE_INCOMPATIBLE
+	public static PlcUshortAddress ADSSTATE_EXCEPTION
+	public static PlcUshortAddress ADSSTATE_MAXSTATES
+	public static PlcUintAddress ADSIGRP_SYMTAB
+	public static PlcUintAddress ADSIGRP_SYMNAME
+	public static PlcUintAddress ADSIGRP_SYMVAL
+	public static PlcUintAddress ADSIGRP_SYM_HNDBYNAME
+	public static PlcUintAddress ADSIGRP_SYM_VALBYNAME
+	public static PlcUintAddress ADSIGRP_SYM_VALBYHND
+	public static PlcUintAddress ADSIGRP_SYM_RELEASEHND
+	public static PlcUintAddress ADSIGRP_SYM_INFOBYNAME
+	public static PlcUintAddress ADSIGRP_SYM_VERSION
+	public static PlcUintAddress ADSIGRP_SYM_INFOBYNAMEEX
+	public static PlcUintAddress ADSIGRP_SYM_DOWNLOAD
+	public static PlcUintAddress ADSIGRP_SYM_UPLOAD
+	public static PlcUintAddress ADSIGRP_SYM_UPLOADINFO
+	public static PlcUintAddress ADSIGRP_SYMNOTE
+	public static PlcUintAddress ADSIGRP_IOIMAGE_RWIB
+	public static PlcUintAddress ADSIGRP_IOIMAGE_RWIX
+	public static PlcUintAddress ADSIGRP_IOIMAGE_RISIZE
+	public static PlcUintAddress ADSIGRP_IOIMAGE_RWOB
+	public static PlcUintAddress ADSIGRP_IOIMAGE_RWOX
+	public static PlcUintAddress ADSIGRP_IOIMAGE_ROSIZE
+	public static PlcUintAddress ADSIGRP_IOIMAGE_CLEARI
+	public static PlcUintAddress ADSIGRP_IOIMAGE_CLEARO
+	public static PlcUintAddress ADSIGRP_IOIMAGE_RWIOB
+	public static PlcUintAddress ADSIGRP_DEVICE_DATA
+	public static PlcUintAddress ADSIOFFS_DEVDATA_ADSSTATE
+	public static PlcUintAddress ADSIOFFS_DEVDATA_DEVSTATE
+	public static PlcUintAddress SYSTEMSERVICE_OPENCREATE
+	public static PlcUintAddress SYSTEMSERVICE_OPENREAD
+	public static PlcUintAddress SYSTEMSERVICE_OPENWRITE
+	public static PlcUintAddress SYSTEMSERVICE_CREATEFILE
+	public static PlcUintAddress SYSTEMSERVICE_CLOSEHANDLE
+	public static PlcUintAddress SYSTEMSERVICE_FOPEN
+	public static PlcUintAddress SYSTEMSERVICE_FCLOSE
+	public static PlcUintAddress SYSTEMSERVICE_FREAD
+	public static PlcUintAddress SYSTEMSERVICE_FWRITE
+	public static PlcUintAddress SYSTEMSERVICE_FSEEK
+	public static PlcUintAddress SYSTEMSERVICE_FTELL
+	public static PlcUintAddress SYSTEMSERVICE_FGETS
+	public static PlcUintAddress SYSTEMSERVICE_FPUTS
+	public static PlcUintAddress SYSTEMSERVICE_FSCANF
+	public static PlcUintAddress SYSTEMSERVICE_FPRINTF
+	public static PlcUintAddress SYSTEMSERVICE_FEOF
+	public static PlcUintAddress SYSTEMSERVICE_FDELETE
+	public static PlcUintAddress SYSTEMSERVICE_FRENAME
+	public static PlcUintAddress SYSTEMSERVICE_MKDIR
+	public static PlcUintAddress SYSTEMSERVICE_RMDIR
+	public static PlcUintAddress SYSTEMSERVICE_REG_HKEYLOCALMACHINE
+	public static PlcUintAddress SYSTEMSERVICE_SENDEMAIL
+	public static PlcUintAddress SYSTEMSERVICE_TIMESERVICES
+	public static PlcUintAddress SYSTEMSERVICE_STARTPROCESS
+	public static PlcUintAddress SYSTEMSERVICE_CHANGENETID
+	public static PlcUintAddress TIMESERVICE_DATEANDTIME
+	public static PlcUintAddress TIMESERVICE_SYSTEMTIMES
+	public static PlcUintAddress TIMESERVICE_RTCTIMEDIFF
+	public static PlcUintAddress TIMESERVICE_ADJUSTTIMETORTC
+	public static PlcUintAddress TIMESERVICE_TIMEZONINFORMATION
+	public static PlcUintAddress ADSLOG_MSGTYPE_HINT
+	public static PlcUintAddress ADSLOG_MSGTYPE_WARN
+	public static PlcUintAddress ADSLOG_MSGTYPE_ERROR
+	public static PlcUintAddress ADSLOG_MSGTYPE_LOG
+	public static PlcUintAddress ADSLOG_MSGTYPE_MSGBOX
+	public static PlcUintAddress ADSLOG_MSGTYPE_RESOURCE
+	public static PlcUintAddress ADSLOG_MSGTYPE_STRING
+	public static PlcByteAddress BOOTDATAFLAGS_RETAIN_LOADED
+	public static PlcByteAddress BOOTDATAFLAGS_RETAIN_INVALID
+	public static PlcByteAddress BOOTDATAFLAGS_RETAIN_REQUESTED
+	public static PlcByteAddress BOOTDATAFLAGS_PERSISTENT_LOADED
+	public static PlcByteAddress BOOTDATAFLAGS_PERSISTENT_INVALID
+	public static PlcByteAddress SYSTEMSTATEFLAGS_BSOD
+	public static PlcByteAddress SYSTEMSTATEFLAGS_RTVIOLATION
+	public static PlcByteAddress nWatchdogTime
+	public static PlcUintAddress FOPEN_MODEREAD
+	public static PlcUintAddress FOPEN_MODEWRITE
+	public static PlcUintAddress FOPEN_MODEAPPEND
+	public static PlcUintAddress FOPEN_MODEPLUS
+	public static PlcUintAddress FOPEN_MODEBINARY
+	public static PlcUintAddress FOPEN_MODETEXT
+	public static PlcShortAddress TCEVENTFLAG_PRIOCLASS
+	public static PlcShortAddress TCEVENTFLAG_FMTSELF
+	public static PlcShortAddress TCEVENTFLAG_LOG
+	public static PlcShortAddress TCEVENTFLAG_MSGBOX
+	public static PlcShortAddress TCEVENTFLAG_SRCID
+	public static PlcShortAddress TCEVENTFLAG_AUTOFMTALL
+	public static PlcShortAddress TCEVENTSTATE_INVALID
+	public static PlcShortAddress TCEVENTSTATE_SIGNALED
+	public static PlcShortAddress TCEVENTSTATE_RESET
+	public static PlcShortAddress TCEVENTSTATE_CONFIRMED
+	public static PlcShortAddress TCEVENTSTATE_RESETCON
+	public static PlcShortAddress TCEVENT_SRCNAMESIZE
+	public static PlcShortAddress TCEVENT_FMTPRGSIZE
+	public static PlcDoubleAddress PI
+	public static PlcUintAddress MAX_STRING_LENGTH
+	public static PlcDoubleAddress DEFAULT_HOME_POSITION
+	public static PlcDoubleAddress DEFAULT_BACKLASHVALUE
+}
+public static class MAIN
+{
+	public static PlcBoolAddress bBuildingBoxConnected { get; } = new PlcBoolAddress(8, "MAIN.bBuildingBoxConnected", 4114944)
+	public static PlcBoolAddress bPowderBox1Connected { get; } = new PlcBoolAddress(8, "MAIN.bPowderBox1Connected", 4114952)
+	public static PlcBoolAddress bPowderBox2Connected { get; } = new PlcBoolAddress(8, "MAIN.bPowderBox2Connected", 4114960)
+	public static PlcBoolAddress bRedLight { get; } = new PlcBoolAddress(8, "MAIN.bRedLight", 4114968)
+	public static PlcBoolAddress bProtectionCoverClosed { get; } = new PlcBoolAddress(8, "MAIN.bProtectionCoverClosed", 4114976)
+	public static PlcBoolAddress bPower { get; } = new PlcBoolAddress(8, "MAIN.bPower", 4114984)
+	public static PlcIntAddress iPowderHeightBuildBox
+	public static PlcIntAddress iPowderHeightPowderBox1
+	public static PlcIntAddress iPowderHeightPowderBox2
+	public static PlcFloatAddress rGlueHeight
+	public static PlcBoolAddress bGreen { get; } = new PlcBoolAddress(8, "MAIN.bGreen", 4115616)
+	public static PlcBoolAddress bYellow { get; } = new PlcBoolAddress(8, "MAIN.bYellow", 4115624)
+	public static PlcBoolAddress bRed { get; } = new PlcBoolAddress(8, "MAIN.bRed", 4115632)
+	public static PlcStringAddress sFileName
+	public static PlcBoolAddress bOpenFile { get; } = new PlcBoolAddress(8, "MAIN.bOpenFile", 4116288)
+	public static PlcBoolAddress bStepForward { get; } = new PlcBoolAddress(8, "MAIN.bStepForward", 4116296)
+	public static PlcBoolAddress bRun { get; } = new PlcBoolAddress(8, "MAIN.bRun", 4116320)
+	public static PlcBoolAddress TestBoolIn { get; } = new PlcBoolAddress(8, "MAIN.TestBoolIn", 4116328)
+	public static PlcShortAddress rGlueLevel
+	public static PlcFloatAddress rPosition
+	public static PlcBoolAddress TestBoolOut { get; } = new PlcBoolAddress(8, "MAIN.TestBoolOut", 4116384)
+	public static PlcBoolAddress LightOn { get; } = new PlcBoolAddress(8, "MAIN.LightOn", 4116392)
+	public static PlcBoolAddress IsLightOn { get; } = new PlcBoolAddress(8, "MAIN.IsLightOn", 4116400)
+	public static PlcBoolAddress TrigSequenceRequest { get; } = new PlcBoolAddress(8, "MAIN.TrigSequenceRequest", 4116408)
+	public static PlcIntAddress TestIntIn
+	public static PlcIntAddress TestIntOut
+	public static PlcStringAddress TestStringIn
+	public static PlcStringAddress TestStringOut
+	public static PlcBoolAddress SequenceRequest { get; } = new PlcBoolAddress(8, "MAIN.SequenceRequest", 4117776)
+	public static PlcBoolAddress SequenceDone { get; } = new PlcBoolAddress(8, "MAIN.SequenceDone", 4117784)
+	public static PlcIntAddress SequenceError
+	public static PlcBoolAddress lXAxisEnable { get; } = new PlcBoolAddress(8, "MAIN.lXAxisEnable", 4117824)
+}
+public static class Position_Control
+{
+	public static PlcBoolAddress bPositioningDone2 { get; } = new PlcBoolAddress(8, "Position_Control.bPositioningDone2", 4161336)
+	public static PlcBoolAddress bPositioningDone1 { get; } = new PlcBoolAddress(8, "Position_Control.bPositioningDone1", 4163616)
+	public static PlcDoubleAddress lrServo1CurrentPos
+	public static PlcDoubleAddress lrServo2CurrentPos
+	public static PlcDoubleAddress lrServo1Position1
+	public static PlcDoubleAddress lrServo2Position1
+	public static PlcDoubleAddress lrServo1Position2
+	public static PlcDoubleAddress lrServo2Position2
+}
+public static class BackForthSequence
+{
+	public static PlcBoolAddress start_ui { get; } = new PlcBoolAddress(8, "BackForthSequence.start_ui", 4163624)
+}
+public static class Constants
+{
+	public static PlcBoolAddress bLittleEndian { get; } = new PlcBoolAddress(8, "Constants.bLittleEndian", 4164264)
+	public static PlcBoolAddress bSimulationMode { get; } = new PlcBoolAddress(8, "Constants.bSimulationMode", 4164272)
+	public static PlcBoolAddress bFPUSupport { get; } = new PlcBoolAddress(8, "Constants.bFPUSupport", 4164280)
+	public static PlcShortAddress nRegisterSize
+	public static PlcUshortAddress nPackMode
+	public static PlcUintAddress RuntimeVersionNumeric
+	public static PlcUintAddress CompilerVersionNumeric
+}
+public static class TwinCAT_SystemInfoVarList
+{
+}
+

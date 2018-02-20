@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlcSandbox", "PlcSandbox\PlcSandbox.csproj", "{8C51DCAC-21EE-4D2D-B33D-EEB674CCF70A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlcSandbox.Tests", "PlcSandbox.Tests\PlcSandbox.Tests.csproj", "{DFE58BA5-C6BC-4F7C-9F59-9A260C8B7930}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadBeckhoffOnlineConfig", "ReadBeckhoffOnlineConfig\ReadBeckhoffOnlineConfig.csproj", "{7EB06769-54BB-421B-8EC6-3193E464DE22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwinCatAdsCommunication", "TwinCatAdsCommunication\TwinCatAdsCommunication.csproj", "{1A46264D-C800-4916-98D2-1FCB2806E259}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7EB06769-54BB-421B-8EC6-3193E464DE22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EB06769-54BB-421B-8EC6-3193E464DE22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EB06769-54BB-421B-8EC6-3193E464DE22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A46264D-C800-4916-98D2-1FCB2806E259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A46264D-C800-4916-98D2-1FCB2806E259}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A46264D-C800-4916-98D2-1FCB2806E259}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A46264D-C800-4916-98D2-1FCB2806E259}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

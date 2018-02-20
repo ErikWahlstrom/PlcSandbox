@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PlcSandbox
+﻿namespace TwinCatAdsCommunication
 {
+    using System;
+
     public abstract class Adress<T>
     {
         protected Adress(int bitSize, string name, int bitOffset)
@@ -24,6 +20,13 @@ namespace PlcSandbox
     public class BoolAddress : Adress<bool>
     {
         public BoolAddress(int bitSize, string name, int bitOffset) : base(bitSize, name, bitOffset)
+        {
+        }
+    }
+
+    public class StringAddress : Adress<string>
+    {
+        public StringAddress(int bitSize, string name, int bitOffset) : base(bitSize, name, bitOffset)
         {
         }
     }

@@ -3,7 +3,6 @@ C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\ReadBeckhoffOnli
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\nunit.framework.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\TwinCAT.Ads.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\nunit.framework.xml
-C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.csprojResolveAssemblyReference.cache
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.csproj.CoreCompileInputs.cache
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.pdb
@@ -13,3 +12,4 @@ C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\Microsoft.Visual
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.csproj.ResolveComReference.cache
+C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.csprojResolveAssemblyReference.cache

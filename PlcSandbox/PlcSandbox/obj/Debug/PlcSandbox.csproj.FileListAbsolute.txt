@@ -4,3 +4,4 @@ C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\PlcSandbox.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.csproj.CoreCompileInputs.cache
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.pdb
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.csprojResolveAssemblyReference.cache
