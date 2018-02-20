@@ -6,14 +6,17 @@
     {
         protected AdressBase(int bitSize, string name, int bitOffset)
         {
-            BitSize = bitSize;
-            Name = name;
-            BitOffset = bitOffset;
+            this.BitSize = bitSize;
+            this.Name = name;
+            this.BitOffset = bitOffset;
         }
 
         public string Name { get; }
+
         public int BitSize { get; }
+
         public int BitOffset { get; }
+
         public Type Type { get; } = typeof(T);
     }
 }
