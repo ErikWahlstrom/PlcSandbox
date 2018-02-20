@@ -23,7 +23,7 @@ namespace PlcSandbox
 
             foreach (var dataArea in dataAreas)
             {
-                var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y=>y.Value.ToString()).Distinct();
+                var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y => y.Value.ToString()).Distinct();
                 foreach (var dist in distinctName)
                 {
                     var splitted = dist.Split('.');

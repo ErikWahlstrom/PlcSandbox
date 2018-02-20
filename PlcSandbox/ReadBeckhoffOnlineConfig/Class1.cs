@@ -15,6 +15,10 @@
 
     public class Class1
     {
+        private static readonly object NotificationSynchronizer = new object();
+        private static int taskInfo1Events;
+        private static int cycleCountEvents;
+
         [Test]
         public void TestClass()
         {
@@ -47,13 +51,13 @@
 
                 // Usage of "dynamic" Type and Symbols (>= .NET4 only)
                 SymbolLoaderSettings settings = new SymbolLoaderSettings(SymbolsLoadMode.DynamicTree);
-                IAdsSymbolLoader dynLoader = (IAdsSymbolLoader) SymbolLoaderFactory.Create(client, settings);
+                IAdsSymbolLoader dynLoader = (IAdsSymbolLoader)SymbolLoaderFactory.Create(client, settings);
 
                 // Set the Default setting for Notifications
                 dynLoader.DefaultNotificationSettings = new AdsNotificationSettings(AdsTransMode.OnChange, 200, 2000);
 
                 // Get the Symbols (Dynamic Symbols)
-                dynamic dynamicSymbols = ((IDynamicSymbolLoader) dynLoader).SymbolsDynamic;
+                dynamic dynamicSymbols = ((IDynamicSymbolLoader)dynLoader).SymbolsDynamic;
 
                 dynamic adsPort = dynamicSymbols.TwinCAT_SystemInfoVarList._AppInfo.AdsPort;
 
@@ -105,8 +109,8 @@
                 Thread.Sleep(10000); // Sleep main thread for 10 Seconds
             }
 
-            Console.WriteLine("CycleCount Changed events received: {0}", _cycleCountEvents);
-            Console.WriteLine("taskInfo1 Changed events received: {0}", _taskInfo1Events);
+            Console.WriteLine("CycleCount Changed events received: {0}", cycleCountEvents);
+            Console.WriteLine("taskInfo1 Changed events received: {0}", taskInfo1Events);
         }
 
         [Test]
@@ -141,7 +145,7 @@
 
                 // Dump Symbols from target device
                 Console.WriteLine("Dumping '{0}' Symbols:", symbolLoader.Count);
-                WriteSymbolTree(symbolLoader, (AdsConnection) connection);
+                WriteSymbolTree(symbolLoader, (AdsConnection)connection);
             }
 
             stopper.Stop();
@@ -183,9 +187,9 @@
                 }
                 catch (Exception e)
                 {
-                    var type =  symbolLoaderSymbol.DataType.GetType();
+                    var type = symbolLoaderSymbol.DataType.GetType();
                     var symbol = connection.ReadSymbol(symbolLoaderSymbol.InstanceName, symbolLoaderSymbol.DataType.GetType(), true);
-                    Console.Write("Exception: "+ e);
+                    Console.Write("Exception: " + e);
                 }
 
                 Console.WriteLine(string.Empty);
@@ -197,11 +201,11 @@
             }
         }
 
-        static void cycleCount_ValueChanged(object sender, ValueChangedArgs e)
+        private static void cycleCount_ValueChanged(object sender, ValueChangedArgs e)
         {
-            lock (_notificationSynchronizer)
+            lock (NotificationSynchronizer)
             {
-                Interlocked.Increment(ref _cycleCountEvents);
+                Interlocked.Increment(ref cycleCountEvents);
 
                 // val is a type safe value of int!
                 dynamic val = e.Value;
@@ -211,10 +215,6 @@
                 Console.WriteLine("CycleCount changed to: {0}, TimeStamp: {1}", intVal, changedTime.ToString("HH:mm:ss:fff"));
             }
         }
-
-        static int _taskInfo1Events = 0;
-        static object _notificationSynchronizer = new object();
-        static int _cycleCountEvents = 0;
 
         [Test]
         public void LoggTest()
@@ -235,11 +235,11 @@
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        static void taskInfo1Value_ValueChanged(object sender, ValueChangedArgs e)
+        private static void taskInfo1Value_ValueChanged(object sender, ValueChangedArgs e)
         {
-            lock (_notificationSynchronizer)
+            lock (NotificationSynchronizer)
             {
-                Interlocked.Increment(ref _taskInfo1Events);
+                Interlocked.Increment(ref taskInfo1Events);
                 dynamic val = e.Value;
                 DateTime changedTime = e.UtcRtime.ToLocalTime(); // Convert to local time
 
