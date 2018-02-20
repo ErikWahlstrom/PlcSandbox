@@ -41,7 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adress.cs" />
+    <Compile Include="ClassTree.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="ItemsChoiceType.cs" />
+    <Compile Include="PlcSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadPlcSymbolFile.cs" />
   </ItemGroup>

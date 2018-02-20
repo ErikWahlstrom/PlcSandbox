@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +43,7 @@ namespace PlcSandbox
 
                 foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
                 {
-                    symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value));
+                    symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value, int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value)));
                 }
             }
 
@@ -64,63 +63,5 @@ namespace PlcSandbox
         }
 
         public IEnumerable<ClassTree> ClassTrees { get; }
-    }
-
-    public class ClassTree
-    {
-        public ClassTree(string name)
-        {
-            Symbols = new List<PlcSymbol>();
-            if (name.Contains("."))
-            {
-                Name = name.Remove(name.IndexOf("."));
-                this.Children = new ClassTree(name.Remove(0, name.IndexOf(".") + 1));
-            }
-            else
-            {
-                Name = name;
-            }
-        }
-
-        public string Name { get; }
-
-        public ClassTree Children { get; }
-
-        public void AddSymbol(PlcSymbol symbol)
-        {
-            this.Symbols.Add(symbol);
-        }
-
-        public IList<PlcSymbol> Symbols { get; }
-    }
-
-    public class PlcSymbol
-    {
-        public string Name { get; }
-        public string Type { get; }
-
-        public PlcSymbol(string name, string type)
-        {
-            Name = name;
-            Type = type;
-        }
-    }
-
-    public static class Extensions
-    {
-        public static void MapToTree(this IEnumerable<ClassTree> trees, PlcSymbol symbol)
-        {
-            var choppedUpSymbol = symbol.Name.Split('.');
-            var possibleTrees = trees;
-            for (int i = 0; i < choppedUpSymbol.Length-2; i++)
-            {
-                possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x=>x.Children).ToArray();
-            }
-            if (!possibleTrees.Any())
-            {
-                throw new InvalidOperationException("Free flying symbol...");
-            }
-            possibleTrees.Single(x=>x.Name == choppedUpSymbol[choppedUpSymbol.Length-2]).AddSymbol(symbol);
-        }
     }
 }

@@ -36,7 +36,7 @@
             switch (prop.Type)
             {
                 case "BOOL":
-                    WriteLine($"public static PlcBoolAddress {prop.Name.Split('.').Last()} {{ get; }}");
+                    WriteLine($"public static PlcBoolAddress {prop.Name.Split('.').Last()} {{ get; }} = new PlcBoolAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset})");
                     break;
                 case "BYTE":
                     WriteLine($"public static PlcByteAddress {prop.Name.Split('.').Last()}");
