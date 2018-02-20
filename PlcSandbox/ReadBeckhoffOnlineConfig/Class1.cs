@@ -19,23 +19,24 @@
         public void TestClass()
         {
             var beckhoffClient = new TcAdsClient();
-            //beckhoffClient.Connect("192.168.100.1.1.1", 851); //"164.4.4.112.1.1", 853);
-            beckhoffClient.Connect("164.4.4.112.1.1", 853); //Release-datorn
+
+            // beckhoffClient.Connect("192.168.100.1.1.1", 851); //"164.4.4.112.1.1", 853);
+            beckhoffClient.Connect("164.4.4.112.1.1", 853); // Release-datorn
             var isConnected = beckhoffClient.IsConnected;
             var loader = beckhoffClient.CreateSymbolInfoLoader();
             var symbols = loader.GetSymbols(true);
-            //var symbol = loader.FindSymbol("BackForthSequence.start_ui");
-            //var value = beckhoffClient.ReadSymbol(symbol);
-            //var value2 = beckhoffClient.ReadSymbol("BackForthSequence.start_ui", typeof(bool), true);
-            //foreach (TcAdsSymbolInfo tcAdsSymbolInfo in symbols)
-            //{
+
+            // var symbol = loader.FindSymbol("BackForthSequence.start_ui");
+            // var value = beckhoffClient.ReadSymbol(symbol);
+            // var value2 = beckhoffClient.ReadSymbol("BackForthSequence.start_ui", typeof(bool), true);
+            // foreach (TcAdsSymbolInfo tcAdsSymbolInfo in symbols)
+            // {
             //    Console.WriteLine(tcAdsSymbolInfo.Name);
-            //}
+            // }
         }
 
-
         [Test]
-        public static void CopyPasteTestDynamic()
+        public void CopyPasteTestDynamic()
         {
             using (TcAdsClient client = new TcAdsClient())
             {
@@ -58,15 +59,15 @@
 
                 // Access Main Symbol with Dynamic Language Runtime support (DLR)
                 // Dynamically created property "Main"
-                //dynamic symMain = dynamicSymbols.Main;
+                // dynamic symMain = dynamicSymbols.Main;
 
                 // Main is an 'VirtualSymbol' / Organizational unit that doesn't have a value
                 // Calling ReadValue is not allowed
-                //bool test = symMain.HasValue;
-                //dynamic invalid = symMain.ReadValue();
+                // bool test = symMain.HasValue;
+                // dynamic invalid = symMain.ReadValue();
 
-                //Reading TaskInfo Value
-                //With calling ReadValue() a 'snapshot' of the Symbols Instance is taken
+                // Reading TaskInfo Value
+                // With calling ReadValue() a 'snapshot' of the Symbols Instance is taken
                 dynamic vTaskInfoArray = dynamicSymbols.TwinCAT_SystemInfoVarList._TaskInfo.ReadValue();
 
                 // Getting the Snapshot time in UTC format
@@ -80,8 +81,8 @@
 
                 // Take Snapshot value of the ApplicationInfo struct
                 dynamic vAppInfo = dynamicSymbols.TwinCAT_SystemInfoVarList._AppInfo.ReadValue();
-                // Get the UTC Timestamp of the snapshot
 
+                // Get the UTC Timestamp of the snapshot
                 DateTime timeStamp2 = vAppInfo.UtcTimeStamp;
 
                 // Access the ProjectName of the ApplicationInfo Snapshot (type-safe!)
@@ -91,7 +92,7 @@
                 uint cycleCountValue = symTaskInfo1.CycleCount.ReadValue(); // Taking a Value Snapshot
 
                 // Registering for dynamic "ValueChanged" events for the Values
-                // Using Default Notification settings           
+                // Using Default Notification settings
                 symCycleCount.ValueChanged += new EventHandler<ValueChangedArgs>(cycleCount_ValueChanged);
 
                 // Override default notification settings
@@ -103,49 +104,50 @@
 
                 Thread.Sleep(10000); // Sleep main thread for 10 Seconds
             }
+
             Console.WriteLine("CycleCount Changed events received: {0}", _cycleCountEvents);
             Console.WriteLine("taskInfo1 Changed events received: {0}", _taskInfo1Events);
         }
 
         [Test]
-        public static void CopyPasteTestStatic()
+        public void CopyPasteTestStatic()
         {
-            Console.WriteLine("");
+            Console.WriteLine(string.Empty);
             Console.WriteLine("Press [Enter] for start:");
 
-            //logger.Active = false;
-
+            // logger.Active = false;
             Stopwatch stopper = new Stopwatch();
 
             stopper.Start();
 
             using (AdsSession session = new AdsSession(new AmsNetId("164.4.4.112.1.1"), 853))
             {
-                //client.Synchronize = false;
+                // client.Synchronize = false;
 
                 // Connect the AdsClient to the device target.
                 var connection = session.Connect();
-                
-                // Creates the Symbol Objects as hierarchical tree        
+
+                // Creates the Symbol Objects as hierarchical tree
                 SymbolLoaderSettings settings = new SymbolLoaderSettings(SymbolsLoadMode.VirtualTree, ValueAccessMode.IndexGroupOffsetPreferred);
-                var symbolLoader = session.SymbolServer.Symbols; //SymbolLoaderFactory.Create(client, settings);
+                var symbolLoader = session.SymbolServer.Symbols; // SymbolLoaderFactory.Create(client, settings);
 
                 //// Dump Datatypes from Target Device
-                //Console.WriteLine(string.Format("Dumping '{0}' DataTypes:", symbolLoader.DataTypes.Count));
-                //foreach (IDataType type in symbolLoader.DataTypes)
-                //{
+                // Console.WriteLine(string.Format("Dumping '{0}' DataTypes:", symbolLoader.DataTypes.Count));
+                // foreach (IDataType type in symbolLoader.DataTypes)
+                // {
                 //    Console.WriteLine(type);
-                //}
-                //Console.WriteLine("");
+                // }
+                // Console.WriteLine("");
 
                 // Dump Symbols from target device
                 Console.WriteLine("Dumping '{0}' Symbols:", symbolLoader.Count);
                 WriteSymbolTree(symbolLoader, (AdsConnection) connection);
             }
+
             stopper.Stop();
             TimeSpan elapsed = stopper.Elapsed;
 
-            Console.WriteLine("");
+            Console.WriteLine(string.Empty);
         }
 
         private static void WriteSymbolTree(ReadOnlySymbolCollection symbolLoaderSymbols, AdsConnection connection)
@@ -154,13 +156,14 @@
             foreach (var symbolLoaderSymbol in symbolLoaderSymbols)
             {
                 Console.Write(symbolLoaderSymbol.InstancePath);
-                //var symbolInfo = client.ReadSymbolInfo(symbolLoaderSymbol.InstancePath);
-                //var symbolInfor = new symbolin
+
+                // var symbolInfo = client.ReadSymbolInfo(symbolLoaderSymbol.InstancePath);
+                // var symbolInfor = new symbolin
                 try
                 {
                     if (symbolLoaderSymbol is ISymbol info)
                     {
-                        
+
                         if (info.Category == DataTypeCategory.Primitive)
                         {
                             SymbolCollection coll = new SymbolCollection() { symbolLoaderSymbol };
@@ -184,7 +187,8 @@
                     var symbol = connection.ReadSymbol(symbolLoaderSymbol.InstanceName, symbolLoaderSymbol.DataType.GetType(), true);
                     Console.Write("Exception: "+ e);
                 }
-                Console.WriteLine("");
+
+                Console.WriteLine(string.Empty);
                 if (symbolLoaderSymbol.SubSymbols.Any())
                 {
                     Console.WriteLine("__________subs to " + symbolLoaderSymbol.InstancePath);
@@ -198,6 +202,7 @@
             lock (_notificationSynchronizer)
             {
                 Interlocked.Increment(ref _cycleCountEvents);
+
                 // val is a type safe value of int!
                 dynamic val = e.Value;
                 uint intVal = val;

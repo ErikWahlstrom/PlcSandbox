@@ -20,6 +20,7 @@
 		{
 		}
 	}
+
 	public static class MC_2
 	{
 		public static BoolAddress bDone { get; } = new BoolAddress(8, "MC_2.bDone", 4142864);
@@ -38,6 +39,7 @@
 		{
 		}
 	}
+
 	public static class Global_Variables
 	{
 		public static UshortAddress AMSPORT_LOGGER { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_LOGGER", 4096224);
@@ -175,6 +177,7 @@
 		public static DoubleAddress DEFAULT_HOME_POSITION { get; } = new DoubleAddress(64, "Global_Variables.DEFAULT_HOME_POSITION", 4107136);
 		public static DoubleAddress DEFAULT_BACKLASHVALUE { get; } = new DoubleAddress(64, "Global_Variables.DEFAULT_BACKLASHVALUE", 4107200);
 	}
+
 	public static class MAIN
 	{
 		public static BoolAddress bBuildingBoxConnected { get; } = new BoolAddress(8, "MAIN.bBuildingBoxConnected", 4114944);
@@ -210,6 +213,7 @@
 		public static IntAddress SequenceError { get; } = new IntAddress(32, "MAIN.SequenceError", 4117792);
 		public static BoolAddress lXAxisEnable { get; } = new BoolAddress(8, "MAIN.lXAxisEnable", 4117824);
 	}
+
 	public static class Position_Control
 	{
 		public static BoolAddress bPositioningDone2 { get; } = new BoolAddress(8, "Position_Control.bPositioningDone2", 4161336);
@@ -221,10 +225,12 @@
 		public static DoubleAddress lrServo1Position2 { get; } = new DoubleAddress(64, "Position_Control.lrServo1Position2", 4163904);
 		public static DoubleAddress lrServo2Position2 { get; } = new DoubleAddress(64, "Position_Control.lrServo2Position2", 4163968);
 	}
+
 	public static class BackForthSequence
 	{
 		public static BoolAddress start_ui { get; } = new BoolAddress(8, "BackForthSequence.start_ui", 4163624);
 	}
+
 	public static class Constants
 	{
 		public static BoolAddress bLittleEndian { get; } = new BoolAddress(8, "Constants.bLittleEndian", 4164264);
@@ -235,6 +241,7 @@
 		public static UintAddress RuntimeVersionNumeric { get; } = new UintAddress(32, "Constants.RuntimeVersionNumeric", 4171488);
 		public static UintAddress CompilerVersionNumeric { get; } = new UintAddress(32, "Constants.CompilerVersionNumeric", 4171520);
 	}
+
 	public static class TwinCAT_SystemInfoVarList
 	{
 	}

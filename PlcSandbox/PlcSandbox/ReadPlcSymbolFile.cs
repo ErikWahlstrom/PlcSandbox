@@ -71,10 +71,12 @@ namespace PlcSandbox
             {
                 possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x => x.Children).ToArray();
             }
+
             if (!possibleTrees.Any())
             {
                 throw new InvalidOperationException("Free flying symbol...");
             }
+
             possibleTrees.Single(x => x.Name == choppedUpSymbol[choppedUpSymbol.Length - 2]).AddSymbol(symbol);
         }
     }

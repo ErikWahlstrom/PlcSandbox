@@ -32,7 +32,7 @@ namespace PlcSandbox.Tests
             {
                 WriteLineWithIndent($"{plcSymbol.Name} : {plcSymbol.Type} __ : {plcSymbol.BitOffset} :  {plcSymbol.BitSize} ", indent + 1);
             }
-            
+
             var child = parsedFileClassTree.Children;
             if (child != null)
             {
@@ -46,6 +46,7 @@ namespace PlcSandbox.Tests
             {
                 Console.Write("\t");
             }
+
             Console.WriteLine(message);
         }
     }
