@@ -9,7 +9,7 @@
 <#@ import namespace="System.Xml" #>
 <#@ import namespace="System.Xml.Linq" #>
 <#@ import namespace="System.IO" #>
-<#@ output extension=".txt" #>
+<#@ output extension=".cs" #>
 <#
 
     var serviceProvider = this.Host as IServiceProvider;
@@ -18,14 +18,21 @@
 
 	var trees = ParsePlcSymbolFile.ReadFile(solutionDirectory + "\\PlcSandbox\\PrinterPlc.tmc");
 				ClassTree currentTree;
+    WriteLine($"namespace GeneratedAddress");
+    WriteLine("{");
+    PushIndent("\t");        
+    WriteLine($"using TwinCatAdsCommunication.Address;");
 	foreach(var tree in trees)		
-				{
-        PrintTree(tree);  
-								
-}		
+	{
+        PrintTree(tree);
+    }		
+    PopIndent();
+    WriteLine("}");      
 #>
 
 <#+	
+
+    // This code could possibly be copy pasted from som actual class but for now I'll leave it here since it uses PushIndent, PopIndent etc.
     public void PrintTree(ClassTree tree)
     {
         WriteLine($"public static class {tree.Name}");
@@ -36,39 +43,39 @@
             switch (prop.Type)
             {
                 case "BOOL":
-                    WriteLine($"public static PlcBoolAddress {prop.Name.Split('.').Last()} {{ get; }} = new PlcBoolAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset})");
+                    WriteLine($"public static BoolAddress {prop.Name.Split('.').Last()} {{ get; }} = new BoolAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "BYTE":
-                    WriteLine($"public static PlcByteAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static ByteAddress {prop.Name.Split('.').Last()} {{ get; }} = new ByteAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "REAL":
-                    WriteLine($"public static PlcFloatAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static FloatAddress {prop.Name.Split('.').Last()} {{ get; }} = new FloatAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "UDINT":
-                    WriteLine($"public static PlcUintAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static UintAddress {prop.Name.Split('.').Last()} {{ get; }} = new UintAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "UINT":
-                    WriteLine($"public static PlcUshortAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static UshortAddress {prop.Name.Split('.').Last()} {{ get; }} = new UshortAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "INT":
-                    WriteLine($"public static PlcShortAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static ShortAddress {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "DINT":
-                    WriteLine($"public static PlcIntAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static IntAddress {prop.Name.Split('.').Last()} {{ get; }} = new IntAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "LREAL":
-                    WriteLine($"public static PlcDoubleAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static DoubleAddress {prop.Name.Split('.').Last()} {{ get; }} = new DoubleAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "DWORD":
-                    WriteLine($"public static PlcUintAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static UintAddress {prop.Name.Split('.').Last()} {{ get; }} = new UintAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;
                 case "WORD":
-                    WriteLine($"public static PlcShortAddress {prop.Name.Split('.').Last()}");
+                    WriteLine($"public static ShortAddress {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                     break;                
                 default :
                     if (prop.Type.StartsWith("STRING"))
                     {
-                        WriteLine($"public static PlcStringAddress {prop.Name.Split('.').Last()}");
+                        WriteLine($"public static StringAddress {prop.Name.Split('.').Last()} {{ get; }} = new StringAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                         break;
                     }                    
                     break;

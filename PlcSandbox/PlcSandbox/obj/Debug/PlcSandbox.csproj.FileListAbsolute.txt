@@ -5,3 +5,5 @@ C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.csproj.CoreCompileI
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.csprojResolveAssemblyReference.cache
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\TwinCatAdsCommunication.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\TwinCatAdsCommunication.pdb

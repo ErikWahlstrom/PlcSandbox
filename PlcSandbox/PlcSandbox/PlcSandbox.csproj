@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="ItemsChoiceType.cs" />
     <Compile Include="PlcSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,16 +58,17 @@
   <ItemGroup>
     <Content Include="AddressTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>AddressTemplate.txt</LastGenOutput>
-    </Content>
-    <Content Include="AddressTemplate.txt">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>AddressTemplate.tt</DependentUpon>
+      <LastGenOutput>AddressTemplate.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TwinCatAdsCommunication\TwinCatAdsCommunication.csproj">
+      <Project>{1a46264d-c800-4916-98d2-1fcb2806e259}</Project>
+      <Name>TwinCatAdsCommunication</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

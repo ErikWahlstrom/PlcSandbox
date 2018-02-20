@@ -40,7 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adress.cs" />
+    <Compile Include="Address\Adress.cs" />
+    <Compile Include="Address\BoolAddress.cs" />
+    <Compile Include="Address\ByteAddress.cs" />
+    <Compile Include="Address\DoubleAddress.cs" />
+    <Compile Include="Address\FloatAddress.cs" />
+    <Compile Include="Address\IntAddress.cs" />
+    <Compile Include="Address\ShortAddress.cs" />
+    <Compile Include="Address\StringAddress.cs" />
+    <Compile Include="Address\UintAddress.cs" />
+    <Compile Include="Address\UshortAddress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
