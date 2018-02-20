@@ -1,0 +1,10 @@
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\TwinCatAdsCommunication.Tests.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\TwinCatAdsCommunication.Tests.pdb
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\nunit.framework.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\TwinCatAdsCommunication.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\TwinCatAdsCommunication.pdb
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\nunit.framework.xml
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\obj\Debug\TwinCatAdsCommunication.Tests.csprojResolveAssemblyReference.cache
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\obj\Debug\TwinCatAdsCommunication.Tests.csproj.CoreCompileInputs.cache
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\obj\Debug\TwinCatAdsCommunication.Tests.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\obj\Debug\TwinCatAdsCommunication.Tests.pdb
