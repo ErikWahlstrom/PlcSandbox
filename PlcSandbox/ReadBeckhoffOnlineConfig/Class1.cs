@@ -248,6 +248,5 @@
                 Console.WriteLine("CycleCount changed to: {0}, TimeStamp: {1}", intVal, changedTime.ToString("HH:mm:ss:fff"));
             }
         }
-
     }
 }

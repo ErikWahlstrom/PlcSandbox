@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-
-//Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
+﻿//Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
 
 namespace PlcSandbox
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Xml.Linq;
 
     // Copy from here
@@ -85,10 +83,10 @@ namespace PlcSandbox
     {
         public PlcSymbol(string name, string type, int bitSize, int bitOffset)
         {
-            Name = name;
-            Type = type;
-            BitSize = bitSize;
-            BitOffset = bitOffset;
+            this.Name = name;
+            this.Type = type;
+            this.BitSize = bitSize;
+            this.BitOffset = bitOffset;
         }
 
         public string Name { get; }
@@ -104,15 +102,15 @@ namespace PlcSandbox
     {
         public ClassTree(string name)
         {
-            Symbols = new List<PlcSymbol>();
+            this.Symbols = new List<PlcSymbol>();
             if (name.Contains("."))
             {
-                Name = name.Remove(name.IndexOf("."));
+                this.Name = name.Remove(name.IndexOf("."));
                 this.Children = new ClassTree(name.Remove(0, name.IndexOf(".") + 1));
             }
             else
             {
-                Name = name;
+                this.Name = name;
             }
         }
 
