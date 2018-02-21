@@ -47,7 +47,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddressTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="ItemsChoiceType.cs" />
     <Compile Include="PlcSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadPlcSymbolFile.cs" />

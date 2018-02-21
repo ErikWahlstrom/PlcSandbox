@@ -16,17 +16,25 @@
     var dte = serviceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
     var solutionDirectory = System.IO.Path.GetDirectoryName(dte.Solution.FullName);
 
-	var trees = ParsePlcSymbolFile.ReadFile(solutionDirectory + "\\PlcSandbox\\PrinterPlc.tmc");				
+	var trees = ParsePlcSymbolFile.ReadFile(solutionDirectory + "\\PlcSandbox\\PrinterPlc.tmc");
+    WriteLine($"// ReSharper disable InconsistentNaming");
+    WriteLine($"// ReSharper disable CheckNamespace");
+    WriteLine($"#pragma warning disable SA1300 // Element must begin with upper-case letter");
+    WriteLine($"#pragma warning disable SA1649 // File name must match first type name");
     WriteLine($"namespace GeneratedAddress");
     WriteLine("{");
-    PushIndent("\t");        
+    PushIndent("    ");        
     WriteLine($"using TwinCatAdsCommunication.Address;");
+    WriteLine(string.Empty);
 	foreach(var tree in trees)		
 	{
         PrintTree(tree);
+        WriteLine(string.Empty);
     }		
     PopIndent();
-    WriteLine("}");      
+    WriteLine("}");
+    WriteLine($"#pragma warning restore SA1300 // Element must begin with upper-case letter");  
+    WriteLine($"#pragma warning restore SA1649 // File name must match first type name");      
 #>
 
 <#+	
@@ -36,9 +44,10 @@
     {
         WriteLine($"public static class {tree.Name}");
         WriteLine("{");
-        PushIndent("\t");        
+        PushIndent("    ");                
         foreach (var prop in tree.Symbols)
         {
+            var written = true;
             switch (prop.Type)
             {
                 case "BOOL":
@@ -76,9 +85,18 @@
                     {
                         WriteLine($"public static StringAddress {prop.Name.Split('.').Last()} {{ get; }} = new StringAddress({prop.BitSize}, \"{prop.Name}\", {prop.BitOffset});");
                         break;
-                    }                    
+                    }
+                    else
+                    {
+                        written = false;
+                    }
                     break;
             }
+            if (written)
+            {
+                WriteLine(string.Empty);
+            }
+            
 }
         if (tree.Children != null)
         {
