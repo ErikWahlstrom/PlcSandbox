@@ -2,6 +2,7 @@
 // ReSharper disable CheckNamespace
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
+#pragma warning disable SA1402 // File may only contain a single class
 namespace GeneratedAddress
 {
     using TwinCatAdsCommunication.Address;
@@ -32,7 +33,6 @@ namespace GeneratedAddress
 
         public static DoubleAddress lrDeceleration { get; } = new DoubleAddress(64, "MC.lrDeceleration", 4143104);
 
-
         public static class AxisRef
         {
         }
@@ -61,7 +61,6 @@ namespace GeneratedAddress
         public static DoubleAddress lrAcceleration { get; } = new DoubleAddress(64, "MC_2.lrAcceleration", 4163392);
 
         public static DoubleAddress lrDeceleration { get; } = new DoubleAddress(64, "MC_2.lrDeceleration", 4163456);
-
 
         public static class AxisRef
         {
@@ -337,7 +336,6 @@ namespace GeneratedAddress
         public static DoubleAddress DEFAULT_HOME_POSITION { get; } = new DoubleAddress(64, "Global_Variables.DEFAULT_HOME_POSITION", 4107136);
 
         public static DoubleAddress DEFAULT_BACKLASHVALUE { get; } = new DoubleAddress(64, "Global_Variables.DEFAULT_BACKLASHVALUE", 4107200);
-
     }
 
     public static class MAIN
@@ -405,7 +403,6 @@ namespace GeneratedAddress
         public static IntAddress SequenceError { get; } = new IntAddress(32, "MAIN.SequenceError", 4117792);
 
         public static BoolAddress lXAxisEnable { get; } = new BoolAddress(8, "MAIN.lXAxisEnable", 4117824);
-
     }
 
     public static class Position_Control
@@ -431,7 +428,6 @@ namespace GeneratedAddress
     public static class BackForthSequence
     {
         public static BoolAddress start_ui { get; } = new BoolAddress(8, "BackForthSequence.start_ui", 4163624);
-
     }
 
     public static class Constants
@@ -449,7 +445,6 @@ namespace GeneratedAddress
         public static UintAddress RuntimeVersionNumeric { get; } = new UintAddress(32, "Constants.RuntimeVersionNumeric", 4171488);
 
         public static UintAddress CompilerVersionNumeric { get; } = new UintAddress(32, "Constants.CompilerVersionNumeric", 4171520);
-
     }
 
     public static class TwinCAT_SystemInfoVarList
@@ -459,4 +454,5 @@ namespace GeneratedAddress
 }
 #pragma warning restore SA1300 // Element must begin with upper-case letter
 #pragma warning restore SA1649 // File name must match first type name
+#pragma warning restore SA1402 // File may only contain a single class
 

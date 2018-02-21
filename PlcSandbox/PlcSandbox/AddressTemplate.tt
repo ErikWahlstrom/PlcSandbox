@@ -21,6 +21,7 @@
     WriteLine($"// ReSharper disable CheckNamespace");
     WriteLine($"#pragma warning disable SA1300 // Element must begin with upper-case letter");
     WriteLine($"#pragma warning disable SA1649 // File name must match first type name");
+    WriteLine($"#pragma warning disable SA1402 // File may only contain a single class");   
     WriteLine($"namespace GeneratedAddress");
     WriteLine("{");
     PushIndent("    ");        
@@ -28,26 +29,35 @@
     WriteLine(string.Empty);
 	foreach(var tree in trees)		
 	{
-        PrintTree(tree);
-        WriteLine(string.Empty);
+        PrintTree(tree, false);        
     }		
     PopIndent();
     WriteLine("}");
     WriteLine($"#pragma warning restore SA1300 // Element must begin with upper-case letter");  
-    WriteLine($"#pragma warning restore SA1649 // File name must match first type name");      
+    WriteLine($"#pragma warning restore SA1649 // File name must match first type name");
+    WriteLine($"#pragma warning restore SA1402 // File may only contain a single class");    
 #>
 
 <#+	
 
     // This code could possibly be copy pasted from som actual class but for now I'll leave it here since it uses PushIndent, PopIndent etc.
-    public void PrintTree(ClassTree tree)
+    public void PrintTree(ClassTree tree, bool child)
     {
+        if (child)
+        {
+            WriteLine(string.Empty);
+        }
         WriteLine($"public static class {tree.Name}");
         WriteLine("{");
-        PushIndent("    ");                
+        PushIndent("    ");
+        var written = false;        
         foreach (var prop in tree.Symbols)
         {
-            var written = true;
+            if (written)
+            {
+                WriteLine(string.Empty);
+            }
+            written = true;
             switch (prop.Type)
             {
                 case "BOOL":
@@ -92,22 +102,21 @@
                     }
                     break;
             }
-            if (written)
-            {
-                WriteLine(string.Empty);
-            }
-            
-}
+        }
+
         if (tree.Children != null)
         {
-            WriteLine("");
-            PrintTree(tree.Children);
-}
-
+            PrintTree(tree.Children, true);            
+        }
+      
         PopIndent();
-        WriteLine("}");      
-
-
+        WriteLine("}");
+        if (!child)
+        {
+            WriteLine(string.Empty);
+            
+}
+                        
 }
 
     // Insert copy paste-code here from ReadPlcSymbolFile
