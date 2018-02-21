@@ -12,7 +12,9 @@ namespace TestApp
     {
         public MainWindowVm()
         {
-            BoolAddress = new ManipulationClass()
+            BoolToInspect = new ManipulationClass<bool>(GeneratedAddress.MAIN.IsLightOn);
         }
+
+        public ManipulationClass<bool> BoolToInspect { get; }
     }
 }
