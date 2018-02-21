@@ -97,14 +97,14 @@
 
                 // Registering for dynamic "ValueChanged" events for the Values
                 // Using Default Notification settings
-                symCycleCount.ValueChanged += new EventHandler<ValueChangedArgs>(cycleCount_ValueChanged);
+                symCycleCount.ValueChanged += new EventHandler<ValueChangedArgs>(CycleCountValueChanged);
 
                 // Override default notification settings
                 symTaskInfo1.NotificationSettings = new AdsNotificationSettings(AdsTransMode.Cyclic, 500, 0);
 
                 // Register for ValueChanged event.
                 symTaskInfo1.ValueChanged +=
-                    new EventHandler<ValueChangedArgs>(taskInfo1Value_ValueChanged); // Struct Type
+                    new EventHandler<ValueChangedArgs>(TaskInfo1ValueValueChanged); // Struct Type
 
                 Thread.Sleep(10000); // Sleep main thread for 10 Seconds
             }
@@ -154,6 +154,20 @@
             Console.WriteLine(string.Empty);
         }
 
+        [Test]
+        public void LoggTest()
+        {
+            var eventlogger = new TcEventLogger();
+            eventlogger.Connect("192.168.100.1.1.1");
+            var isConnected = eventlogger.IsConnected;
+            var events = eventlogger.GetLoggedEvents(10000);
+            var lksdjf = eventlogger.ActiveAlarms;
+            foreach (TcLoggedEvent eEvent in events)
+            {
+                Console.WriteLine(eEvent.SourceName);
+            }
+        }
+
         private static void WriteSymbolTree(ReadOnlySymbolCollection symbolLoaderSymbols, AdsConnection connection)
         {
             Console.WriteLine("\t");
@@ -167,7 +181,6 @@
                 {
                     if (symbolLoaderSymbol is ISymbol info)
                     {
-
                         if (info.Category == DataTypeCategory.Primitive)
                         {
                             SymbolCollection coll = new SymbolCollection() { symbolLoaderSymbol };
@@ -201,41 +214,12 @@
             }
         }
 
-        private static void cycleCount_ValueChanged(object sender, ValueChangedArgs e)
-        {
-            lock (NotificationSynchronizer)
-            {
-                Interlocked.Increment(ref cycleCountEvents);
-
-                // val is a type safe value of int!
-                dynamic val = e.Value;
-                uint intVal = val;
-
-                DateTime changedTime = e.UtcRtime.ToLocalTime(); // Convert UTC to local time
-                Console.WriteLine("CycleCount changed to: {0}, TimeStamp: {1}", intVal, changedTime.ToString("HH:mm:ss:fff"));
-            }
-        }
-
-        [Test]
-        public void LoggTest()
-        {
-            var eventlogger = new TcEventLogger();
-            eventlogger.Connect("192.168.100.1.1.1");
-            var isConnected = eventlogger.IsConnected;
-            var events = eventlogger.GetLoggedEvents(10000);
-            var lksdjf = eventlogger.ActiveAlarms;
-            foreach (TcLoggedEvent eEvent in events)
-            {
-                Console.WriteLine(eEvent.SourceName);
-            }
-        }
-
         /// <summary>
         /// Handler function for the TaskInfo ValueChanged event.
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
-        private static void taskInfo1Value_ValueChanged(object sender, ValueChangedArgs e)
+        private static void TaskInfo1ValueValueChanged(object sender, ValueChangedArgs e)
         {
             lock (NotificationSynchronizer)
             {
@@ -249,6 +233,21 @@
                 Console.WriteLine("TaskInfo1Value changed TimeStamp: {0}", changedTime.ToString("HH:mm:ss:fff"));
             }
             }
+
+        private static void CycleCountValueChanged(object sender, ValueChangedArgs e)
+        {
+            lock (NotificationSynchronizer)
+            {
+                Interlocked.Increment(ref cycleCountEvents);
+
+                // val is a type safe value of int!
+                dynamic val = e.Value;
+                uint intVal = val;
+
+                DateTime changedTime = e.UtcRtime.ToLocalTime(); // Convert UTC to local time
+                Console.WriteLine("CycleCount changed to: {0}, TimeStamp: {1}", intVal, changedTime.ToString("HH:mm:ss:fff"));
+            }
+        }
 
     }
 }

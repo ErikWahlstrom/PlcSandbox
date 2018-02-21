@@ -5,7 +5,6 @@
     [System.Xml.Serialization.XmlTypeAttribute(IncludeInSchema = false)]
     public enum ItemsChoiceType
     {
-
         /// <remarks/>
         ArrayInfo,
 
