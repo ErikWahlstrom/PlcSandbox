@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address\AdressBase.cs" />
+    <Compile Include="Address\AddressBase.cs" />
     <Compile Include="Address\BoolAddress.cs" />
     <Compile Include="Address\ByteAddress.cs" />
     <Compile Include="Address\DoubleAddress.cs" />
@@ -56,6 +56,7 @@
     <Compile Include="Address\StringAddress.cs" />
     <Compile Include="Address\UintAddress.cs" />
     <Compile Include="Address\UshortAddress.cs" />
+    <Compile Include="ManipulationClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +64,8 @@
     <None Include="TwinCatAdsCommunication.ruleset" />
   </ItemGroup>
   <ItemGroup>
+    <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.2.0\analyzers\dotnet\cs\PropertyChangedAnalyzers.Analyzers.dll" />
+    <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.2.0\analyzers\dotnet\cs\PropertyChangedAnalyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>

@@ -50,6 +50,7 @@
     <Compile Include="PlcSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadPlcSymbolFile.cs" />
+    <Compile Include="SomeDomainClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

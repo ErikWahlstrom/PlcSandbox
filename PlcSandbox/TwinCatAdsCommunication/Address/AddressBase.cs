@@ -2,9 +2,9 @@
 {
     using System;
 
-    public abstract class AdressBase<T>
+    public abstract class AddressBase<T>
     {
-        protected AdressBase(int bitSize, string name, int bitOffset)
+        protected AddressBase(int bitSize, string name, int bitOffset)
         {
             this.BitSize = bitSize;
             this.Name = name;
