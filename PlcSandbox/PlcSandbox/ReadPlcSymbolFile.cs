@@ -1,4 +1,4 @@
-﻿//Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
+﻿// Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
 
 namespace PlcSandbox
 {
@@ -8,7 +8,8 @@ namespace PlcSandbox
     using System.Xml.Linq;
 
     // Copy from here
-
+#pragma warning disable SA1649 // File name must match first type name
+#pragma warning disable SA1402 // File may only contain a single class
     public class ParsePlcSymbolFile
     {
         public static IEnumerable<ClassTree> ReadFile(string path)
@@ -118,13 +119,15 @@ namespace PlcSandbox
 
         public ClassTree Children { get; }
 
+        public IList<PlcSymbol> Symbols { get; }
+
         public void AddSymbol(PlcSymbol symbol)
         {
             this.Symbols.Add(symbol);
         }
-
-        public IList<PlcSymbol> Symbols { get; }
     }
+#pragma warning restore SA1649 // File name must match first type name
+#pragma warning restore SA1402 // File may only contain a single class
 
     // To here
 }
