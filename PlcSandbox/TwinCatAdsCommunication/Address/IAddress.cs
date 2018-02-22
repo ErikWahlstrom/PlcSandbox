@@ -1,5 +1,7 @@
 namespace TwinCatAdsCommunication.Address
 {
+    using TwinCAT.Ads;
+
     public interface IAddress
     {
         string Name { get; }

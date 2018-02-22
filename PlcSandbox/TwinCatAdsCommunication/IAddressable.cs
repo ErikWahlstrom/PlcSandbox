@@ -1,5 +1,6 @@
 namespace TwinCatAdsCommunication
 {
+    using System.IO;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
@@ -15,6 +16,6 @@ namespace TwinCatAdsCommunication
 
     public interface IWritableAddress : IAddressable
     {
-        byte[] ValueToWrite { get; }
+        void WriteValueToStream(BinaryWriter writer);
     }
 }

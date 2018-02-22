@@ -13,7 +13,7 @@ namespace TestApp
         public MainWindowVm()
         {
             BoolToInspect = new BindableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
-            var plcCommunicator = new CyclicUpdater(TimeSpan.FromMilliseconds(100));
+            var plcCommunicator = new CyclicReader(TimeSpan.FromMilliseconds(100));
         }
 
         public BindableValue<bool> BoolToInspect { get; }

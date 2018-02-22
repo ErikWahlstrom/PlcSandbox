@@ -4,14 +4,34 @@ namespace TwinCatAdsCommunication
     using System.IO;
     using TwinCAT.Ads;
 
-    public class CyclicUpdater
+    public class CyclicReader
     {
-        public CyclicUpdater(TimeSpan fromMilliseconds, params IAddressable[] variables)
+        public CyclicReader(TimeSpan fromMilliseconds, params IReadableAddress[] variables)
         {
             TwinCAT.Ads.TcAdsClient client = new TcAdsClient();
+            this.ReadToAllValues(variables, client);
         }
 
-        private AdsStream BlockRead(IReadableAddress[] variables, TcAdsClient adsClient)
+        private void ReadToAllValues(IReadableAddress[] variables, TcAdsClient adsClient)
+        {
+            var stream = this.BatchRead(variables, adsClient);
+            BinaryReader reader = new BinaryReader(stream);
+            for (int i = 0; i < variables.Length; i++)
+            {
+                int error = reader.ReadInt32();
+                if (error != (int)AdsErrorCode.NoError)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Unable to read variable {i} (Error = {error})");
+                }
+            }
+
+            foreach (var readableAddress in variables)
+            {
+                readableAddress.UpdateValue(stream);
+            }
+        }
+
+        private AdsStream BatchRead(IReadableAddress[] variables, TcAdsClient adsClient)
         {
             // Allocate memory
             int rdLength = variables.Length * 4;
@@ -31,11 +51,26 @@ namespace TwinCatAdsCommunication
             AdsStream rdStream = new AdsStream(rdLength);
             adsClient.ReadWrite(0xF080, variables.Length, rdStream, (AdsStream)writer.BaseStream);
 
+            foreach (var readableAddress in variables)
+            {
+                readableAddress.UpdateValue(rdStream);
+            }
+
             // Return the ADS error codes
             return rdStream;
         }
+    }
 
-        private AdsStream Write(IWritableAddress[] variables, TcAdsClient adsClient)
+    public class CyclicWriter
+    {
+        public CyclicWriter(TimeSpan fromMilliseconds, params IWritableAddress[] variables)
+        {
+            var client = new TcAdsClient();
+            this.BatchWrite(variables, client);
+        }
+
+
+        private AdsStream BatchWrite(IWritableAddress[] variables, TcAdsClient adsClient)
         {
             // Allocate memory
             int rdLength = variables.Length * 4;

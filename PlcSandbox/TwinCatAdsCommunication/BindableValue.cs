@@ -6,10 +6,10 @@ namespace TwinCatAdsCommunication
 
     public class BindableValue<T> : System.ComponentModel.INotifyPropertyChanged, IReadableAddress, IWritableAddress
     {
+        private readonly AddressBase<T> internalAddress;
         private bool isInitialized;
         private T valueToWrite;
         private T lastReadValue;
-        private AddressBase<T> internalAddress;
 
         public BindableValue(AddressBase<T> address)
         {
@@ -17,9 +17,9 @@ namespace TwinCatAdsCommunication
             this.IsInitialized = false;
         }
 
-        public IAddress Address => this.internalAddress;
-
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        public IAddress Address => this.internalAddress;
 
         public bool IsInitialized
         {
@@ -36,9 +36,7 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        public object ValueToWrite => this.TypedValueToWrite;
-
-        public T TypedValueToWrite
+        public T ValueToWrite
         {
             get => this.valueToWrite;
             set
@@ -68,21 +66,20 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-
-        public void UpdateValue(AdsStream stream)
+        public void UpdateValue(BinaryReader stream)
         {
             this.IsInitialized = true;
-            LastReadValue = Address.ReadStream(stream);
-            throw new System.NotImplementedException();
+            this.LastReadValue = this.internalAddress.ReadStream(stream);
         }
 
         public void WriteValueToStream(BinaryWriter writer)
         {
-            throw new System.NotImplementedException();
+            this.internalAddress.WriteToStream(writer, this.ValueToWrite);
+        }
+
+        protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }
