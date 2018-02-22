@@ -1,8 +1,10 @@
 ﻿namespace TwinCatAdsCommunication.Address
 {
     using System;
+    using System.IO;
+    using TwinCAT.Ads;
 
-    public abstract class AddressBase<T>
+    public abstract class AddressBase<T> : IAddress
     {
         protected AddressBase(int bitSize, string name, int bitOffset)
         {
@@ -23,5 +25,9 @@
         {
             return $"{this.Name}, {this.BitOffset}, {this.BitSize}";
         }
+
+        public abstract T ReadStream(BinaryReader reader);
+
+        public abstract void WriteToStream(BinaryWriter writer, T value);
     }
 }

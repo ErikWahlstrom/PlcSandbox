@@ -12,9 +12,10 @@ namespace TestApp
     {
         public MainWindowVm()
         {
-            BoolToInspect = new ManipulationClass<bool>(GeneratedAddress.MAIN.IsLightOn);
+            BoolToInspect = new BindableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
+            var plcCommunicator = new CyclicUpdater(TimeSpan.FromMilliseconds(100));
         }
 
-        public ManipulationClass<bool> BoolToInspect { get; }
+        public BindableValue<bool> BoolToInspect { get; }
     }
 }

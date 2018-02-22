@@ -1,22 +1,44 @@
 namespace TwinCatAdsCommunication
 {
+    using System.IO;
+    using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
-    public class ManipulationClass<T> : System.ComponentModel.INotifyPropertyChanged
+    public class BindableValue<T> : System.ComponentModel.INotifyPropertyChanged, IReadableAddress, IWritableAddress
     {
+        private bool isInitialized;
         private T valueToWrite;
         private T lastReadValue;
+        private AddressBase<T> internalAddress;
 
-        public ManipulationClass(AddressBase<T> address)
+        public BindableValue(AddressBase<T> address)
         {
-            this.Address = address;
+            this.internalAddress = address;
+            this.IsInitialized = false;
         }
+
+        public IAddress Address => this.internalAddress;
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
 
-        public AddressBase<T> Address { get; }
+        public bool IsInitialized
+        {
+            get => this.isInitialized;
+            private set
+            {
+                if (value == this.isInitialized)
+                {
+                    return;
+                }
 
-        public T ValueToWrite
+                this.isInitialized = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public object ValueToWrite => this.TypedValueToWrite;
+
+        public T TypedValueToWrite
         {
             get => this.valueToWrite;
             set
@@ -34,7 +56,7 @@ namespace TwinCatAdsCommunication
         public T LastReadValue
         {
             get => this.lastReadValue;
-            internal set
+            private set
             {
                 if (System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, this.lastReadValue))
                 {
@@ -49,6 +71,18 @@ namespace TwinCatAdsCommunication
         protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+
+        public void UpdateValue(AdsStream stream)
+        {
+            this.IsInitialized = true;
+            LastReadValue = Address.ReadStream(stream);
+            throw new System.NotImplementedException();
+        }
+
+        public void WriteValueToStream(BinaryWriter writer)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
