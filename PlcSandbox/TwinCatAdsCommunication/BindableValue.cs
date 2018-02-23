@@ -1,5 +1,6 @@
 namespace TwinCatAdsCommunication
 {
+    using System;
     using System.ComponentModel;
     using System.IO;
     using System.Runtime.InteropServices;
@@ -8,15 +9,13 @@ namespace TwinCatAdsCommunication
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
-    public class BindableValue<T> : System.ComponentModel.INotifyPropertyChanged, IReadableAddress, IWritableAddress
+    public class BindableValue<T> : INotifyPropertyChanged, IReadableAddress, IWritableAddress
     {
         private readonly AddressBase<T> internalAddress;
         private bool isInitialized;
         private AdsErrorCode error;
         private T valueToWrite;
         private T lastReadValue;
-        private T writtenValue;
-        private T lastWrittenToStream;
 
         public BindableValue(AddressBase<T> address)
         {
@@ -24,7 +23,9 @@ namespace TwinCatAdsCommunication
             this.IsInitialized = false;
         }
 
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private event EventHandler WrittenToPlc;
 
         public IAddress Address => this.internalAddress;
 
@@ -88,21 +89,6 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        public T WrittenValue
-        {
-            get => this.writtenValue;
-            private set
-            {
-                if (System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, this.writtenValue))
-                {
-                    return;
-                }
-
-                this.writtenValue = value;
-                this.OnPropertyChanged();
-            }
-        }
-
         public void UpdateValue(BinaryReader stream)
         {
             this.IsInitialized = true;
@@ -113,34 +99,34 @@ namespace TwinCatAdsCommunication
         {
             this.ValueToWrite = value;
             var tcs = new TaskCompletionSource<object>();
-            this.PropertyChanged += OnPropertyChanged;
+            this.WrittenToPlc += OnWritten;
             return tcs.Task;
 
-            void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+            void OnWritten(object sender, EventArgs e)
             {
-                if (e.PropertyName == nameof(this.WrittenValue))
-                {
-                    this.PropertyChanged -= OnPropertyChanged;
-                    tcs.SetResult(null);
-                }
+                this.WrittenToPlc -= OnWritten;
+                tcs.SetResult(null);
             }
         }
 
         public void WriteValueToStream(BinaryWriter writer)
         {
             this.internalAddress.WriteToStream(writer, this.ValueToWrite);
-            this.WrittenValue = default(T); // Inte alls så snyggt. Hur hantera? Kanske event istället?
-            this.lastWrittenToStream = this.valueToWrite;
         }
 
         public void UpdateWritten()
         {
-            this.WrittenValue = this.lastWrittenToStream;
+            this.OnWrittenToPlc();
         }
 
         protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+
+        protected virtual void OnWrittenToPlc()
+        {
+            this.WrittenToPlc?.Invoke(this, EventArgs.Empty);
         }
     }
 }
