@@ -16,18 +16,10 @@ namespace TwinCatAdsCommunication
         {
             var stream = this.BatchRead(variables, adsClient);
             BinaryReader reader = new BinaryReader(stream);
-            for (int i = 0; i < variables.Length; i++)
-            {
-                int error = reader.ReadInt32();
-                if (error != (int)AdsErrorCode.NoError)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Unable to read variable {i} (Error = {error})");
-                }
-            }
-
+            reader.CheckErrors(variables);
             foreach (var readableAddress in variables)
             {
-                readableAddress.UpdateValue(stream);
+                readableAddress.UpdateValue(reader);
             }
         }
 
@@ -51,11 +43,6 @@ namespace TwinCatAdsCommunication
             AdsStream rdStream = new AdsStream(rdLength);
             adsClient.ReadWrite(0xF080, variables.Length, rdStream, (AdsStream)writer.BaseStream);
 
-            foreach (var readableAddress in variables)
-            {
-                readableAddress.UpdateValue(rdStream);
-            }
-
             // Return the ADS error codes
             return rdStream;
         }
@@ -66,9 +53,12 @@ namespace TwinCatAdsCommunication
         public CyclicWriter(TimeSpan fromMilliseconds, params IWritableAddress[] variables)
         {
             var client = new TcAdsClient();
-            this.BatchWrite(variables, client);
+            var errorStream = this.BatchWrite(variables, client);
+            using (var reader = new BinaryReader(errorStream))
+            {
+                reader.CheckErrors(variables);
+            }
         }
-
 
         private AdsStream BatchWrite(IWritableAddress[] variables, TcAdsClient adsClient)
         {
@@ -97,6 +87,22 @@ namespace TwinCatAdsCommunication
 
             // Return the ADS error codes
             return rdStream;
+        }
+    }
+
+    public static class AdsStreamExtension
+    {
+        public static void CheckErrors(this BinaryReader reader, IAddressable[] variables)
+        {
+            for (int i = 0; i < variables.Length; i++)
+            {
+                int error = reader.ReadInt32();
+                if (error != (int)AdsErrorCode.NoError)
+                {
+                    variables[i].Error = (AdsErrorCode) error;
+                    System.Diagnostics.Debug.WriteLine($"Unable to read variable {i} (Error = {error})");
+                }
+            }
         }
     }
 }

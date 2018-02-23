@@ -12,10 +12,22 @@ namespace TestApp
     {
         public MainWindowVm()
         {
-            BoolToInspect = new BindableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
+            
             var plcCommunicator = new CyclicReader(TimeSpan.FromMilliseconds(100));
         }
 
         public BindableValue<bool> BoolToInspect { get; }
     }
+
+    public class LightPlc
+    {
+        public LightPlc()
+        {
+            IsLightOn = new BindableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
+        }
+
+        public BindableValue<bool> IsLightOn { get; }
+    }
+
+
 }

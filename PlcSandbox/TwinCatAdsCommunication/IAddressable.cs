@@ -7,11 +7,13 @@ namespace TwinCatAdsCommunication
     public interface IAddressable
     {
         IAddress Address { get; }
+
+        AdsErrorCode Error { get; set; }
     }
 
     public interface IReadableAddress : IAddressable
     {
-        void UpdateValue(AdsStream stream);
+        void UpdateValue(BinaryReader stream);
     }
 
     public interface IWritableAddress : IAddressable
