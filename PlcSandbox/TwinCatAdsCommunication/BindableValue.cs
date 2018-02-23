@@ -1,6 +1,9 @@
 namespace TwinCatAdsCommunication
 {
+    using System.ComponentModel;
     using System.IO;
+    using System.Runtime.InteropServices;
+    using System.Runtime.Remoting.Messaging;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
@@ -106,17 +109,27 @@ namespace TwinCatAdsCommunication
             this.LastReadValue = this.internalAddress.ReadStream(stream);
         }
 
-        public async Task WriteAndWait(T value)
+        public Task WriteAsync(T value)
         {
             this.ValueToWrite = value;
+            var tcs = new TaskCompletionSource<object>();
+            this.PropertyChanged += OnPropertyChanged;
+            return tcs.Task;
 
-            //Hur får vi veta att något skrivits?
-            await Task.Yield();
+            void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+            {
+                if (e.PropertyName == nameof(this.WrittenValue))
+                {
+                    this.PropertyChanged -= OnPropertyChanged;
+                    tcs.SetResult(null);
+                }
+            }
         }
 
         public void WriteValueToStream(BinaryWriter writer)
         {
             this.internalAddress.WriteToStream(writer, this.ValueToWrite);
+            this.WrittenValue = default(T); // Inte alls så snyggt. Hur hantera? Kanske event istället?
             this.lastWrittenToStream = this.valueToWrite;
         }
 
