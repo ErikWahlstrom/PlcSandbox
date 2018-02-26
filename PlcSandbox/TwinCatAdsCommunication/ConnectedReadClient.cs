@@ -12,15 +12,19 @@ namespace TwinCatAdsCommunication
         private CancellationTokenSource cancellationTokenSource;
         private bool disposed;
         private Task eternalTask;
+        private IList<IReadableAddress> addresses;
+        private readonly TimeSpan readCycle;
 
-        private ConnectedReadClient()
+        private ConnectedReadClient(TimeSpan cycle)
         {
             this.client = new TcAdsClient();
+            this.addresses = new List<IReadableAddress>();
+            this.readCycle = cycle;
         }
 
-        public static ConnectedReadClient CreateAndConnect(AmsNetId id, int port)
+        public static ConnectedReadClient CreateAndConnect(AmsNetId id, int port, TimeSpan readCycle)
         {
-            var connectedClient = new ConnectedReadClient();
+            var connectedClient = new ConnectedReadClient(readCycle);
             connectedClient.client.Connect(id.ToString(), port);
             return connectedClient;
         }
@@ -36,29 +40,29 @@ namespace TwinCatAdsCommunication
             return this.client.ReadSymbolInfo(name);
         }
 
-        public void StartCyclicReading(PlcReader plcReader, TimeSpan readCycle)
+        public void RegisterForCyclicReading(IReadableAddress readableAddress)
         {
             this.ThrowIfDisposed();
-            if (this.cancellationTokenSource != null)
+            this.addresses.Add(readableAddress);
+
+            if (this.eternalTask == null)
             {
-                throw new InvalidOperationException("Reading is already started");
-            }
-
-            var cancelCycle = new CancellationTokenSource();
-            this.eternalTask = Task.Run(
-                async () =>
-                {
-                    while (true)
+                var cancelCycle = new CancellationTokenSource();
+                this.eternalTask = Task.Run(
+                    async () =>
                     {
-                        plcReader.ReadToAllValues(this.client);
-                        await Task.Delay(readCycle, cancelCycle.Token);
-                    }
+                        while (true)
+                        {
+                            PlcReader.ReadToAllValues(this.client, this.addresses);
+                            await Task.Delay(this.readCycle, cancelCycle.Token);
+                        }
 
-                    // ReSharper disable once FunctionNeverReturns
-                }, cancelCycle.Token);
+                        // ReSharper disable once FunctionNeverReturns
+                    }, cancelCycle.Token);
 
-            this.cancellationTokenSource?.Dispose();
-            this.cancellationTokenSource = cancelCycle;
+                this.cancellationTokenSource?.Dispose();
+                this.cancellationTokenSource = cancelCycle;
+            }
         }
 
         public void Dispose()

@@ -1,13 +1,16 @@
 namespace TwinCatAdsCommunication
 {
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
     using System.IO;
+    using TwinCatAdsCommunication.Address;
     using TwinCAT.Ads;
 
-    public static class AdsStreamExtension
+    internal static class AdsStreamExtension
     {
-        public static void CheckErrors(this BinaryReader reader, IAddressable[] variables)
+        internal static void CheckErrors(this BinaryReader reader, IList<IAddressable> variables)
         {
-            for (int i = 0; i < variables.Length; i++)
+            for (int i = 0; i < variables.Count; i++)
             {
                 int error = reader.ReadInt32();
                 if (error != (int)AdsErrorCode.NoError)

@@ -1,44 +1,36 @@
 namespace TwinCatAdsCommunication
 {
-    using System;
+    using System.Collections.Generic;
     using System.IO;
     using TwinCAT.Ads;
 
-    public class PlcReader
+    public static class PlcReader
     {
-        private readonly IReadableAddress[] variables;
-
-        public PlcReader(params IReadableAddress[] variables)
+        internal static void ReadToAllValues(TcAdsClient adsClient, IList<IReadableAddress> addresses)
         {
-            this.variables = variables;
-        }
-
-        internal void ReadToAllValues(TcAdsClient adsClient)
-        {
-            using (var stream = this.BatchRead(adsClient))
+            using (var stream = BatchRead(adsClient, addresses))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
-                    reader.CheckErrors(this.variables);
-                    foreach (var readableAddress in this.variables)
+                    reader.CheckErrors((IList<IAddressable>) addresses);
+                    foreach (var address in addresses)
                     {
-                        readableAddress.UpdateValue(reader);
+                        address.UpdateValue(reader);
                     }
                 }
             }
         }
 
-        private AdsStream BatchRead(TcAdsClient adsClient)
+        private static AdsStream BatchRead(TcAdsClient adsClient, IList<IReadableAddress> variables)
         {
             // Allocate memory
-            int rdLength = this.variables.Length * 4;
-            int wrLength = this.variables.Length * 12;
-            using (
+            int rdLength = variables.Count * 4;
+            int wrLength = variables.Count * 12;
 
-                        // Write data for handles into the ADS Stream
-                        BinaryWriter writer = new BinaryWriter(new AdsStream(wrLength)))
+            // Write data for handles into the ADS Stream
+            using (var writer = new BinaryWriter(new AdsStream(wrLength)))
             {
-                foreach (IReadableAddress readableAddress in this.variables)
+                foreach (var readableAddress in variables)
                 {
                     writer.Write((int)AdsReservedIndexGroups.SymbolValueByHandle);
                     writer.Write(readableAddress.Address.BitOffset);
@@ -48,7 +40,7 @@ namespace TwinCatAdsCommunication
 
                 // Sum command to read variables from the PLC
                 AdsStream rdStream = new AdsStream(rdLength);
-                adsClient.ReadWrite(0xF080, this.variables.Length, rdStream, (AdsStream)writer.BaseStream);
+                adsClient.ReadWrite(0xF080, variables.Count, rdStream, (AdsStream)writer.BaseStream);
 
                 // Return the ADS error codes
                 return rdStream;

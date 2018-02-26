@@ -1,8 +1,10 @@
 namespace TwinCatAdsCommunication
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
@@ -13,9 +15,10 @@ namespace TwinCatAdsCommunication
         private AdsErrorCode error;
         private T lastReadValue;
 
-        public ReadableValue(AddressBase<T> address)
+        public ReadableValue(AddressBase<T> address, ConnectedReadClient connectedReadClient)
         {
             this.internalAddress = address;
+            connectedReadClient.RegisterForCyclicReading(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

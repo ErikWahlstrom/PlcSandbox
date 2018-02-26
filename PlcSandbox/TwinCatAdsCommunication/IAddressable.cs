@@ -1,5 +1,6 @@
 namespace TwinCatAdsCommunication
 {
+    using System.Collections.Generic;
     using System.IO;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;

@@ -1,6 +1,7 @@
 namespace TwinCatAdsCommunication
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
@@ -8,18 +9,22 @@ namespace TwinCatAdsCommunication
     public sealed class ConnectedWriteClient : IDisposable, IConnectedClient
     {
         private readonly TcAdsClient client;
+        private readonly TimeSpan cycleTime;
+        private readonly IList<IWritableAddress> addresses;
         private CancellationTokenSource cancellationTokenSource;
         private bool disposed;
         private Task eternalTask;
 
-        private ConnectedWriteClient()
+        private ConnectedWriteClient(TimeSpan cycleTime)
         {
             this.client = new TcAdsClient();
+            this.cycleTime = cycleTime;
+            this.addresses = new List<IWritableAddress>();
         }
 
-        public static ConnectedWriteClient CreateAndConnect(AmsNetId id, int port)
+        public static ConnectedWriteClient CreateAndConnect(AmsNetId id, int port, TimeSpan cycleTime)
         {
-            var connectedClient = new ConnectedWriteClient();
+            var connectedClient = new ConnectedWriteClient(cycleTime);
             connectedClient.client.Connect(id, port);
             return connectedClient;
         }
@@ -35,24 +40,18 @@ namespace TwinCatAdsCommunication
             return this.client.ReadSymbolInfo(name);
         }
 
-        public void StartCyclicWriting(PlcWriter plcReader, TimeSpan readCycle)
+        public void RegisterCyclicWriting(IWritableAddress address)
         {
             this.ThrowIfDisposed();
-            if (this.cancellationTokenSource != null)
-            {
-                throw new InvalidOperationException("Reading is already started");
-            }
-
+            this.addresses.Add(address);
             var cancelCycle = new CancellationTokenSource();
             this.eternalTask = Task.Run(
                 async () =>
                 {
                     while (true)
                     {
-                        using (plcReader.BatchWrite(this.client))
-                        {
-                            await Task.Delay(readCycle, cancelCycle.Token);
-                        }
+                        PlcWriter.WriteAllValues(this.client, this.addresses);
+                        await Task.Delay(this.cycleTime, cancelCycle.Token);
                     }
 
                     // ReSharper disable once FunctionNeverReturns
