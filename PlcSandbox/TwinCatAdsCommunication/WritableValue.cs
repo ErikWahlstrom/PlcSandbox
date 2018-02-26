@@ -3,24 +3,19 @@ namespace TwinCatAdsCommunication
     using System;
     using System.ComponentModel;
     using System.IO;
-    using System.Runtime.InteropServices;
-    using System.Runtime.Remoting.Messaging;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
-    public class BindableValue<T> : INotifyPropertyChanged, IReadableAddress, IWritableAddress
+    public class WritableValue<T> : INotifyPropertyChanged, IWritableAddress
     {
         private readonly AddressBase<T> internalAddress;
-        private bool isInitialized;
         private AdsErrorCode error;
         private T valueToWrite;
-        private T lastReadValue;
 
-        public BindableValue(AddressBase<T> address)
+        public WritableValue(AddressBase<T> address)
         {
             this.internalAddress = address;
-            this.IsInitialized = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -28,21 +23,6 @@ namespace TwinCatAdsCommunication
         private event EventHandler WrittenToPlc;
 
         public IAddress Address => this.internalAddress;
-
-        public bool IsInitialized
-        {
-            get => this.isInitialized;
-            private set
-            {
-                if (value == this.isInitialized)
-                {
-                    return;
-                }
-
-                this.isInitialized = value;
-                this.OnPropertyChanged();
-            }
-        }
 
         public AdsErrorCode Error
         {
@@ -74,27 +54,6 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        public T LastReadValue
-        {
-            get => this.lastReadValue;
-            private set
-            {
-                if (System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, this.lastReadValue))
-                {
-                    return;
-                }
-
-                this.lastReadValue = value;
-                this.OnPropertyChanged();
-            }
-        }
-
-        public void UpdateValue(BinaryReader stream)
-        {
-            this.IsInitialized = true;
-            this.LastReadValue = this.internalAddress.ReadStream(stream);
-        }
-
         public Task WriteAsync(T value)
         {
             this.ValueToWrite = value;
@@ -114,7 +73,7 @@ namespace TwinCatAdsCommunication
             this.internalAddress.WriteToStream(writer, this.ValueToWrite);
         }
 
-        public void UpdateWritten()
+        public void NotifyWritten()
         {
             this.OnWrittenToPlc();
         }

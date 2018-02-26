@@ -19,5 +19,7 @@ namespace TwinCatAdsCommunication
     public interface IWritableAddress : IAddressable
     {
         void WriteValueToStream(BinaryWriter writer);
+
+        void NotifyWritten();
     }
 }

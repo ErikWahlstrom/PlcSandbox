@@ -16,17 +16,17 @@ namespace TestApp
             var plcCommunicator = new CyclicReader(TimeSpan.FromMilliseconds(100));
         }
 
-        public BindableValue<bool> BoolToInspect { get; }
+        public WritableValue<bool> BoolToInspect { get; }
     }
 
     public class LightPlc
     {
         public LightPlc()
         {
-            IsLightOn = new BindableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
+            IsLightOn = new WritableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
         }
 
-        public BindableValue<bool> IsLightOn { get; }
+        public WritableValue<bool> IsLightOn { get; }
     }
 
 

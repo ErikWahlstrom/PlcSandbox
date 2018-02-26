@@ -69,21 +69,26 @@ namespace TwinCatAdsCommunication
             BinaryWriter writer = new BinaryWriter(new AdsStream(wrLength));
 
             // Write data for handles into the ADS stream
-            for (int i = 0; i < variables.Length; i++)
+            foreach (var writableAddress in variables)
             {
                 writer.Write((int)AdsReservedIndexGroups.SymbolValueByHandle);
-                writer.Write(variables[i].Address.BitOffset);
-                writer.Write(variables[i].Address.BitSize);
+                writer.Write(writableAddress.Address.BitOffset);
+                writer.Write(writableAddress.Address.BitSize);
             }
 
-            for (int i = 0; i < variables.Length; i++)
+            foreach (var writableAddress in variables)
             {
-                variables[i].WriteValueToStream(writer);
+                writableAddress.WriteValueToStream(writer);
             }
 
             // Sum command to write the data into the PLC
             AdsStream rdStream = new AdsStream(rdLength);
             adsClient.ReadWrite(0xF081, variables.Length, rdStream, (AdsStream)writer.BaseStream);
+
+            foreach (var writableAddress in variables)
+            {
+                writableAddress.NotifyWritten();
+            }
 
             // Return the ADS error codes
             return rdStream;
