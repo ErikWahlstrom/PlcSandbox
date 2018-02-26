@@ -7,13 +7,13 @@ namespace TwinCatAdsCommunication
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
-    public class WritableValue<T> : INotifyPropertyChanged, IWritableAddress
+    public class WriteableValue<T> : INotifyPropertyChanged, IWritableAddress
     {
         private readonly AddressBase<T> internalAddress;
         private AdsErrorCode error;
         private T valueToWrite;
 
-        public WritableValue(AddressBase<T> address)
+        public WriteableValue(AddressBase<T> address)
         {
             this.internalAddress = address;
         }

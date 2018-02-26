@@ -4,9 +4,9 @@ namespace TwinCatAdsCommunication
 
     public class TwincSymbols
     {
-        public static BoolAddress ConnectBoolAddress(BoolAddressInitial boolAddressInitial, ConnectedClient adsClient)
+        public static BoolAddress ConnectBoolAddress(BoolAddressInitial boolAddressInitial, IConnectedClient adsReadClient)
         {
-            var symbolInfo = adsClient.ReadSymbolInfo(boolAddressInitial.Name);
+            var symbolInfo = adsReadClient.ReadSymbolInfo(boolAddressInitial.Name);
             return new BoolAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
         }
     }

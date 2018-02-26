@@ -17,9 +17,11 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBlock Text="{Binding BoolToInspect.Address}" />
-    <CheckBox Grid.Row="1" IsChecked="{Binding BoolToInspect.LastReadValue}" Content="Read value"/>
-    <CheckBox Grid.Row="2" IsChecked="{Binding BoolToInspect.ValueToWrite}" Content="Value to write"/>
+    <TextBlock Text="{Binding ReadValues.IsLightOn.Address}" />
+    <CheckBox Grid.Row="1" IsChecked="{Binding ReadValues.IsLightOn.LastReadValue}" Content="Last read value"/>
+    <TextBlock Grid.Row="2" Text="{Binding WriteValues.LightOn.Address}" />
+    <CheckBox Grid.Row="3" IsChecked="{Binding WriteValues.LightOn.ValueToWrite}" Content="Value to write"/>
   </Grid>
 </Window>

@@ -60,13 +60,16 @@
     <Compile Include="Address\StringAddress.cs" />
     <Compile Include="Address\UintAddress.cs" />
     <Compile Include="Address\UshortAddress.cs" />
-    <Compile Include="ConnectedClient.cs" />
+    <Compile Include="AdsStreamExtension.cs" />
+    <Compile Include="ConnectedReadClient.cs" />
+    <Compile Include="ConnectedWriteClient.cs" />
+    <Compile Include="IConnectedClient.cs" />
     <Compile Include="PlcWriter.cs" />
     <Compile Include="PlcReader.cs" />
     <Compile Include="IAddressable.cs" />
     <Compile Include="ReadableValue.cs" />
     <Compile Include="TwincSymbols.cs" />
-    <Compile Include="WritableValue.cs" />
+    <Compile Include="WriteableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

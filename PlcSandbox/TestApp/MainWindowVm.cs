@@ -1,19 +1,29 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace TestApp
 {
-    using TwinCatAdsCommunication;
-
-    public class MainWindowVm
+    public sealed class MainWindowVm : System.IDisposable
     {
+        private bool disposed;
+
         public MainWindowVm()
         {
-            var plcCommunicator = new PlcReader();
+            this.ReadValues = new ConnectedReadValues();
+            this.WriteValues = new ConnectedWriteValues();
         }
 
-        public WritableValue<bool> BoolToInspect { get; }
+        public ConnectedWriteValues WriteValues { get; }
+
+        public ConnectedReadValues ReadValues { get; }
+
+        public void Dispose()
+        {
+            if (this.disposed)
+            {
+                return;
+            }
+
+            this.disposed = true;
+            this.ReadValues.Dispose();
+            this.WriteValues.Dispose();
+        }
     }
 }

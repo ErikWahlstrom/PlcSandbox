@@ -1,26 +1,25 @@
 namespace TwinCatAdsCommunication
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
 
-    public sealed class ConnectedClient : IDisposable
+    public sealed class ConnectedWriteClient : IDisposable, IConnectedClient
     {
         private readonly TcAdsClient client;
-        private readonly List<CancellationTokenSource> tasks;
+        private CancellationTokenSource cancellationTokenSource;
         private bool disposed;
+        private Task eternalTask;
 
-        private ConnectedClient()
+        private ConnectedWriteClient()
         {
             this.client = new TcAdsClient();
-            this.tasks = new List<CancellationTokenSource>();
         }
 
-        public static ConnectedClient CreateAndConnect(AmsNetId id, int port)
+        public static ConnectedWriteClient CreateAndConnect(AmsNetId id, int port)
         {
-            var connectedClient = new ConnectedClient();
+            var connectedClient = new ConnectedWriteClient();
             connectedClient.client.Connect(id, port);
             return connectedClient;
         }
@@ -36,18 +35,31 @@ namespace TwinCatAdsCommunication
             return this.client.ReadSymbolInfo(name);
         }
 
-        public void StartCyclicReading(PlcReader plcReader, TimeSpan readCycle)
+        public void StartCyclicWriting(PlcWriter plcReader, TimeSpan readCycle)
         {
             this.ThrowIfDisposed();
+            if (this.cancellationTokenSource != null)
+            {
+                throw new InvalidOperationException("Reading is already started");
+            }
+
             var cancelCycle = new CancellationTokenSource();
-            Task.Run(
+            this.eternalTask = Task.Run(
                 async () =>
                 {
-                    plcReader.ReadToAllValues(this.client);
-                    await Task.Delay(readCycle, cancelCycle.Token);
+                    while (true)
+                    {
+                        using (plcReader.BatchWrite(this.client))
+                        {
+                            await Task.Delay(readCycle, cancelCycle.Token);
+                        }
+                    }
+
+                    // ReSharper disable once FunctionNeverReturns
                 }, cancelCycle.Token);
 
-            this.tasks.Add(cancelCycle);
+            this.cancellationTokenSource?.Dispose();
+            this.cancellationTokenSource = cancelCycle;
         }
 
         public void Dispose()
@@ -58,11 +70,8 @@ namespace TwinCatAdsCommunication
             }
 
             this.disposed = true;
-            foreach (var cancellationToken in this.tasks)
-            {
-                cancellationToken.Cancel();
-            }
-
+            this.cancellationTokenSource.Cancel();
+            this.eternalTask.Wait(TimeSpan.FromSeconds(10));
             this.client.Dispose();
         }
 

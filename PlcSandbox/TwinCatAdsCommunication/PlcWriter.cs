@@ -12,6 +12,17 @@ namespace TwinCatAdsCommunication
             this.variables = variables;
         }
 
+        internal void ReadAllValues(TcAdsClient writeClient)
+        {
+            using (var stream = this.BatchWrite(writeClient))
+            {
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    reader.CheckErrors(this.variables);
+                }
+            }
+        }
+
         internal AdsStream BatchWrite(TcAdsClient adsClient)
         {
             // Allocate memory

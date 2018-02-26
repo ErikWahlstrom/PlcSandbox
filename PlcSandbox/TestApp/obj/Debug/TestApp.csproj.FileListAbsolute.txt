@@ -14,3 +14,8 @@ C:\git\PlcSandbox\PlcSandbox\TestApp\obj\Debug\TestApp.csproj.CoreCompileInputs.
 C:\git\PlcSandbox\PlcSandbox\TestApp\obj\Debug\TestApp.exe
 C:\git\PlcSandbox\PlcSandbox\TestApp\obj\Debug\TestApp.pdb
 C:\git\PlcSandbox\PlcSandbox\TestApp\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\TwinCAT.Ads.dll
+C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\TwinCatAdsCommunication.dll
+C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\TwinCatAdsCommunication.pdb
+C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\TwinCAT.Ads.xml
+C:\git\PlcSandbox\PlcSandbox\TestApp\obj\Debug\TestApp_Content.g.cs
