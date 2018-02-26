@@ -5,7 +5,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class StringAddress : AddressBase<string>
     {
-        public StringAddress(int bitSize, string name, int bitOffset)
+        internal StringAddress(int bitSize, string name, int bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }
@@ -13,7 +13,7 @@ namespace TwinCatAdsCommunication.Address
         public override string ReadStream(BinaryReader reader)
         {
             throw new NotImplementedException();
-            // Ytterst tveksamt att den h‰r funkar
+            // Ytterst tveksamt att den h√§r funkar
             return reader.ReadString();
         }
 

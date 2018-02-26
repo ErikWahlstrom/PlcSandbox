@@ -46,12 +46,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address\AddressBase.cs" />
+    <Compile Include="Address\BoolAddressInitial.cs" />
+    <Compile Include="Address\ByteAddressInitial.cs" />
+    <Compile Include="Address\UnconnectedAddressBase.cs" />
     <Compile Include="Address\BoolAddress.cs" />
     <Compile Include="Address\ByteAddress.cs" />
     <Compile Include="Address\DoubleAddress.cs" />
     <Compile Include="Address\FloatAddress.cs" />
     <Compile Include="Address\IAddress.cs" />
+    <Compile Include="Address\AddressBase.cs" />
     <Compile Include="Address\IntAddress.cs" />
     <Compile Include="Address\ShortAddress.cs" />
     <Compile Include="Address\StringAddress.cs" />
