@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace TestApp
 {
     using TwinCatAdsCommunication;
+    using TwinCAT.Ads;
 
     public class MainWindowVm
     {
         public MainWindowVm()
         {
-            
             var plcCommunicator = new CyclicReader(TimeSpan.FromMilliseconds(100));
         }
 
@@ -23,10 +23,11 @@ namespace TestApp
     {
         public LightPlc()
         {
-            IsLightOn = new WritableValue<bool>(GeneratedAddress.MAIN.IsLightOn);
+            var connectedClient = ConnectedClient.Connected(new AmsNetId("1.2.3.5.1.1"), 851);
+            this.IsLightOn = new ReadableValue<bool>(TwincSymbols.ConnectBoolAddress(GeneratedAddress.MAIN.IsLightOn, connectedClient));
         }
 
-        public WritableValue<bool> IsLightOn { get; }
+        public ReadableValue<bool> IsLightOn { get; }
     }
 
 

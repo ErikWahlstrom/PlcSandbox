@@ -9,6 +9,6 @@ namespace TwinCatAdsCommunication.Address
         int BitSize { get; }
 
         // Den här ska nog kanske läsas ur istället?
-        int BitOffset { get; }
+        long BitOffset { get; }
     }
 }

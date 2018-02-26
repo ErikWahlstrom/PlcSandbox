@@ -60,9 +60,11 @@
     <Compile Include="Address\StringAddress.cs" />
     <Compile Include="Address\UintAddress.cs" />
     <Compile Include="Address\UshortAddress.cs" />
+    <Compile Include="ConnectedClient.cs" />
     <Compile Include="CyclicReader.cs" />
     <Compile Include="IAddressable.cs" />
     <Compile Include="ReadableValue.cs" />
+    <Compile Include="TwincSymbols.cs" />
     <Compile Include="WritableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

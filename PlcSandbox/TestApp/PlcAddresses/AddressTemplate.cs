@@ -9,29 +9,29 @@ namespace GeneratedAddress
 
     public static class MC
     {
-        public static BoolAddress bDone { get; } = new BoolAddress(8, "MC.bDone", 4117832);
+        public static BoolAddressInitial bDone { get; } = new BoolAddressInitial(8, "MC.bDone");
 
-        public static BoolAddress bError { get; } = new BoolAddress(8, "MC.bError", 4117840);
+        public static BoolAddressInitial bError { get; } = new BoolAddressInitial(8, "MC.bError");
 
-        public static BoolAddress bBusyToHmi { get; } = new BoolAddress(8, "MC.bBusyToHmi", 4117848);
+        public static BoolAddressInitial bBusyToHmi { get; } = new BoolAddressInitial(8, "MC.bBusyToHmi");
 
-        public static FloatAddress lrActPosToHmi { get; } = new FloatAddress(32, "MC.lrActPosToHmi", 4117856);
+        public static FloatAddressInitial lrActPosToHmi { get; } = new FloatAddressInitial(32, "MC.lrActPosToHmi");
 
-        public static UintAddress iErrorId { get; } = new UintAddress(32, "MC.iErrorId", 4140832);
+        public static UintAddressInitial iErrorId { get; } = new UintAddressInitial(32, "MC.iErrorId");
 
-        public static DoubleAddress lrActPos { get; } = new DoubleAddress(64, "MC.lrActPos", 4142784);
+        public static DoubleAddressInitial lrActPos { get; } = new DoubleAddressInitial(64, "MC.lrActPos");
 
-        public static BoolAddress startPulse { get; } = new BoolAddress(8, "MC.startPulse", 4142848);
+        public static BoolAddressInitial startPulse { get; } = new BoolAddressInitial(8, "MC.startPulse");
 
-        public static BoolAddress bResetServo { get; } = new BoolAddress(8, "MC.bResetServo", 4142856);
+        public static BoolAddressInitial bResetServo { get; } = new BoolAddressInitial(8, "MC.bResetServo");
 
-        public static DoubleAddress lrVelocity { get; } = new DoubleAddress(64, "MC.lrVelocity", 4142912);
+        public static DoubleAddressInitial lrVelocity { get; } = new DoubleAddressInitial(64, "MC.lrVelocity");
 
-        public static DoubleAddress rAcceleration { get; } = new DoubleAddress(64, "MC.rAcceleration", 4142976);
+        public static DoubleAddressInitial rAcceleration { get; } = new DoubleAddressInitial(64, "MC.rAcceleration");
 
-        public static DoubleAddress lrAcceleration { get; } = new DoubleAddress(64, "MC.lrAcceleration", 4143040);
+        public static DoubleAddressInitial lrAcceleration { get; } = new DoubleAddressInitial(64, "MC.lrAcceleration");
 
-        public static DoubleAddress lrDeceleration { get; } = new DoubleAddress(64, "MC.lrDeceleration", 4143104);
+        public static DoubleAddressInitial lrDeceleration { get; } = new DoubleAddressInitial(64, "MC.lrDeceleration");
 
         public static class AxisRef
         {
@@ -40,27 +40,27 @@ namespace GeneratedAddress
 
     public static class MC_2
     {
-        public static BoolAddress bDone { get; } = new BoolAddress(8, "MC_2.bDone", 4142864);
+        public static BoolAddressInitial bDone { get; } = new BoolAddressInitial(8, "MC_2.bDone");
 
-        public static BoolAddress bError { get; } = new BoolAddress(8, "MC_2.bError", 4142872);
+        public static BoolAddressInitial bError { get; } = new BoolAddressInitial(8, "MC_2.bError");
 
-        public static FloatAddress lrActPos { get; } = new FloatAddress(32, "MC_2.lrActPos", 4142880);
+        public static FloatAddressInitial lrActPos { get; } = new FloatAddressInitial(32, "MC_2.lrActPos");
 
-        public static UintAddress iErrorId { get; } = new UintAddress(32, "MC_2.iErrorId", 4143264);
+        public static UintAddressInitial iErrorId { get; } = new UintAddressInitial(32, "MC_2.iErrorId");
 
-        public static BoolAddress bBusyToHmi { get; } = new BoolAddress(8, "MC_2.bBusyToHmi", 4161312);
+        public static BoolAddressInitial bBusyToHmi { get; } = new BoolAddressInitial(8, "MC_2.bBusyToHmi");
 
-        public static BoolAddress startPulse { get; } = new BoolAddress(8, "MC_2.startPulse", 4161320);
+        public static BoolAddressInitial startPulse { get; } = new BoolAddressInitial(8, "MC_2.startPulse");
 
-        public static BoolAddress bResetServo { get; } = new BoolAddress(8, "MC_2.bResetServo", 4161328);
+        public static BoolAddressInitial bResetServo { get; } = new BoolAddressInitial(8, "MC_2.bResetServo");
 
-        public static DoubleAddress lrVelocity { get; } = new DoubleAddress(64, "MC_2.lrVelocity", 4163264);
+        public static DoubleAddressInitial lrVelocity { get; } = new DoubleAddressInitial(64, "MC_2.lrVelocity");
 
-        public static DoubleAddress rAcceleration { get; } = new DoubleAddress(64, "MC_2.rAcceleration", 4163328);
+        public static DoubleAddressInitial rAcceleration { get; } = new DoubleAddressInitial(64, "MC_2.rAcceleration");
 
-        public static DoubleAddress lrAcceleration { get; } = new DoubleAddress(64, "MC_2.lrAcceleration", 4163392);
+        public static DoubleAddressInitial lrAcceleration { get; } = new DoubleAddressInitial(64, "MC_2.lrAcceleration");
 
-        public static DoubleAddress lrDeceleration { get; } = new DoubleAddress(64, "MC_2.lrDeceleration", 4163456);
+        public static DoubleAddressInitial lrDeceleration { get; } = new DoubleAddressInitial(64, "MC_2.lrDeceleration");
 
         public static class AxisRef
         {
@@ -69,382 +69,382 @@ namespace GeneratedAddress
 
     public static class Global_Variables
     {
-        public static UshortAddress AMSPORT_LOGGER { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_LOGGER", 4096224);
+        public static UshortAddressInitial AMSPORT_LOGGER { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_LOGGER");
 
-        public static UshortAddress AMSPORT_EVENTLOG { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_EVENTLOG", 4096240);
+        public static UshortAddressInitial AMSPORT_EVENTLOG { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_EVENTLOG");
 
-        public static UshortAddress AMSPORT_R0_RTIME { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_RTIME", 4096256);
+        public static UshortAddressInitial AMSPORT_R0_RTIME { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_RTIME");
 
-        public static UshortAddress AMSPORT_R0_IO { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_IO", 4096272);
+        public static UshortAddressInitial AMSPORT_R0_IO { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_IO");
 
-        public static UshortAddress AMSPORT_R0_NC { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_NC", 4096288);
+        public static UshortAddressInitial AMSPORT_R0_NC { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_NC");
 
-        public static UshortAddress AMSPORT_R0_NCSAF { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_NCSAF", 4096304);
+        public static UshortAddressInitial AMSPORT_R0_NCSAF { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_NCSAF");
 
-        public static UshortAddress AMSPORT_R0_NCSVB { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_NCSVB", 4096320);
+        public static UshortAddressInitial AMSPORT_R0_NCSVB { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_NCSVB");
 
-        public static UshortAddress AMSPORT_R0_ISG { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_ISG", 4096336);
+        public static UshortAddressInitial AMSPORT_R0_ISG { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_ISG");
 
-        public static UshortAddress AMSPORT_R0_CNC { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_CNC", 4096352);
+        public static UshortAddressInitial AMSPORT_R0_CNC { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_CNC");
 
-        public static UshortAddress AMSPORT_R0_LINE { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_LINE", 4096368);
+        public static UshortAddressInitial AMSPORT_R0_LINE { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_LINE");
 
-        public static UshortAddress AMSPORT_R0_PLC { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_PLC", 4096384);
+        public static UshortAddressInitial AMSPORT_R0_PLC { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_PLC");
 
-        public static UshortAddress AMSPORT_R0_PLC_RTS1 { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_PLC_RTS1", 4096400);
+        public static UshortAddressInitial AMSPORT_R0_PLC_RTS1 { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_PLC_RTS1");
 
-        public static UshortAddress AMSPORT_R0_PLC_RTS2 { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_PLC_RTS2", 4096416);
+        public static UshortAddressInitial AMSPORT_R0_PLC_RTS2 { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_PLC_RTS2");
 
-        public static UshortAddress AMSPORT_R0_PLC_RTS3 { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_PLC_RTS3", 4096432);
+        public static UshortAddressInitial AMSPORT_R0_PLC_RTS3 { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_PLC_RTS3");
 
-        public static UshortAddress AMSPORT_R0_PLC_RTS4 { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_PLC_RTS4", 4096448);
+        public static UshortAddressInitial AMSPORT_R0_PLC_RTS4 { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_PLC_RTS4");
 
-        public static UshortAddress AMSPORT_R0_CAM { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_CAM", 4096464);
+        public static UshortAddressInitial AMSPORT_R0_CAM { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_CAM");
 
-        public static UshortAddress AMSPORT_R0_CAMTOOL { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R0_CAMTOOL", 4096480);
+        public static UshortAddressInitial AMSPORT_R0_CAMTOOL { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R0_CAMTOOL");
 
-        public static UshortAddress AMSPORT_R3_SYSSERV { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R3_SYSSERV", 4096496);
+        public static UshortAddressInitial AMSPORT_R3_SYSSERV { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R3_SYSSERV");
 
-        public static UshortAddress AMSPORT_R3_SCOPESERVER { get; } = new UshortAddress(16, "Global_Variables.AMSPORT_R3_SCOPESERVER", 4096512);
+        public static UshortAddressInitial AMSPORT_R3_SCOPESERVER { get; } = new UshortAddressInitial(16, "Global_Variables.AMSPORT_R3_SCOPESERVER");
 
-        public static UshortAddress ADSSTATE_INVALID { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_INVALID", 4096528);
+        public static UshortAddressInitial ADSSTATE_INVALID { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_INVALID");
 
-        public static UshortAddress ADSSTATE_IDLE { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_IDLE", 4096544);
+        public static UshortAddressInitial ADSSTATE_IDLE { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_IDLE");
 
-        public static UshortAddress ADSSTATE_RESET { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_RESET", 4096560);
+        public static UshortAddressInitial ADSSTATE_RESET { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_RESET");
 
-        public static UshortAddress ADSSTATE_INIT { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_INIT", 4096576);
+        public static UshortAddressInitial ADSSTATE_INIT { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_INIT");
 
-        public static UshortAddress ADSSTATE_START { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_START", 4096592);
+        public static UshortAddressInitial ADSSTATE_START { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_START");
 
-        public static UshortAddress ADSSTATE_RUN { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_RUN", 4096608);
+        public static UshortAddressInitial ADSSTATE_RUN { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_RUN");
 
-        public static UshortAddress ADSSTATE_STOP { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_STOP", 4096624);
+        public static UshortAddressInitial ADSSTATE_STOP { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_STOP");
 
-        public static UshortAddress ADSSTATE_SAVECFG { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_SAVECFG", 4096640);
+        public static UshortAddressInitial ADSSTATE_SAVECFG { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_SAVECFG");
 
-        public static UshortAddress ADSSTATE_LOADCFG { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_LOADCFG", 4096656);
+        public static UshortAddressInitial ADSSTATE_LOADCFG { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_LOADCFG");
 
-        public static UshortAddress ADSSTATE_POWERFAILURE { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_POWERFAILURE", 4096672);
+        public static UshortAddressInitial ADSSTATE_POWERFAILURE { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_POWERFAILURE");
 
-        public static UshortAddress ADSSTATE_POWERGOOD { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_POWERGOOD", 4096688);
+        public static UshortAddressInitial ADSSTATE_POWERGOOD { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_POWERGOOD");
 
-        public static UshortAddress ADSSTATE_ERROR { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_ERROR", 4096704);
+        public static UshortAddressInitial ADSSTATE_ERROR { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_ERROR");
 
-        public static UshortAddress ADSSTATE_SHUTDOWN { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_SHUTDOWN", 4096720);
+        public static UshortAddressInitial ADSSTATE_SHUTDOWN { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_SHUTDOWN");
 
-        public static UshortAddress ADSSTATE_SUSPEND { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_SUSPEND", 4096736);
+        public static UshortAddressInitial ADSSTATE_SUSPEND { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_SUSPEND");
 
-        public static UshortAddress ADSSTATE_RESUME { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_RESUME", 4096752);
+        public static UshortAddressInitial ADSSTATE_RESUME { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_RESUME");
 
-        public static UshortAddress ADSSTATE_CONFIG { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_CONFIG", 4096768);
+        public static UshortAddressInitial ADSSTATE_CONFIG { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_CONFIG");
 
-        public static UshortAddress ADSSTATE_RECONFIG { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_RECONFIG", 4096784);
+        public static UshortAddressInitial ADSSTATE_RECONFIG { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_RECONFIG");
 
-        public static UshortAddress ADSSTATE_STOPPING { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_STOPPING", 4096800);
+        public static UshortAddressInitial ADSSTATE_STOPPING { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_STOPPING");
 
-        public static UshortAddress ADSSTATE_INCOMPATIBLE { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_INCOMPATIBLE", 4096816);
+        public static UshortAddressInitial ADSSTATE_INCOMPATIBLE { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_INCOMPATIBLE");
 
-        public static UshortAddress ADSSTATE_EXCEPTION { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_EXCEPTION", 4096832);
+        public static UshortAddressInitial ADSSTATE_EXCEPTION { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_EXCEPTION");
 
-        public static UshortAddress ADSSTATE_MAXSTATES { get; } = new UshortAddress(16, "Global_Variables.ADSSTATE_MAXSTATES", 4096848);
+        public static UshortAddressInitial ADSSTATE_MAXSTATES { get; } = new UshortAddressInitial(16, "Global_Variables.ADSSTATE_MAXSTATES");
 
-        public static UintAddress ADSIGRP_SYMTAB { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYMTAB", 4096864);
+        public static UintAddressInitial ADSIGRP_SYMTAB { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYMTAB");
 
-        public static UintAddress ADSIGRP_SYMNAME { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYMNAME", 4096896);
+        public static UintAddressInitial ADSIGRP_SYMNAME { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYMNAME");
 
-        public static UintAddress ADSIGRP_SYMVAL { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYMVAL", 4096928);
+        public static UintAddressInitial ADSIGRP_SYMVAL { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYMVAL");
 
-        public static UintAddress ADSIGRP_SYM_HNDBYNAME { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_HNDBYNAME", 4096960);
+        public static UintAddressInitial ADSIGRP_SYM_HNDBYNAME { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_HNDBYNAME");
 
-        public static UintAddress ADSIGRP_SYM_VALBYNAME { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_VALBYNAME", 4096992);
+        public static UintAddressInitial ADSIGRP_SYM_VALBYNAME { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_VALBYNAME");
 
-        public static UintAddress ADSIGRP_SYM_VALBYHND { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_VALBYHND", 4097024);
+        public static UintAddressInitial ADSIGRP_SYM_VALBYHND { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_VALBYHND");
 
-        public static UintAddress ADSIGRP_SYM_RELEASEHND { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_RELEASEHND", 4097056);
+        public static UintAddressInitial ADSIGRP_SYM_RELEASEHND { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_RELEASEHND");
 
-        public static UintAddress ADSIGRP_SYM_INFOBYNAME { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_INFOBYNAME", 4097088);
+        public static UintAddressInitial ADSIGRP_SYM_INFOBYNAME { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_INFOBYNAME");
 
-        public static UintAddress ADSIGRP_SYM_VERSION { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_VERSION", 4097120);
+        public static UintAddressInitial ADSIGRP_SYM_VERSION { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_VERSION");
 
-        public static UintAddress ADSIGRP_SYM_INFOBYNAMEEX { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_INFOBYNAMEEX", 4097152);
+        public static UintAddressInitial ADSIGRP_SYM_INFOBYNAMEEX { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_INFOBYNAMEEX");
 
-        public static UintAddress ADSIGRP_SYM_DOWNLOAD { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_DOWNLOAD", 4097184);
+        public static UintAddressInitial ADSIGRP_SYM_DOWNLOAD { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_DOWNLOAD");
 
-        public static UintAddress ADSIGRP_SYM_UPLOAD { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_UPLOAD", 4097216);
+        public static UintAddressInitial ADSIGRP_SYM_UPLOAD { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_UPLOAD");
 
-        public static UintAddress ADSIGRP_SYM_UPLOADINFO { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYM_UPLOADINFO", 4097248);
+        public static UintAddressInitial ADSIGRP_SYM_UPLOADINFO { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYM_UPLOADINFO");
 
-        public static UintAddress ADSIGRP_SYMNOTE { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_SYMNOTE", 4097280);
+        public static UintAddressInitial ADSIGRP_SYMNOTE { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_SYMNOTE");
 
-        public static UintAddress ADSIGRP_IOIMAGE_RWIB { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_RWIB", 4097312);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_RWIB { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_RWIB");
 
-        public static UintAddress ADSIGRP_IOIMAGE_RWIX { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_RWIX", 4097344);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_RWIX { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_RWIX");
 
-        public static UintAddress ADSIGRP_IOIMAGE_RISIZE { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_RISIZE", 4097376);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_RISIZE { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_RISIZE");
 
-        public static UintAddress ADSIGRP_IOIMAGE_RWOB { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_RWOB", 4097408);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_RWOB { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_RWOB");
 
-        public static UintAddress ADSIGRP_IOIMAGE_RWOX { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_RWOX", 4097440);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_RWOX { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_RWOX");
 
-        public static UintAddress ADSIGRP_IOIMAGE_ROSIZE { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_ROSIZE", 4097472);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_ROSIZE { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_ROSIZE");
 
-        public static UintAddress ADSIGRP_IOIMAGE_CLEARI { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_CLEARI", 4097504);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_CLEARI { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_CLEARI");
 
-        public static UintAddress ADSIGRP_IOIMAGE_CLEARO { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_CLEARO", 4097536);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_CLEARO { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_CLEARO");
 
-        public static UintAddress ADSIGRP_IOIMAGE_RWIOB { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_IOIMAGE_RWIOB", 4097568);
+        public static UintAddressInitial ADSIGRP_IOIMAGE_RWIOB { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_IOIMAGE_RWIOB");
 
-        public static UintAddress ADSIGRP_DEVICE_DATA { get; } = new UintAddress(32, "Global_Variables.ADSIGRP_DEVICE_DATA", 4097600);
+        public static UintAddressInitial ADSIGRP_DEVICE_DATA { get; } = new UintAddressInitial(32, "Global_Variables.ADSIGRP_DEVICE_DATA");
 
-        public static UintAddress ADSIOFFS_DEVDATA_ADSSTATE { get; } = new UintAddress(32, "Global_Variables.ADSIOFFS_DEVDATA_ADSSTATE", 4097632);
+        public static UintAddressInitial ADSIOFFS_DEVDATA_ADSSTATE { get; } = new UintAddressInitial(32, "Global_Variables.ADSIOFFS_DEVDATA_ADSSTATE");
 
-        public static UintAddress ADSIOFFS_DEVDATA_DEVSTATE { get; } = new UintAddress(32, "Global_Variables.ADSIOFFS_DEVDATA_DEVSTATE", 4097664);
+        public static UintAddressInitial ADSIOFFS_DEVDATA_DEVSTATE { get; } = new UintAddressInitial(32, "Global_Variables.ADSIOFFS_DEVDATA_DEVSTATE");
 
-        public static UintAddress SYSTEMSERVICE_OPENCREATE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_OPENCREATE", 4097696);
+        public static UintAddressInitial SYSTEMSERVICE_OPENCREATE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_OPENCREATE");
 
-        public static UintAddress SYSTEMSERVICE_OPENREAD { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_OPENREAD", 4097728);
+        public static UintAddressInitial SYSTEMSERVICE_OPENREAD { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_OPENREAD");
 
-        public static UintAddress SYSTEMSERVICE_OPENWRITE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_OPENWRITE", 4097760);
+        public static UintAddressInitial SYSTEMSERVICE_OPENWRITE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_OPENWRITE");
 
-        public static UintAddress SYSTEMSERVICE_CREATEFILE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_CREATEFILE", 4097792);
+        public static UintAddressInitial SYSTEMSERVICE_CREATEFILE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_CREATEFILE");
 
-        public static UintAddress SYSTEMSERVICE_CLOSEHANDLE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_CLOSEHANDLE", 4097824);
+        public static UintAddressInitial SYSTEMSERVICE_CLOSEHANDLE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_CLOSEHANDLE");
 
-        public static UintAddress SYSTEMSERVICE_FOPEN { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FOPEN", 4097856);
+        public static UintAddressInitial SYSTEMSERVICE_FOPEN { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FOPEN");
 
-        public static UintAddress SYSTEMSERVICE_FCLOSE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FCLOSE", 4097888);
+        public static UintAddressInitial SYSTEMSERVICE_FCLOSE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FCLOSE");
 
-        public static UintAddress SYSTEMSERVICE_FREAD { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FREAD", 4097920);
+        public static UintAddressInitial SYSTEMSERVICE_FREAD { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FREAD");
 
-        public static UintAddress SYSTEMSERVICE_FWRITE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FWRITE", 4097952);
+        public static UintAddressInitial SYSTEMSERVICE_FWRITE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FWRITE");
 
-        public static UintAddress SYSTEMSERVICE_FSEEK { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FSEEK", 4097984);
+        public static UintAddressInitial SYSTEMSERVICE_FSEEK { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FSEEK");
 
-        public static UintAddress SYSTEMSERVICE_FTELL { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FTELL", 4098016);
+        public static UintAddressInitial SYSTEMSERVICE_FTELL { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FTELL");
 
-        public static UintAddress SYSTEMSERVICE_FGETS { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FGETS", 4098048);
+        public static UintAddressInitial SYSTEMSERVICE_FGETS { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FGETS");
 
-        public static UintAddress SYSTEMSERVICE_FPUTS { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FPUTS", 4098080);
+        public static UintAddressInitial SYSTEMSERVICE_FPUTS { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FPUTS");
 
-        public static UintAddress SYSTEMSERVICE_FSCANF { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FSCANF", 4098112);
+        public static UintAddressInitial SYSTEMSERVICE_FSCANF { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FSCANF");
 
-        public static UintAddress SYSTEMSERVICE_FPRINTF { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FPRINTF", 4098144);
+        public static UintAddressInitial SYSTEMSERVICE_FPRINTF { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FPRINTF");
 
-        public static UintAddress SYSTEMSERVICE_FEOF { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FEOF", 4098176);
+        public static UintAddressInitial SYSTEMSERVICE_FEOF { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FEOF");
 
-        public static UintAddress SYSTEMSERVICE_FDELETE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FDELETE", 4098208);
+        public static UintAddressInitial SYSTEMSERVICE_FDELETE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FDELETE");
 
-        public static UintAddress SYSTEMSERVICE_FRENAME { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_FRENAME", 4098240);
+        public static UintAddressInitial SYSTEMSERVICE_FRENAME { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_FRENAME");
 
-        public static UintAddress SYSTEMSERVICE_MKDIR { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_MKDIR", 4098272);
+        public static UintAddressInitial SYSTEMSERVICE_MKDIR { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_MKDIR");
 
-        public static UintAddress SYSTEMSERVICE_RMDIR { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_RMDIR", 4098304);
+        public static UintAddressInitial SYSTEMSERVICE_RMDIR { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_RMDIR");
 
-        public static UintAddress SYSTEMSERVICE_REG_HKEYLOCALMACHINE { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_REG_HKEYLOCALMACHINE", 4098336);
+        public static UintAddressInitial SYSTEMSERVICE_REG_HKEYLOCALMACHINE { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_REG_HKEYLOCALMACHINE");
 
-        public static UintAddress SYSTEMSERVICE_SENDEMAIL { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_SENDEMAIL", 4098368);
+        public static UintAddressInitial SYSTEMSERVICE_SENDEMAIL { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_SENDEMAIL");
 
-        public static UintAddress SYSTEMSERVICE_TIMESERVICES { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_TIMESERVICES", 4098400);
+        public static UintAddressInitial SYSTEMSERVICE_TIMESERVICES { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_TIMESERVICES");
 
-        public static UintAddress SYSTEMSERVICE_STARTPROCESS { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_STARTPROCESS", 4098432);
+        public static UintAddressInitial SYSTEMSERVICE_STARTPROCESS { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_STARTPROCESS");
 
-        public static UintAddress SYSTEMSERVICE_CHANGENETID { get; } = new UintAddress(32, "Global_Variables.SYSTEMSERVICE_CHANGENETID", 4098464);
+        public static UintAddressInitial SYSTEMSERVICE_CHANGENETID { get; } = new UintAddressInitial(32, "Global_Variables.SYSTEMSERVICE_CHANGENETID");
 
-        public static UintAddress TIMESERVICE_DATEANDTIME { get; } = new UintAddress(32, "Global_Variables.TIMESERVICE_DATEANDTIME", 4098496);
+        public static UintAddressInitial TIMESERVICE_DATEANDTIME { get; } = new UintAddressInitial(32, "Global_Variables.TIMESERVICE_DATEANDTIME");
 
-        public static UintAddress TIMESERVICE_SYSTEMTIMES { get; } = new UintAddress(32, "Global_Variables.TIMESERVICE_SYSTEMTIMES", 4098528);
+        public static UintAddressInitial TIMESERVICE_SYSTEMTIMES { get; } = new UintAddressInitial(32, "Global_Variables.TIMESERVICE_SYSTEMTIMES");
 
-        public static UintAddress TIMESERVICE_RTCTIMEDIFF { get; } = new UintAddress(32, "Global_Variables.TIMESERVICE_RTCTIMEDIFF", 4098560);
+        public static UintAddressInitial TIMESERVICE_RTCTIMEDIFF { get; } = new UintAddressInitial(32, "Global_Variables.TIMESERVICE_RTCTIMEDIFF");
 
-        public static UintAddress TIMESERVICE_ADJUSTTIMETORTC { get; } = new UintAddress(32, "Global_Variables.TIMESERVICE_ADJUSTTIMETORTC", 4098592);
+        public static UintAddressInitial TIMESERVICE_ADJUSTTIMETORTC { get; } = new UintAddressInitial(32, "Global_Variables.TIMESERVICE_ADJUSTTIMETORTC");
 
-        public static UintAddress TIMESERVICE_TIMEZONINFORMATION { get; } = new UintAddress(32, "Global_Variables.TIMESERVICE_TIMEZONINFORMATION", 4098624);
+        public static UintAddressInitial TIMESERVICE_TIMEZONINFORMATION { get; } = new UintAddressInitial(32, "Global_Variables.TIMESERVICE_TIMEZONINFORMATION");
 
-        public static UintAddress ADSLOG_MSGTYPE_HINT { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_HINT", 4098656);
+        public static UintAddressInitial ADSLOG_MSGTYPE_HINT { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_HINT");
 
-        public static UintAddress ADSLOG_MSGTYPE_WARN { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_WARN", 4098688);
+        public static UintAddressInitial ADSLOG_MSGTYPE_WARN { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_WARN");
 
-        public static UintAddress ADSLOG_MSGTYPE_ERROR { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_ERROR", 4098720);
+        public static UintAddressInitial ADSLOG_MSGTYPE_ERROR { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_ERROR");
 
-        public static UintAddress ADSLOG_MSGTYPE_LOG { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_LOG", 4098752);
+        public static UintAddressInitial ADSLOG_MSGTYPE_LOG { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_LOG");
 
-        public static UintAddress ADSLOG_MSGTYPE_MSGBOX { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_MSGBOX", 4098784);
+        public static UintAddressInitial ADSLOG_MSGTYPE_MSGBOX { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_MSGBOX");
 
-        public static UintAddress ADSLOG_MSGTYPE_RESOURCE { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_RESOURCE", 4098816);
+        public static UintAddressInitial ADSLOG_MSGTYPE_RESOURCE { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_RESOURCE");
 
-        public static UintAddress ADSLOG_MSGTYPE_STRING { get; } = new UintAddress(32, "Global_Variables.ADSLOG_MSGTYPE_STRING", 4098848);
+        public static UintAddressInitial ADSLOG_MSGTYPE_STRING { get; } = new UintAddressInitial(32, "Global_Variables.ADSLOG_MSGTYPE_STRING");
 
-        public static ByteAddress BOOTDATAFLAGS_RETAIN_LOADED { get; } = new ByteAddress(8, "Global_Variables.BOOTDATAFLAGS_RETAIN_LOADED", 4098880);
+        public static ByteAddressInitial BOOTDATAFLAGS_RETAIN_LOADED { get; } = new ByteAddressInitial(8, "Global_Variables.BOOTDATAFLAGS_RETAIN_LOADED");
 
-        public static ByteAddress BOOTDATAFLAGS_RETAIN_INVALID { get; } = new ByteAddress(8, "Global_Variables.BOOTDATAFLAGS_RETAIN_INVALID", 4098888);
+        public static ByteAddressInitial BOOTDATAFLAGS_RETAIN_INVALID { get; } = new ByteAddressInitial(8, "Global_Variables.BOOTDATAFLAGS_RETAIN_INVALID");
 
-        public static ByteAddress BOOTDATAFLAGS_RETAIN_REQUESTED { get; } = new ByteAddress(8, "Global_Variables.BOOTDATAFLAGS_RETAIN_REQUESTED", 4098896);
+        public static ByteAddressInitial BOOTDATAFLAGS_RETAIN_REQUESTED { get; } = new ByteAddressInitial(8, "Global_Variables.BOOTDATAFLAGS_RETAIN_REQUESTED");
 
-        public static ByteAddress BOOTDATAFLAGS_PERSISTENT_LOADED { get; } = new ByteAddress(8, "Global_Variables.BOOTDATAFLAGS_PERSISTENT_LOADED", 4098904);
+        public static ByteAddressInitial BOOTDATAFLAGS_PERSISTENT_LOADED { get; } = new ByteAddressInitial(8, "Global_Variables.BOOTDATAFLAGS_PERSISTENT_LOADED");
 
-        public static ByteAddress BOOTDATAFLAGS_PERSISTENT_INVALID { get; } = new ByteAddress(8, "Global_Variables.BOOTDATAFLAGS_PERSISTENT_INVALID", 4098912);
+        public static ByteAddressInitial BOOTDATAFLAGS_PERSISTENT_INVALID { get; } = new ByteAddressInitial(8, "Global_Variables.BOOTDATAFLAGS_PERSISTENT_INVALID");
 
-        public static ByteAddress SYSTEMSTATEFLAGS_BSOD { get; } = new ByteAddress(8, "Global_Variables.SYSTEMSTATEFLAGS_BSOD", 4098920);
+        public static ByteAddressInitial SYSTEMSTATEFLAGS_BSOD { get; } = new ByteAddressInitial(8, "Global_Variables.SYSTEMSTATEFLAGS_BSOD");
 
-        public static ByteAddress SYSTEMSTATEFLAGS_RTVIOLATION { get; } = new ByteAddress(8, "Global_Variables.SYSTEMSTATEFLAGS_RTVIOLATION", 4098928);
+        public static ByteAddressInitial SYSTEMSTATEFLAGS_RTVIOLATION { get; } = new ByteAddressInitial(8, "Global_Variables.SYSTEMSTATEFLAGS_RTVIOLATION");
 
-        public static ByteAddress nWatchdogTime { get; } = new ByteAddress(8, "Global_Variables.nWatchdogTime", 4098936);
+        public static ByteAddressInitial nWatchdogTime { get; } = new ByteAddressInitial(8, "Global_Variables.nWatchdogTime");
 
-        public static UintAddress FOPEN_MODEREAD { get; } = new UintAddress(32, "Global_Variables.FOPEN_MODEREAD", 4098944);
+        public static UintAddressInitial FOPEN_MODEREAD { get; } = new UintAddressInitial(32, "Global_Variables.FOPEN_MODEREAD");
 
-        public static UintAddress FOPEN_MODEWRITE { get; } = new UintAddress(32, "Global_Variables.FOPEN_MODEWRITE", 4098976);
+        public static UintAddressInitial FOPEN_MODEWRITE { get; } = new UintAddressInitial(32, "Global_Variables.FOPEN_MODEWRITE");
 
-        public static UintAddress FOPEN_MODEAPPEND { get; } = new UintAddress(32, "Global_Variables.FOPEN_MODEAPPEND", 4099008);
+        public static UintAddressInitial FOPEN_MODEAPPEND { get; } = new UintAddressInitial(32, "Global_Variables.FOPEN_MODEAPPEND");
 
-        public static UintAddress FOPEN_MODEPLUS { get; } = new UintAddress(32, "Global_Variables.FOPEN_MODEPLUS", 4099040);
+        public static UintAddressInitial FOPEN_MODEPLUS { get; } = new UintAddressInitial(32, "Global_Variables.FOPEN_MODEPLUS");
 
-        public static UintAddress FOPEN_MODEBINARY { get; } = new UintAddress(32, "Global_Variables.FOPEN_MODEBINARY", 4099072);
+        public static UintAddressInitial FOPEN_MODEBINARY { get; } = new UintAddressInitial(32, "Global_Variables.FOPEN_MODEBINARY");
 
-        public static UintAddress FOPEN_MODETEXT { get; } = new UintAddress(32, "Global_Variables.FOPEN_MODETEXT", 4099104);
+        public static UintAddressInitial FOPEN_MODETEXT { get; } = new UintAddressInitial(32, "Global_Variables.FOPEN_MODETEXT");
 
-        public static ShortAddress TCEVENTFLAG_PRIOCLASS { get; } = new ShortAddress(16, "Global_Variables.TCEVENTFLAG_PRIOCLASS", 4099360);
+        public static ShortAddressInitial TCEVENTFLAG_PRIOCLASS { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTFLAG_PRIOCLASS");
 
-        public static ShortAddress TCEVENTFLAG_FMTSELF { get; } = new ShortAddress(16, "Global_Variables.TCEVENTFLAG_FMTSELF", 4099376);
+        public static ShortAddressInitial TCEVENTFLAG_FMTSELF { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTFLAG_FMTSELF");
 
-        public static ShortAddress TCEVENTFLAG_LOG { get; } = new ShortAddress(16, "Global_Variables.TCEVENTFLAG_LOG", 4099392);
+        public static ShortAddressInitial TCEVENTFLAG_LOG { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTFLAG_LOG");
 
-        public static ShortAddress TCEVENTFLAG_MSGBOX { get; } = new ShortAddress(16, "Global_Variables.TCEVENTFLAG_MSGBOX", 4099408);
+        public static ShortAddressInitial TCEVENTFLAG_MSGBOX { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTFLAG_MSGBOX");
 
-        public static ShortAddress TCEVENTFLAG_SRCID { get; } = new ShortAddress(16, "Global_Variables.TCEVENTFLAG_SRCID", 4099424);
+        public static ShortAddressInitial TCEVENTFLAG_SRCID { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTFLAG_SRCID");
 
-        public static ShortAddress TCEVENTFLAG_AUTOFMTALL { get; } = new ShortAddress(16, "Global_Variables.TCEVENTFLAG_AUTOFMTALL", 4099440);
+        public static ShortAddressInitial TCEVENTFLAG_AUTOFMTALL { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTFLAG_AUTOFMTALL");
 
-        public static ShortAddress TCEVENTSTATE_INVALID { get; } = new ShortAddress(16, "Global_Variables.TCEVENTSTATE_INVALID", 4099456);
+        public static ShortAddressInitial TCEVENTSTATE_INVALID { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTSTATE_INVALID");
 
-        public static ShortAddress TCEVENTSTATE_SIGNALED { get; } = new ShortAddress(16, "Global_Variables.TCEVENTSTATE_SIGNALED", 4099472);
+        public static ShortAddressInitial TCEVENTSTATE_SIGNALED { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTSTATE_SIGNALED");
 
-        public static ShortAddress TCEVENTSTATE_RESET { get; } = new ShortAddress(16, "Global_Variables.TCEVENTSTATE_RESET", 4099488);
+        public static ShortAddressInitial TCEVENTSTATE_RESET { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTSTATE_RESET");
 
-        public static ShortAddress TCEVENTSTATE_CONFIRMED { get; } = new ShortAddress(16, "Global_Variables.TCEVENTSTATE_CONFIRMED", 4099504);
+        public static ShortAddressInitial TCEVENTSTATE_CONFIRMED { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTSTATE_CONFIRMED");
 
-        public static ShortAddress TCEVENTSTATE_RESETCON { get; } = new ShortAddress(16, "Global_Variables.TCEVENTSTATE_RESETCON", 4099520);
+        public static ShortAddressInitial TCEVENTSTATE_RESETCON { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENTSTATE_RESETCON");
 
-        public static ShortAddress TCEVENT_SRCNAMESIZE { get; } = new ShortAddress(16, "Global_Variables.TCEVENT_SRCNAMESIZE", 4099536);
+        public static ShortAddressInitial TCEVENT_SRCNAMESIZE { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENT_SRCNAMESIZE");
 
-        public static ShortAddress TCEVENT_FMTPRGSIZE { get; } = new ShortAddress(16, "Global_Variables.TCEVENT_FMTPRGSIZE", 4099552);
+        public static ShortAddressInitial TCEVENT_FMTPRGSIZE { get; } = new ShortAddressInitial(16, "Global_Variables.TCEVENT_FMTPRGSIZE");
 
-        public static DoubleAddress PI { get; } = new DoubleAddress(64, "Global_Variables.PI", 4099584);
+        public static DoubleAddressInitial PI { get; } = new DoubleAddressInitial(64, "Global_Variables.PI");
 
-        public static UintAddress MAX_STRING_LENGTH { get; } = new UintAddress(32, "Global_Variables.MAX_STRING_LENGTH", 4099680);
+        public static UintAddressInitial MAX_STRING_LENGTH { get; } = new UintAddressInitial(32, "Global_Variables.MAX_STRING_LENGTH");
 
-        public static DoubleAddress DEFAULT_HOME_POSITION { get; } = new DoubleAddress(64, "Global_Variables.DEFAULT_HOME_POSITION", 4107136);
+        public static DoubleAddressInitial DEFAULT_HOME_POSITION { get; } = new DoubleAddressInitial(64, "Global_Variables.DEFAULT_HOME_POSITION");
 
-        public static DoubleAddress DEFAULT_BACKLASHVALUE { get; } = new DoubleAddress(64, "Global_Variables.DEFAULT_BACKLASHVALUE", 4107200);
+        public static DoubleAddressInitial DEFAULT_BACKLASHVALUE { get; } = new DoubleAddressInitial(64, "Global_Variables.DEFAULT_BACKLASHVALUE");
     }
 
     public static class MAIN
     {
-        public static BoolAddress bBuildingBoxConnected { get; } = new BoolAddress(8, "MAIN.bBuildingBoxConnected", 4114944);
+        public static BoolAddressInitial bBuildingBoxConnected { get; } = new BoolAddressInitial(8, "MAIN.bBuildingBoxConnected");
 
-        public static BoolAddress bPowderBox1Connected { get; } = new BoolAddress(8, "MAIN.bPowderBox1Connected", 4114952);
+        public static BoolAddressInitial bPowderBox1Connected { get; } = new BoolAddressInitial(8, "MAIN.bPowderBox1Connected");
 
-        public static BoolAddress bPowderBox2Connected { get; } = new BoolAddress(8, "MAIN.bPowderBox2Connected", 4114960);
+        public static BoolAddressInitial bPowderBox2Connected { get; } = new BoolAddressInitial(8, "MAIN.bPowderBox2Connected");
 
-        public static BoolAddress bRedLight { get; } = new BoolAddress(8, "MAIN.bRedLight", 4114968);
+        public static BoolAddressInitial bRedLight { get; } = new BoolAddressInitial(8, "MAIN.bRedLight");
 
-        public static BoolAddress bProtectionCoverClosed { get; } = new BoolAddress(8, "MAIN.bProtectionCoverClosed", 4114976);
+        public static BoolAddressInitial bProtectionCoverClosed { get; } = new BoolAddressInitial(8, "MAIN.bProtectionCoverClosed");
 
-        public static BoolAddress bPower { get; } = new BoolAddress(8, "MAIN.bPower", 4114984);
+        public static BoolAddressInitial bPower { get; } = new BoolAddressInitial(8, "MAIN.bPower");
 
-        public static IntAddress iPowderHeightBuildBox { get; } = new IntAddress(32, "MAIN.iPowderHeightBuildBox", 4115008);
+        public static IntAddressInitial iPowderHeightBuildBox { get; } = new IntAddressInitial(32, "MAIN.iPowderHeightBuildBox");
 
-        public static IntAddress iPowderHeightPowderBox1 { get; } = new IntAddress(32, "MAIN.iPowderHeightPowderBox1", 4115040);
+        public static IntAddressInitial iPowderHeightPowderBox1 { get; } = new IntAddressInitial(32, "MAIN.iPowderHeightPowderBox1");
 
-        public static IntAddress iPowderHeightPowderBox2 { get; } = new IntAddress(32, "MAIN.iPowderHeightPowderBox2", 4115072);
+        public static IntAddressInitial iPowderHeightPowderBox2 { get; } = new IntAddressInitial(32, "MAIN.iPowderHeightPowderBox2");
 
-        public static FloatAddress rGlueHeight { get; } = new FloatAddress(32, "MAIN.rGlueHeight", 4115104);
+        public static FloatAddressInitial rGlueHeight { get; } = new FloatAddressInitial(32, "MAIN.rGlueHeight");
 
-        public static BoolAddress bGreen { get; } = new BoolAddress(8, "MAIN.bGreen", 4115616);
+        public static BoolAddressInitial bGreen { get; } = new BoolAddressInitial(8, "MAIN.bGreen");
 
-        public static BoolAddress bYellow { get; } = new BoolAddress(8, "MAIN.bYellow", 4115624);
+        public static BoolAddressInitial bYellow { get; } = new BoolAddressInitial(8, "MAIN.bYellow");
 
-        public static BoolAddress bRed { get; } = new BoolAddress(8, "MAIN.bRed", 4115632);
+        public static BoolAddressInitial bRed { get; } = new BoolAddressInitial(8, "MAIN.bRed");
 
-        public static StringAddress sFileName { get; } = new StringAddress(648, "MAIN.sFileName", 4115640);
+        public static StringAddressInitial sFileName { get; } = new StringAddressInitial(648, "MAIN.sFileName");
 
-        public static BoolAddress bOpenFile { get; } = new BoolAddress(8, "MAIN.bOpenFile", 4116288);
+        public static BoolAddressInitial bOpenFile { get; } = new BoolAddressInitial(8, "MAIN.bOpenFile");
 
-        public static BoolAddress bStepForward { get; } = new BoolAddress(8, "MAIN.bStepForward", 4116296);
+        public static BoolAddressInitial bStepForward { get; } = new BoolAddressInitial(8, "MAIN.bStepForward");
 
-        public static BoolAddress bRun { get; } = new BoolAddress(8, "MAIN.bRun", 4116320);
+        public static BoolAddressInitial bRun { get; } = new BoolAddressInitial(8, "MAIN.bRun");
 
-        public static BoolAddress TestBoolIn { get; } = new BoolAddress(8, "MAIN.TestBoolIn", 4116328);
+        public static BoolAddressInitial TestBoolIn { get; } = new BoolAddressInitial(8, "MAIN.TestBoolIn");
 
-        public static ShortAddress rGlueLevel { get; } = new ShortAddress(16, "MAIN.rGlueLevel", 4116336);
+        public static ShortAddressInitial rGlueLevel { get; } = new ShortAddressInitial(16, "MAIN.rGlueLevel");
 
-        public static FloatAddress rPosition { get; } = new FloatAddress(32, "MAIN.rPosition", 4116352);
+        public static FloatAddressInitial rPosition { get; } = new FloatAddressInitial(32, "MAIN.rPosition");
 
-        public static BoolAddress TestBoolOut { get; } = new BoolAddress(8, "MAIN.TestBoolOut", 4116384);
+        public static BoolAddressInitial TestBoolOut { get; } = new BoolAddressInitial(8, "MAIN.TestBoolOut");
 
-        public static BoolAddress LightOn { get; } = new BoolAddress(8, "MAIN.LightOn", 4116392);
+        public static BoolAddressInitial LightOn { get; } = new BoolAddressInitial(8, "MAIN.LightOn");
 
-        public static BoolAddress IsLightOn { get; } = new BoolAddress(8, "MAIN.IsLightOn", 4116400);
+        public static BoolAddressInitial IsLightOn { get; } = new BoolAddressInitial(8, "MAIN.IsLightOn");
 
-        public static BoolAddress TrigSequenceRequest { get; } = new BoolAddress(8, "MAIN.TrigSequenceRequest", 4116408);
+        public static BoolAddressInitial TrigSequenceRequest { get; } = new BoolAddressInitial(8, "MAIN.TrigSequenceRequest");
 
-        public static IntAddress TestIntIn { get; } = new IntAddress(32, "MAIN.TestIntIn", 4116416);
+        public static IntAddressInitial TestIntIn { get; } = new IntAddressInitial(32, "MAIN.TestIntIn");
 
-        public static IntAddress TestIntOut { get; } = new IntAddress(32, "MAIN.TestIntOut", 4116448);
+        public static IntAddressInitial TestIntOut { get; } = new IntAddressInitial(32, "MAIN.TestIntOut");
 
-        public static StringAddress TestStringIn { get; } = new StringAddress(648, "MAIN.TestStringIn", 4116480);
+        public static StringAddressInitial TestStringIn { get; } = new StringAddressInitial(648, "MAIN.TestStringIn");
 
-        public static StringAddress TestStringOut { get; } = new StringAddress(648, "MAIN.TestStringOut", 4117128);
+        public static StringAddressInitial TestStringOut { get; } = new StringAddressInitial(648, "MAIN.TestStringOut");
 
-        public static BoolAddress SequenceRequest { get; } = new BoolAddress(8, "MAIN.SequenceRequest", 4117776);
+        public static BoolAddressInitial SequenceRequest { get; } = new BoolAddressInitial(8, "MAIN.SequenceRequest");
 
-        public static BoolAddress SequenceDone { get; } = new BoolAddress(8, "MAIN.SequenceDone", 4117784);
+        public static BoolAddressInitial SequenceDone { get; } = new BoolAddressInitial(8, "MAIN.SequenceDone");
 
-        public static IntAddress SequenceError { get; } = new IntAddress(32, "MAIN.SequenceError", 4117792);
+        public static IntAddressInitial SequenceError { get; } = new IntAddressInitial(32, "MAIN.SequenceError");
 
-        public static BoolAddress lXAxisEnable { get; } = new BoolAddress(8, "MAIN.lXAxisEnable", 4117824);
+        public static BoolAddressInitial lXAxisEnable { get; } = new BoolAddressInitial(8, "MAIN.lXAxisEnable");
     }
 
     public static class Position_Control
     {
-        public static BoolAddress bPositioningDone2 { get; } = new BoolAddress(8, "Position_Control.bPositioningDone2", 4161336);
+        public static BoolAddressInitial bPositioningDone2 { get; } = new BoolAddressInitial(8, "Position_Control.bPositioningDone2");
 
-        public static BoolAddress bPositioningDone1 { get; } = new BoolAddress(8, "Position_Control.bPositioningDone1", 4163616);
+        public static BoolAddressInitial bPositioningDone1 { get; } = new BoolAddressInitial(8, "Position_Control.bPositioningDone1");
 
-        public static DoubleAddress lrServo1CurrentPos { get; } = new DoubleAddress(64, "Position_Control.lrServo1CurrentPos", 4163648);
+        public static DoubleAddressInitial lrServo1CurrentPos { get; } = new DoubleAddressInitial(64, "Position_Control.lrServo1CurrentPos");
 
-        public static DoubleAddress lrServo2CurrentPos { get; } = new DoubleAddress(64, "Position_Control.lrServo2CurrentPos", 4163712);
+        public static DoubleAddressInitial lrServo2CurrentPos { get; } = new DoubleAddressInitial(64, "Position_Control.lrServo2CurrentPos");
 
-        public static DoubleAddress lrServo1Position1 { get; } = new DoubleAddress(64, "Position_Control.lrServo1Position1", 4163776);
+        public static DoubleAddressInitial lrServo1Position1 { get; } = new DoubleAddressInitial(64, "Position_Control.lrServo1Position1");
 
-        public static DoubleAddress lrServo2Position1 { get; } = new DoubleAddress(64, "Position_Control.lrServo2Position1", 4163840);
+        public static DoubleAddressInitial lrServo2Position1 { get; } = new DoubleAddressInitial(64, "Position_Control.lrServo2Position1");
 
-        public static DoubleAddress lrServo1Position2 { get; } = new DoubleAddress(64, "Position_Control.lrServo1Position2", 4163904);
+        public static DoubleAddressInitial lrServo1Position2 { get; } = new DoubleAddressInitial(64, "Position_Control.lrServo1Position2");
 
-        public static DoubleAddress lrServo2Position2 { get; } = new DoubleAddress(64, "Position_Control.lrServo2Position2", 4163968);
+        public static DoubleAddressInitial lrServo2Position2 { get; } = new DoubleAddressInitial(64, "Position_Control.lrServo2Position2");
 
     }
 
     public static class BackForthSequence
     {
-        public static BoolAddress start_ui { get; } = new BoolAddress(8, "BackForthSequence.start_ui", 4163624);
+        public static BoolAddressInitial start_ui { get; } = new BoolAddressInitial(8, "BackForthSequence.start_ui");
     }
 
     public static class Constants
     {
-        public static BoolAddress bLittleEndian { get; } = new BoolAddress(8, "Constants.bLittleEndian", 4164264);
+        public static BoolAddressInitial bLittleEndian { get; } = new BoolAddressInitial(8, "Constants.bLittleEndian");
 
-        public static BoolAddress bSimulationMode { get; } = new BoolAddress(8, "Constants.bSimulationMode", 4164272);
+        public static BoolAddressInitial bSimulationMode { get; } = new BoolAddressInitial(8, "Constants.bSimulationMode");
 
-        public static BoolAddress bFPUSupport { get; } = new BoolAddress(8, "Constants.bFPUSupport", 4164280);
+        public static BoolAddressInitial bFPUSupport { get; } = new BoolAddressInitial(8, "Constants.bFPUSupport");
 
-        public static ShortAddress nRegisterSize { get; } = new ShortAddress(16, "Constants.nRegisterSize", 4171456);
+        public static ShortAddressInitial nRegisterSize { get; } = new ShortAddressInitial(16, "Constants.nRegisterSize");
 
-        public static UshortAddress nPackMode { get; } = new UshortAddress(16, "Constants.nPackMode", 4171472);
+        public static UshortAddressInitial nPackMode { get; } = new UshortAddressInitial(16, "Constants.nPackMode");
 
-        public static UintAddress RuntimeVersionNumeric { get; } = new UintAddress(32, "Constants.RuntimeVersionNumeric", 4171488);
+        public static UintAddressInitial RuntimeVersionNumeric { get; } = new UintAddressInitial(32, "Constants.RuntimeVersionNumeric");
 
-        public static UintAddress CompilerVersionNumeric { get; } = new UintAddress(32, "Constants.CompilerVersionNumeric", 4171520);
+        public static UintAddressInitial CompilerVersionNumeric { get; } = new UintAddressInitial(32, "Constants.CompilerVersionNumeric");
     }
 
     public static class TwinCAT_SystemInfoVarList

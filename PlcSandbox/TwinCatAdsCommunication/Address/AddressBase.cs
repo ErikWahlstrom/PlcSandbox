@@ -5,7 +5,7 @@ namespace TwinCatAdsCommunication.Address
 
     public abstract class AddressBase<T> : IAddress
     {
-        internal AddressBase(int bitSize, string name, int bitOffset)
+        internal AddressBase(int bitSize, string name, long bitOffset)
         {
             this.BitSize = bitSize;
             this.Name = name;
@@ -16,7 +16,7 @@ namespace TwinCatAdsCommunication.Address
 
         public int BitSize { get; }
 
-        public int BitOffset { get; }
+        public long BitOffset { get; }
 
         public Type Type { get; } = typeof(T);
 

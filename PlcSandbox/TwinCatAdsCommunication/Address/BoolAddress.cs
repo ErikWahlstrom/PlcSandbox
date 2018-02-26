@@ -5,7 +5,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class BoolAddress : AddressBase<bool>
     {
-        internal BoolAddress(int bitSize, string name, int bitOffset)
+        internal BoolAddress(int bitSize, string name, long bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }
