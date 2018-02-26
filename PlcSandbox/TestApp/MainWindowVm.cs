@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,7 @@ namespace TestApp
     {
         public MainWindowVm()
         {
-            var plcCommunicator = new CyclicReader(TimeSpan.FromMilliseconds(100));
+            var plcCommunicator = new PlcReader();
         }
 
         public WritableValue<bool> BoolToInspect { get; }
@@ -37,7 +36,7 @@ namespace TestApp
             var connectedClient = ConnectedClient.CreateAndConnect(new AmsNetId("1.2.3.5.1.1"), 851);
             this.IsLightOn = new ReadableValue<bool>(TwincSymbols.ConnectBoolAddress(GeneratedAddress.MAIN.IsLightOn, connectedClient));
             this.BuildingBoxConnected = new ReadableValue<bool>(TwincSymbols.ConnectBoolAddress(GeneratedAddress.MAIN.bBuildingBoxConnected, connectedClient));
-            var cyclicReader = new CyclicReader(TimeSpan.FromMilliseconds(100), this.IsLightOn, this.BuildingBoxConnected);
+            var cyclicReader = new PlcReader(this.IsLightOn, this.BuildingBoxConnected);
         }
 
         public ReadableValue<bool> BuildingBoxConnected { get; }

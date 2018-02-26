@@ -4,22 +4,27 @@ namespace TwinCatAdsCommunication
     using System.IO;
     using TwinCAT.Ads;
 
-    public class CyclicReader
+    public class PlcReader
     {
-        public CyclicReader(TimeSpan fromMilliseconds, params IReadableAddress[] variables)
+        private readonly IReadableAddress[] variables;
+
+        public PlcReader(params IReadableAddress[] variables)
         {
-            TwinCAT.Ads.TcAdsClient client = new TcAdsClient();
-            this.ReadToAllValues(variables, client);
+            this.variables = variables;
         }
 
-        private void ReadToAllValues(IReadableAddress[] variables, TcAdsClient adsClient)
+        internal void ReadToAllValues(TcAdsClient adsClient)
         {
-            var stream = this.BatchRead(variables, adsClient);
-            BinaryReader reader = new BinaryReader(stream);
-            reader.CheckErrors(variables);
-            foreach (var readableAddress in variables)
+            using (var stream = this.BatchRead(this.variables, adsClient))
             {
-                readableAddress.UpdateValue(reader);
+                using (BinaryReader reader = new BinaryReader(stream))
+                {
+                    reader.CheckErrors(this.variables);
+                    foreach (var readableAddress in this.variables)
+                    {
+                        readableAddress.UpdateValue(reader);
+                    }
+                }
             }
         }
 

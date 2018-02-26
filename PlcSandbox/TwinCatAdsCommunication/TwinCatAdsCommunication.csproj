@@ -61,7 +61,8 @@
     <Compile Include="Address\UintAddress.cs" />
     <Compile Include="Address\UshortAddress.cs" />
     <Compile Include="ConnectedClient.cs" />
-    <Compile Include="CyclicReader.cs" />
+    <Compile Include="PlcWriter.cs" />
+    <Compile Include="PlcReader.cs" />
     <Compile Include="IAddressable.cs" />
     <Compile Include="ReadableValue.cs" />
     <Compile Include="TwincSymbols.cs" />
