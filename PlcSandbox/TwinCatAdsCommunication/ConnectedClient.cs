@@ -11,7 +11,7 @@ namespace TwinCatAdsCommunication
             this.client = client;
         }
 
-        public static ConnectedClient Connected(AmsNetId id, int port)
+        public static ConnectedClient CreateAndConnect(AmsNetId id, int port)
         {
             var client = new TcAdsClient();
             client.Connect(id, port);
