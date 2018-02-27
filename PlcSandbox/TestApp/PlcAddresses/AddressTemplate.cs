@@ -1,4 +1,4 @@
-﻿// ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
 // ReSharper disable CheckNamespace
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
@@ -19,11 +19,11 @@ namespace GeneratedAddress
 
         public static UintAddressInitial iErrorId { get; } = new UintAddressInitial(32, "MC.iErrorId");
 
-        public static DoubleAddressInitial lrActPos { get; } = new DoubleAddressInitial(64, "MC.lrActPos");
-
         public static BoolAddressInitial startPulse { get; } = new BoolAddressInitial(8, "MC.startPulse");
 
         public static BoolAddressInitial bResetServo { get; } = new BoolAddressInitial(8, "MC.bResetServo");
+
+        public static DoubleAddressInitial lrActPos { get; } = new DoubleAddressInitial(64, "MC.lrActPos");
 
         public static DoubleAddressInitial lrVelocity { get; } = new DoubleAddressInitial(64, "MC.lrVelocity");
 
@@ -342,9 +342,9 @@ namespace GeneratedAddress
     {
         public static BoolAddressInitial bBuildingBoxConnected { get; } = new BoolAddressInitial(8, "MAIN.bBuildingBoxConnected");
 
-        public static BoolAddressInitial bPowderBox1Connected { get; } = new BoolAddressInitial(8, "MAIN.bPowderBox1Connected");
+        public static BoolAddressInitial bDairyBox1Connected { get; } = new BoolAddressInitial(8, "MAIN.bDairyBox1Connected");
 
-        public static BoolAddressInitial bPowderBox2Connected { get; } = new BoolAddressInitial(8, "MAIN.bPowderBox2Connected");
+        public static BoolAddressInitial bDairyrBox2Connected { get; } = new BoolAddressInitial(8, "MAIN.bDairyrBox2Connected");
 
         public static BoolAddressInitial bRedLight { get; } = new BoolAddressInitial(8, "MAIN.bRedLight");
 
@@ -352,13 +352,13 @@ namespace GeneratedAddress
 
         public static BoolAddressInitial bPower { get; } = new BoolAddressInitial(8, "MAIN.bPower");
 
-        public static IntAddressInitial iPowderHeightBuildBox { get; } = new IntAddressInitial(32, "MAIN.iPowderHeightBuildBox");
+        public static IntAddressInitial iDairyHeightBuildBox { get; } = new IntAddressInitial(32, "MAIN.iDairyHeightBuildBox");
 
-        public static IntAddressInitial iPowderHeightPowderBox1 { get; } = new IntAddressInitial(32, "MAIN.iPowderHeightPowderBox1");
+        public static IntAddressInitial iDairyHeightPowderBox1 { get; } = new IntAddressInitial(32, "MAIN.iDairyHeightPowderBox1");
 
-        public static IntAddressInitial iPowderHeightPowderBox2 { get; } = new IntAddressInitial(32, "MAIN.iPowderHeightPowderBox2");
+        public static IntAddressInitial iDairyHeightPowderBox2 { get; } = new IntAddressInitial(32, "MAIN.iDairyHeightPowderBox2");
 
-        public static FloatAddressInitial rGlueHeight { get; } = new FloatAddressInitial(32, "MAIN.rGlueHeight");
+        public static FloatAddressInitial rWaterLevel { get; } = new FloatAddressInitial(32, "MAIN.rWaterLevel");
 
         public static BoolAddressInitial bGreen { get; } = new BoolAddressInitial(8, "MAIN.bGreen");
 
@@ -376,7 +376,7 @@ namespace GeneratedAddress
 
         public static BoolAddressInitial TestBoolIn { get; } = new BoolAddressInitial(8, "MAIN.TestBoolIn");
 
-        public static ShortAddressInitial rGlueLevel { get; } = new ShortAddressInitial(16, "MAIN.rGlueLevel");
+        public static ShortAddressInitial rWaterLevel2 { get; } = new ShortAddressInitial(16, "MAIN.rWaterLevel2");
 
         public static FloatAddressInitial rPosition { get; } = new FloatAddressInitial(32, "MAIN.rPosition");
 
@@ -403,6 +403,15 @@ namespace GeneratedAddress
         public static IntAddressInitial SequenceError { get; } = new IntAddressInitial(32, "MAIN.SequenceError");
 
         public static BoolAddressInitial lXAxisEnable { get; } = new BoolAddressInitial(8, "MAIN.lXAxisEnable");
+
+        public static BoolAddressInitial bBoolToMove1m { get; } = new BoolAddressInitial(8, "MAIN.bBoolToMove1m");
+
+        public static BoolAddressInitial bBoolToMove1 { get; } = new BoolAddressInitial(8, "MAIN.bBoolToMove1");
+
+        public static BoolAddressInitial bMovedBool1 { get; } = new BoolAddressInitial(8, "MAIN.bMovedBool1");
+
+        public static BoolAddressInitial bMovedBool2 { get; } = new BoolAddressInitial(8, "MAIN.bMovedBool2");
+
     }
 
     public static class Position_Control

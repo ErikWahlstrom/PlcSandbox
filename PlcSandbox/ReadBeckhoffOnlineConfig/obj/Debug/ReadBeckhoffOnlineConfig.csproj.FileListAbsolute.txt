@@ -12,3 +12,5 @@ C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\Microsoft.Visual
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\Microsoft.VisualStudio.OLE.Interop.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\Microsoft.VisualStudio.TextManager.Interop.dll
 C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.csproj.ResolveComReference.cache
+C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\bin\Debug\ReadBeckhoffOnlineConfig.dll.config
+C:\git\PlcSandbox\PlcSandbox\ReadBeckhoffOnlineConfig\obj\Debug\ReadBeckhoffOnlineConfig.csprojResolveAssemblyReference.cache

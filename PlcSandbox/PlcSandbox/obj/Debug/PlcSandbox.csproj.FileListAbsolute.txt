@@ -1,4 +1,3 @@
-C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\PrinterPlc.tmc
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\PlcSandbox.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\PlcSandbox.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.csproj.CoreCompileInputs.cache
@@ -7,3 +6,5 @@ C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\obj\Debug\PlcSandbox.csprojResolveAssemblyReference.cache
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\TwinCatAdsCommunication.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\TwinCatAdsCommunication.pdb
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\TwinCAT.Ads.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox\bin\Debug\PlcTest.tmc

@@ -1,4 +1,3 @@
-C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PrinterPlc.tmc
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcSandbox.Tests.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcSandbox.Tests.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\nunit.framework.dll
@@ -11,3 +10,5 @@ C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\TwinCatAdsCommunication.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\TwinCatAdsCommunication.pdb
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\TwinCAT.Ads.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcTest.tmc

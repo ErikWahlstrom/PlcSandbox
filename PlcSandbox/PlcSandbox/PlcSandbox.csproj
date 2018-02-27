@@ -47,7 +47,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AddressTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="PlcSymbol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadPlcSymbolFile.cs" />
     <Compile Include="SomeDomainClass.cs" />
@@ -55,7 +54,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="PlcSandbox.ruleset" />
-    <None Include="PrinterPlc.tmc">
+    <None Include="PlcTest.tmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
