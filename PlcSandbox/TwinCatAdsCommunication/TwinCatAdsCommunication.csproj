@@ -68,7 +68,6 @@
     <Compile Include="PlcReader.cs" />
     <Compile Include="IAddressable.cs" />
     <Compile Include="ReadableValue.cs" />
-    <Compile Include="TwincSymbols.cs" />
     <Compile Include="WriteableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

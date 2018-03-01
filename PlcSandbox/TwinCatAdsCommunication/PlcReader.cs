@@ -1,13 +1,20 @@
 namespace TwinCatAdsCommunication
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using TwinCAT.Ads;
 
     public static class PlcReader
     {
         internal static void ReadToAllValues(TcAdsClient adsClient, IList<IReadableAddress> addresses)
         {
+            if (!addresses.Any())
+            {
+                throw new InvalidOperationException("addresses should not be empty");
+            }
+
             using (var stream = BatchRead(adsClient, addresses))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
@@ -23,6 +30,11 @@ namespace TwinCatAdsCommunication
 
         private static AdsStream BatchRead(TcAdsClient adsClient, IList<IReadableAddress> variables)
         {
+            if (!variables.Any())
+            {
+                throw new InvalidOperationException("Variables should not be empty");
+            }
+
             // Allocate memory
             int rdLength = variables.Count * 4;
             int wrLength = variables.Count * 12;

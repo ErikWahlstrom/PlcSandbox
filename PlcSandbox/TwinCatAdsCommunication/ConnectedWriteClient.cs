@@ -14,11 +14,13 @@ namespace TwinCatAdsCommunication
         private CancellationTokenSource cancellationTokenSource;
         private bool disposed;
         private Task eternalTask;
+        private IList<IWritableAddress> unConnectedAddresses;
 
         private ConnectedWriteClient(TimeSpan cycleTime)
         {
             this.client = new TcAdsClient();
             this.cycleTime = cycleTime;
+            this.unConnectedAddresses = new List<IWritableAddress>();
             this.addresses = new List<IWritableAddress>();
         }
 
@@ -43,14 +45,17 @@ namespace TwinCatAdsCommunication
         public void RegisterCyclicWriting(IWritableAddress address)
         {
             this.ThrowIfDisposed();
-            this.addresses.Add(address);
+            this.unConnectedAddresses.Add(address);
             var cancelCycle = new CancellationTokenSource();
             this.eternalTask = Task.Run(
                 async () =>
                 {
                     while (true)
                     {
-                        PlcWriter.WriteAllValues(this.client, this.addresses);
+                        if (this.addresses.Count > 0)
+                        {
+                            PlcWriter.WriteAllValues(this.client, this.addresses);
+                        }
                         await Task.Delay(this.cycleTime, cancelCycle.Token);
                     }
 

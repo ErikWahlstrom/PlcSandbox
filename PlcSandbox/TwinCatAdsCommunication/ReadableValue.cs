@@ -11,13 +11,15 @@ namespace TwinCatAdsCommunication
 
     public class ReadableValue<T> : INotifyPropertyChanged, IReadableAddress
     {
-        private readonly AddressBase<T> internalAddress;
+        private readonly ConnectedReadClient connectedReadClient;
+        private AddressBase<T> address;
         private AdsErrorCode error;
         private T lastReadValue;
 
-        public ReadableValue(AddressBase<T> address, ConnectedReadClient connectedReadClient)
+        public ReadableValue(UnconnectedAddressBase<T> address, ConnectedReadClient connectedReadClient)
         {
-            this.internalAddress = address;
+            this.connectedReadClient = connectedReadClient;
+            this.InitialAddress = address;
             connectedReadClient.RegisterForCyclicReading(this);
         }
 
@@ -25,7 +27,34 @@ namespace TwinCatAdsCommunication
 
         private event EventHandler ReadFromPlc;
 
-        public IAddress Address => this.internalAddress;
+        public UnconnectedAddressBase<T> InitialAddress { get; }
+
+        IAddress IAddressable.Address
+        {
+            get => this.address;
+            set
+            {
+                this.address = (AddressBase<T>) value;
+                this.OnPropertyChanged(nameof(this.Address));
+            }
+        }
+
+        IUnconnectedAddress IAddressable.UnconnectedAddress => this.InitialAddress;
+
+        public AddressBase<T> Address
+        {
+            get => this.address;
+            set
+            {
+                if (ReferenceEquals(value, this.address))
+                {
+                    return;
+                }
+
+                this.address = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public AdsErrorCode Error
         {
@@ -59,8 +88,13 @@ namespace TwinCatAdsCommunication
 
         public void UpdateValue(BinaryReader stream)
         {
-            this.LastReadValue = this.internalAddress.ReadStream(stream);
+            this.LastReadValue = this.Address.ReadStream(stream);
             this.OnReadFromPlc();
+        }
+
+        public IAddress GetConnectedAddress()
+        {
+            return this.InitialAddress.GetConnectedAddress(this.connectedReadClient);
         }
 
         public Task ReadAsync()

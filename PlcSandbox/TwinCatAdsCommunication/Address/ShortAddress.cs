@@ -4,7 +4,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class ShortAddress : AddressBase<short>
     {
-        internal ShortAddress(int bitSize, string name, int bitOffset)
+        internal ShortAddress(int bitSize, string name, long bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }

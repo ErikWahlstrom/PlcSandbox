@@ -4,7 +4,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class FloatAddress : AddressBase<float>
     {
-        internal FloatAddress(int bitSize, string name, int bitOffset)
+        internal FloatAddress(int bitSize, string name, long bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }

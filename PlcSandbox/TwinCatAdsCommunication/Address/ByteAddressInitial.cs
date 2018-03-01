@@ -6,5 +6,11 @@ namespace TwinCatAdsCommunication.Address
             : base(bitSize, name)
         {
         }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new ByteAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
+        }
     }
 }

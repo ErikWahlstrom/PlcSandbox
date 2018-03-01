@@ -1,15 +1,23 @@
 namespace TwinCatAdsCommunication
 {
-    using System.Collections.Generic;
     using System.IO;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
     public interface IAddressable
     {
-        IAddress Address { get; }
+        IAddress Address { get; set; }
 
         AdsErrorCode Error { get; set; }
+
+        IUnconnectedAddress UnconnectedAddress { get; }
+    }
+
+    public interface IUnconnectedAddress
+    {
+        string Name { get; }
+
+        IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient);
     }
 
     public interface IReadableAddress : IAddressable

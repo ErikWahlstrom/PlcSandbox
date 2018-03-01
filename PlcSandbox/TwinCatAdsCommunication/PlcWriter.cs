@@ -1,13 +1,20 @@
 namespace TwinCatAdsCommunication
 {
+    using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using TwinCAT.Ads;
 
     public static class PlcWriter
     {
         internal static void WriteAllValues(TcAdsClient writeClient, IList<IWritableAddress> addresses)
         {
+            if (!addresses.Any())
+            {
+                throw new InvalidOperationException("Addresses should not be empty");
+            }
+
             using (var stream = BatchWrite(writeClient, addresses))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
@@ -19,6 +26,11 @@ namespace TwinCatAdsCommunication
 
         private static AdsStream BatchWrite(TcAdsClient adsClient, IList<IWritableAddress> addresses)
         {
+            if (!addresses.Any())
+            {
+                throw new InvalidOperationException("addresses shoule not be empty");
+            }
+
             // Allocate memory
             int rdLength = addresses.Count * 4;
             int wrLength = (addresses.Count * 12) + 7; // Kolla den här med befintligt komm. Finns några mer logiska siffror (dock samma) att använda

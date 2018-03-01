@@ -4,7 +4,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class DoubleAddress : AddressBase<double>
     {
-        internal DoubleAddress(int bitSize, string name, int bitOffset)
+        internal DoubleAddress(int bitSize, string name, long bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }
@@ -26,6 +26,12 @@ namespace TwinCatAdsCommunication.Address
             : base(bitSize, name)
         {
         }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new DoubleAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
+        }
     }
 
     public class FloatAddressInitial : UnconnectedAddressBase<float>
@@ -33,6 +39,12 @@ namespace TwinCatAdsCommunication.Address
         public FloatAddressInitial(int bitSize, string name)
             : base(bitSize, name)
         {
+        }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new FloatAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
         }
     }
 
@@ -42,6 +54,12 @@ namespace TwinCatAdsCommunication.Address
             : base(bitSize, name)
         {
         }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new IntAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
+        }
     }
 
     public class ShortAddressInitial : UnconnectedAddressBase<short>
@@ -49,6 +67,12 @@ namespace TwinCatAdsCommunication.Address
         public ShortAddressInitial(int bitSize, string name)
             : base(bitSize, name)
         {
+        }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new ShortAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
         }
     }
 
@@ -58,6 +82,12 @@ namespace TwinCatAdsCommunication.Address
             : base(bitSize, name)
         {
         }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new StringAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
+        }
     }
 
     public class UintAddressInitial : UnconnectedAddressBase<uint>
@@ -66,6 +96,12 @@ namespace TwinCatAdsCommunication.Address
             : base(bitSize, name)
         {
         }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new UintAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
+        }
     }
 
     public class UshortAddressInitial : UnconnectedAddressBase<short>
@@ -73,6 +109,12 @@ namespace TwinCatAdsCommunication.Address
         public UshortAddressInitial(int bitSize, string name)
             : base(bitSize, name)
         {
+        }
+
+        public override IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient)
+        {
+            var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
+            return new ShortAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
         }
     }
 }

@@ -2,6 +2,7 @@ namespace TwinCatAdsCommunication
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
@@ -9,16 +10,18 @@ namespace TwinCatAdsCommunication
     public sealed class ConnectedReadClient : IDisposable, IConnectedClient
     {
         private readonly TcAdsClient client;
+        private readonly IList<IReadableAddress> addresses;
+        private readonly IList<IReadableAddress> unConnectedAddresses;
+        private readonly TimeSpan readCycle;
         private CancellationTokenSource cancellationTokenSource;
         private bool disposed;
         private Task eternalTask;
-        private IList<IReadableAddress> addresses;
-        private readonly TimeSpan readCycle;
 
         private ConnectedReadClient(TimeSpan cycle)
         {
             this.client = new TcAdsClient();
             this.addresses = new List<IReadableAddress>();
+            this.unConnectedAddresses = new List<IReadableAddress>();
             this.readCycle = cycle;
         }
 
@@ -37,13 +40,19 @@ namespace TwinCatAdsCommunication
                 this.client.Connect(this.client.Address);
             }
 
-            return this.client.ReadSymbolInfo(name);
+            var info = this.client.ReadSymbolInfo(name);
+            if (info == null)
+            {
+                throw new InvalidOperationException($"Address does not exist in PLC: {name}");
+            }
+
+            return info;
         }
 
         public void RegisterForCyclicReading(IReadableAddress readableAddress)
         {
             this.ThrowIfDisposed();
-            this.addresses.Add(readableAddress);
+            this.unConnectedAddresses.Add(readableAddress);
 
             if (this.eternalTask == null)
             {
@@ -53,7 +62,11 @@ namespace TwinCatAdsCommunication
                     {
                         while (true)
                         {
-                            PlcReader.ReadToAllValues(this.client, this.addresses);
+                            this.ConnectedUnconnectedAddresses();
+                            if (this.addresses.Count > 0)
+                            {
+                                PlcReader.ReadToAllValues(this.client, this.addresses);
+                            }
                             await Task.Delay(this.readCycle, cancelCycle.Token);
                         }
 
@@ -62,6 +75,40 @@ namespace TwinCatAdsCommunication
 
                 this.cancellationTokenSource?.Dispose();
                 this.cancellationTokenSource = cancelCycle;
+            }
+        }
+
+        private void ConnectedUnconnectedAddresses()
+        {
+            if (this.unConnectedAddresses.Count < 1)
+            {
+                return;
+            }
+
+            foreach (var readableAddress in this.unConnectedAddresses)
+            {
+                try
+                {
+                    readableAddress.Address = readableAddress.UnconnectedAddress.GetConnectedAddress(this);
+                }
+                catch (Exception e)
+                {
+                    readableAddress.Error = AdsErrorCode.DeviceSymbolNotFound;
+                    Console.WriteLine(e);
+                }
+
+                if (readableAddress.Address != null)
+                {
+                    this.addresses.Add(readableAddress);
+                }
+            }
+
+            var connectedFromUnconnected = this.unConnectedAddresses.Where(x => x.Address != null).ToArray();
+
+            for (var index = 0; index < connectedFromUnconnected.Length; index++)
+            {
+                var removeAddress = connectedFromUnconnected[index];
+                this.unConnectedAddresses.Remove(removeAddress);
             }
         }
 

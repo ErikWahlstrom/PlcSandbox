@@ -2,7 +2,7 @@ namespace TwinCatAdsCommunication.Address
 {
     using System;
 
-    public abstract class UnconnectedAddressBase<T>
+    public abstract class UnconnectedAddressBase<T> : IUnconnectedAddress
     {
         protected UnconnectedAddressBase(int bitSize, string name)
         {
@@ -20,5 +20,7 @@ namespace TwinCatAdsCommunication.Address
         {
             return $"{this.Name}, {this.BitSize}";
         }
+
+        public abstract IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient);
     }
 }

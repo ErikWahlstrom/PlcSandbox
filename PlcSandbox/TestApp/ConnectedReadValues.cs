@@ -11,9 +11,9 @@ namespace TestApp
 
         public ConnectedReadValues()
         {
-            this.connectedReadClient = ConnectedReadClient.CreateAndConnect(new AmsNetId("123.2.3.55.1.3"), 851, TimeSpan.FromMilliseconds(1000));
-            this.IsLightOn = new ReadableValue<bool>(TwincSymbols.ConnectBoolAddress(GeneratedAddress.MAIN.IsLightOn, this.connectedReadClient), this.connectedReadClient);
-            this.BuildingBoxConnected = new ReadableValue<bool>(TwincSymbols.ConnectBoolAddress(GeneratedAddress.MAIN.bBuildingBoxConnected, this.connectedReadClient), this.connectedReadClient);
+            this.connectedReadClient = ConnectedReadClient.CreateAndConnect(new AmsNetId("164.4.3.67.1.1"), 851, TimeSpan.FromMilliseconds(1000));
+            this.IsLightOn = new ReadableValue<bool>(GeneratedAddress.MAIN.IsLightOn, this.connectedReadClient);
+            this.BuildingBoxConnected = new ReadableValue<bool>(GeneratedAddress.MAIN.bBuildingBoxConnected, this.connectedReadClient);
         }
 
         public ReadableValue<bool> BuildingBoxConnected { get; }

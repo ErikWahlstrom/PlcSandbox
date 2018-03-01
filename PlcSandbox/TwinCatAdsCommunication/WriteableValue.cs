@@ -9,20 +9,47 @@ namespace TwinCatAdsCommunication
 
     public class WriteableValue<T> : INotifyPropertyChanged, IWritableAddress
     {
-        private readonly AddressBase<T> internalAddress;
         private AdsErrorCode error;
         private T valueToWrite;
+        private UnconnectedAddressBase<T> unConnectedAddress;
+        private AddressBase<T> address;
 
-        public WriteableValue(AddressBase<T> address)
+        public WriteableValue(UnconnectedAddressBase<T> address, ConnectedWriteClient writeClient)
         {
-            this.internalAddress = address;
+            this.unConnectedAddress = address;
+            writeClient.RegisterCyclicWriting(this);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private event EventHandler WrittenToPlc;
 
-        public IAddress Address => this.internalAddress;
+        IAddress IAddressable.Address
+        {
+            get => this.address;
+            set
+            {
+                this.address = (AddressBase<T>)value;
+                this.OnPropertyChanged(nameof(this.Address));
+            }
+        }
+
+        public AddressBase<T> Address
+        {
+            get => this.address;
+            set
+            {
+                if (ReferenceEquals(value, this.address))
+                {
+                    return;
+                }
+
+                this.address = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        IUnconnectedAddress IAddressable.UnconnectedAddress => this.unConnectedAddress;
 
         public AdsErrorCode Error
         {
@@ -70,7 +97,7 @@ namespace TwinCatAdsCommunication
 
         public void WriteValueToStream(BinaryWriter writer)
         {
-            this.internalAddress.WriteToStream(writer, this.ValueToWrite);
+            this.address.WriteToStream(writer, this.ValueToWrite);
         }
 
         public void NotifyWritten()
@@ -80,7 +107,7 @@ namespace TwinCatAdsCommunication
 
         protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
         {
-            this.PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         protected virtual void OnWrittenToPlc()

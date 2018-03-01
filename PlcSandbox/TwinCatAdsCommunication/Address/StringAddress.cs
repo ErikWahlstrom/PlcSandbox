@@ -5,7 +5,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class StringAddress : AddressBase<string>
     {
-        internal StringAddress(int bitSize, string name, int bitOffset)
+        internal StringAddress(int bitSize, string name, long bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }

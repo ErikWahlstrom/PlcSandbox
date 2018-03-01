@@ -20,7 +20,7 @@
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <TextBlock Text="{Binding ReadValues.IsLightOn.Address}" />
-    <CheckBox Grid.Row="1" IsChecked="{Binding ReadValues.IsLightOn.LastReadValue}" Content="Last read value"/>
+    <CheckBox Grid.Row="1" IsChecked="{Binding ReadValues.IsLightOn.LastReadValue, Mode=OneWay}" Content="Last read value"/>
     <TextBlock Grid.Row="2" Text="{Binding WriteValues.LightOn.Address}" />
     <CheckBox Grid.Row="3" IsChecked="{Binding WriteValues.LightOn.ValueToWrite}" Content="Value to write"/>
   </Grid>

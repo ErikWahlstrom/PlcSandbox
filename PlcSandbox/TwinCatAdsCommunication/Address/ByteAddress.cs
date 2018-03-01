@@ -4,7 +4,7 @@ namespace TwinCatAdsCommunication.Address
 
     public class ByteAddress : AddressBase<byte>
     {
-        internal ByteAddress(int bitSize, string name, int bitOffset)
+        internal ByteAddress(int bitSize, string name, long bitOffset)
             : base(bitSize, name, bitOffset)
         {
         }
