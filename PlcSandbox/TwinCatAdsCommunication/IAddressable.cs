@@ -17,7 +17,7 @@ namespace TwinCatAdsCommunication
     {
         string Name { get; }
 
-        IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient);
+        IAddress GetConnectedAddress(IConnectedClient connectedReadClient);
     }
 
     public interface IReadableAddress : IAddressable

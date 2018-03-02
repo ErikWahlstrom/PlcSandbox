@@ -2,8 +2,8 @@ namespace TwinCatAdsCommunication
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
+    using System.Linq;
+    using System.Reactive.Linq;
     using TwinCAT.Ads;
 
     public sealed class ConnectedWriteClient : IDisposable, IConnectedClient
@@ -11,9 +11,8 @@ namespace TwinCatAdsCommunication
         private readonly TcAdsClient client;
         private readonly TimeSpan cycleTime;
         private readonly IList<IWritableAddress> addresses;
-        private CancellationTokenSource cancellationTokenSource;
+        private readonly IDisposable disposable;
         private bool disposed;
-        private Task eternalTask;
         private IList<IWritableAddress> unConnectedAddresses;
 
         private ConnectedWriteClient(TimeSpan cycleTime)
@@ -22,6 +21,14 @@ namespace TwinCatAdsCommunication
             this.cycleTime = cycleTime;
             this.unConnectedAddresses = new List<IWritableAddress>();
             this.addresses = new List<IWritableAddress>();
+            this.disposable = Observable.Interval(cycleTime).Subscribe(_ =>
+            {
+                this.ConnectedUnconnectedAddresses();
+                if (this.addresses.Count > 0)
+                {
+                    PlcWriter.WriteAllValues(this.client, this.addresses);
+                }
+            });
         }
 
         public static ConnectedWriteClient CreateAndConnect(AmsNetId id, int port, TimeSpan cycleTime)
@@ -46,24 +53,6 @@ namespace TwinCatAdsCommunication
         {
             this.ThrowIfDisposed();
             this.unConnectedAddresses.Add(address);
-            var cancelCycle = new CancellationTokenSource();
-            this.eternalTask = Task.Run(
-                async () =>
-                {
-                    while (true)
-                    {
-                        if (this.addresses.Count > 0)
-                        {
-                            PlcWriter.WriteAllValues(this.client, this.addresses);
-                        }
-                        await Task.Delay(this.cycleTime, cancelCycle.Token);
-                    }
-
-                    // ReSharper disable once FunctionNeverReturns
-                }, cancelCycle.Token);
-
-            this.cancellationTokenSource?.Dispose();
-            this.cancellationTokenSource = cancelCycle;
         }
 
         public void Dispose()
@@ -73,10 +62,43 @@ namespace TwinCatAdsCommunication
                 return;
             }
 
-            this.disposed = true;
-            this.cancellationTokenSource.Cancel();
-            this.eternalTask.Wait(TimeSpan.FromSeconds(10));
             this.client.Dispose();
+            this.disposable?.Dispose();
+            this.disposed = true;
+        }
+
+        private void ConnectedUnconnectedAddresses()
+        {
+            if (this.unConnectedAddresses.Count < 1)
+            {
+                return;
+            }
+
+            foreach (var readableAddress in this.unConnectedAddresses)
+            {
+                try
+                {
+                    readableAddress.Address = readableAddress.UnconnectedAddress.GetConnectedAddress(this);
+                }
+                catch (Exception e)
+                {
+                    readableAddress.Error = AdsErrorCode.DeviceSymbolNotFound;
+                    Console.WriteLine(e);
+                }
+
+                if (readableAddress.Address != null)
+                {
+                    this.addresses.Add(readableAddress);
+                }
+            }
+
+            var connectedFromUnconnected = this.unConnectedAddresses.Where(x => x.Address != null).ToArray();
+
+            for (var index = 0; index < connectedFromUnconnected.Length; index++)
+            {
+                var removeAddress = connectedFromUnconnected[index];
+                this.unConnectedAddresses.Remove(removeAddress);
+            }
         }
 
         private void ThrowIfDisposed()

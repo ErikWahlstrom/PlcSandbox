@@ -21,6 +21,6 @@ namespace TwinCatAdsCommunication.Address
             return $"{this.Name}, {this.BitSize}";
         }
 
-        public abstract IAddress GetConnectedAddress(ConnectedReadClient connectedReadClient);
+        public abstract IAddress GetConnectedAddress(IConnectedClient connectedReadClient);
     }
 }

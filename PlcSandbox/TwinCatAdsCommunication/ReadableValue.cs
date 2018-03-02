@@ -120,4 +120,18 @@ namespace TwinCatAdsCommunication
             this.ReadFromPlc?.Invoke(this, EventArgs.Empty);
         }
     }
+
+    public class ReadableBoolValue : ReadableValue<bool>
+    {
+        public ReadableBoolValue(UnconnectedAddressBase<bool> address, ConnectedReadClient connectedReadClient) : base(address, connectedReadClient)
+        {
+        }
+    }
+
+    public class WritableBoolValue : WriteableValue<bool>
+    {
+        public WritableBoolValue(UnconnectedAddressBase<bool> address, ConnectedWriteClient writeClient) : base(address, writeClient)
+        {
+        }
+    }
 }

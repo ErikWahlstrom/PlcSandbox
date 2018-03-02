@@ -5,6 +5,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:local="clr-namespace:TestApp"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:twinCatAdsCommunication="clr-namespace:TwinCatAdsCommunication;assembly=TwinCatAdsCommunication"
   Title="MainWindow"
   Width="525"
   Height="350"
@@ -12,6 +13,28 @@
   <Window.DataContext>
     <local:MainWindowVm />
   </Window.DataContext>
+  <Window.Resources>
+    <DataTemplate x:Key="ReadTemplate" DataType="twinCatAdsCommunication:ReadableBoolValue">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Address}" />
+        <CheckBox Grid.Row="1" IsChecked="{Binding LastReadValue, Mode=OneWay}" Content="Last read value"/>
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="WriteTemplate" DataType="twinCatAdsCommunication:WritableBoolValue">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Address}" />
+        <CheckBox Grid.Row="1" IsChecked="{Binding ValueToWrite, Mode=OneWay}" Content="Last read value"/>
+      </Grid>
+    </DataTemplate>
+  </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -19,9 +42,8 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <TextBlock Text="{Binding ReadValues.IsLightOn.Address}" />
-    <CheckBox Grid.Row="1" IsChecked="{Binding ReadValues.IsLightOn.LastReadValue, Mode=OneWay}" Content="Last read value"/>
-    <TextBlock Grid.Row="2" Text="{Binding WriteValues.LightOn.Address}" />
-    <CheckBox Grid.Row="3" IsChecked="{Binding WriteValues.LightOn.ValueToWrite}" Content="Value to write"/>
+    <ContentPresenter Grid.Row="0" Content="{Binding WriteValues.LightOn}" ContentTemplate="{StaticResource WriteTemplate}"/>
+    <ContentPresenter Grid.Row="1" Content="{Binding ReadValues.IsLightOn}" ContentTemplate="{StaticResource ReadTemplate}"/>
+    <ContentPresenter Grid.Row="2" Content="{Binding ReadValues.BuildingBoxConnected}" ContentTemplate="{StaticResource ReadTemplate}"/>
   </Grid>
 </Window>
