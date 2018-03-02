@@ -1,9 +1,8 @@
 namespace TwinCatAdsCommunication
 {
-    using System.Collections.Concurrent;
+    using System;
     using System.Collections.Generic;
     using System.IO;
-    using TwinCatAdsCommunication.Address;
     using TwinCAT.Ads;
 
     internal static class AdsStreamExtension
@@ -15,7 +14,7 @@ namespace TwinCatAdsCommunication
                 int error = reader.ReadInt32();
                 if (error != (int)AdsErrorCode.NoError)
                 {
-                    variables[i].Error = (AdsErrorCode) error;
+                    variables[i].Exception = new Exception($"Error accessing value {variables[i].Address.Name}: {(AdsErrorCode)error}");
                     System.Diagnostics.Debug.WriteLine($"Unable to read variable {i} (Error = {error})");
                 }
             }

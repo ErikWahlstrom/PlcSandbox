@@ -25,7 +25,7 @@ namespace TwinCatAdsCommunication
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
-                    reader.CheckErrors((IList<IAddressable>) addresses);
+                    reader.CheckErrors(addresses.Select(x => (IAddressable)x).ToList());
                 }
             }
         }
@@ -34,12 +34,13 @@ namespace TwinCatAdsCommunication
         {
             if (!addresses.Any())
             {
-                throw new InvalidOperationException("addresses shoule not be empty");
+                throw new InvalidOperationException("addresses should not be empty");
             }
 
             // Allocate memory
             int rdLength = addresses.Count * ErrorSize;
-            int wrLength = (addresses.Count * (SymbolValueByHandleSize + VariableHandleSize + BitSizeSize)) + 7; // Magic seven. Not sure why needed, needs to be looked up.
+            var totalMemorySize = addresses.Sum(x => x.Address.BitSize);
+            int wrLength = (addresses.Count * (SymbolValueByHandleSize + VariableHandleSize + BitSizeSize)) + totalMemorySize;
             using (var writer = new BinaryWriter(new AdsStream(wrLength)))
             {
                 // Write data for handles into the ADS stream
@@ -60,7 +61,6 @@ namespace TwinCatAdsCommunication
 
                 foreach (var writableAddress in addresses)
                 {
-                    // Ska vi signalera här?
                     writableAddress.NotifyWritten();
                 }
 

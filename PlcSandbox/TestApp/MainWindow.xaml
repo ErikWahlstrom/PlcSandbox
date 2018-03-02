@@ -20,12 +20,10 @@
           <RowDefinition />
           <RowDefinition />
           <RowDefinition />
-          <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Address}" />
         <CheckBox Grid.Row="1" IsChecked="{Binding LastReadValue, Mode=OneWay}" Content="Last read value"/>
-        <TextBlock Grid.Row="2" Text="{Binding Error}" />
-        <TextBlock Grid.Row="3" Text="{Binding Exception}" />
+        <TextBlock Grid.Row="2" Text="{Binding Exception}" />
       </Grid>
     </DataTemplate>
     <DataTemplate x:Key="WriteTemplate" DataType="twinCatAdsCommunication:WritableBoolValue">
@@ -34,12 +32,10 @@
           <RowDefinition />
           <RowDefinition />
           <RowDefinition />
-          <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Address}" />
         <CheckBox Grid.Row="1" IsChecked="{Binding ValueToWrite}" Content="Value to write"/>
-        <TextBlock Grid.Row="2" Text="{Binding Error}" />
-        <TextBlock Grid.Row="3" Text="{Binding Exception}" />
+        <TextBlock Grid.Row="2" Text="{Binding Exception}" />
       </Grid>
     </DataTemplate>
   </Window.Resources>

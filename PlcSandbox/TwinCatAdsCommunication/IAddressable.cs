@@ -9,8 +9,6 @@ namespace TwinCatAdsCommunication
     {
         IAddress Address { get; set; }
 
-        AdsErrorCode Error { get; set; }
-
         Exception Exception { get; set; }
 
         IUnconnectedAddress UnconnectedAddress { get; }

@@ -55,21 +55,6 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        public AdsErrorCode Error
-        {
-            get => this.error;
-            set
-            {
-                if (value == this.error)
-                {
-                    return;
-                }
-
-                this.error = value;
-                this.OnPropertyChanged();
-            }
-        }
-
         public Exception Exception
         {
             get => this.exception;

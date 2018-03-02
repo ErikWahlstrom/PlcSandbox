@@ -79,10 +79,10 @@ namespace TwinCatAdsCommunication
                 try
                 {
                     readableAddress.Address = readableAddress.UnconnectedAddress.GetConnectedAddress(this);
+                    readableAddress.Exception = null;
                 }
                 catch (Exception e)
                 {
-                    readableAddress.Error = AdsErrorCode.DeviceSymbolNotFound;
                     readableAddress.Exception = e;
                     Console.WriteLine(e);
                 }

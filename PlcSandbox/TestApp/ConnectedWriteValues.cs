@@ -11,7 +11,7 @@ namespace TestApp
 
         public ConnectedWriteValues()
         {
-            this.connectedWriteClient = ConnectedWriteClient.CreateAndConnect(new AmsNetId("1.2.3.5.1.1"), 851, TimeSpan.FromMilliseconds(200));
+            this.connectedWriteClient = ConnectedWriteClient.CreateAndConnect(new AmsNetId("164.4.3.67.1.1"), 851, TimeSpan.FromMilliseconds(10));
             this.LightOn = new WriteableValue<bool>(GeneratedAddress.MAIN.LightOn, this.connectedWriteClient);
             this.connectedWriteClient.RegisterCyclicWriting(this.LightOn);
         }

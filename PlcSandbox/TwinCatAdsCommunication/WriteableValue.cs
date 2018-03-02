@@ -67,21 +67,6 @@ namespace TwinCatAdsCommunication
 
         IUnconnectedAddress IAddressable.UnconnectedAddress => this.unConnectedAddress;
 
-        public AdsErrorCode Error
-        {
-            get => this.error;
-            set
-            {
-                if (value == this.error)
-                {
-                    return;
-                }
-
-                this.error = value;
-                this.OnPropertyChanged();
-            }
-        }
-
         public T ValueToWrite
         {
             get => this.valueToWrite;
