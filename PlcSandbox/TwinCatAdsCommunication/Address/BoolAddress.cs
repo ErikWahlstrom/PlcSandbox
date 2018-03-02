@@ -1,7 +1,6 @@
 namespace TwinCatAdsCommunication.Address
 {
     using System.IO;
-    using TwinCAT.Ads;
 
     public class BoolAddress : AddressBase<bool>
     {

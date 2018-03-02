@@ -12,9 +12,9 @@ namespace TwinCatAdsCommunication.Address
 
         public override string ReadStream(BinaryReader reader)
         {
-            throw new NotImplementedException();
-            // Ytterst tveksamt att den här funkar
-            return reader.ReadString();
+            throw new NotImplementedException(); // Ytterst tveksamt att den här funkar
+
+            // return reader.ReadString();
         }
 
         public override void WriteToStream(BinaryWriter writer, string value)

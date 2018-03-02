@@ -31,7 +31,7 @@ namespace TwinCatAdsCommunication
             get => this.address;
             set
             {
-                this.address = (AddressBase<T>) value;
+                this.address = (AddressBase<T>)value;
                 this.OnPropertyChanged(nameof(this.Address));
             }
         }
@@ -115,20 +115,6 @@ namespace TwinCatAdsCommunication
         protected virtual void OnReadFromPlc()
         {
             this.ReadFromPlc?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
-    public class ReadableBoolValue : ReadableValue<bool>
-    {
-        public ReadableBoolValue(UnconnectedAddressBase<bool> address, ConnectedReadClient connectedReadClient) : base(address, connectedReadClient)
-        {
-        }
-    }
-
-    public class WritableBoolValue : WriteableValue<bool>
-    {
-        public WritableBoolValue(UnconnectedAddressBase<bool> address, ConnectedWriteClient writeClient) : base(address, writeClient)
-        {
         }
     }
 }

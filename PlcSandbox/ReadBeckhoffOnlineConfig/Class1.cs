@@ -1,4 +1,4 @@
-﻿namespace ReadBeckhoffOnlineConfig
+namespace ReadBeckhoffOnlineConfig
 {
     using System;
     using System.Diagnostics;
@@ -22,12 +22,14 @@
         [Test]
         public void TestClass()
         {
-            var beckhoffClient = new TcAdsClient();
+            TcAdsSymbolInfoLoader loader;
+            using (var beckhoffClient = new TcAdsClient())
+            {
+                beckhoffClient.Connect("164.4.4.112.1.1", 853); // Release-datorn
+                var isConnected = beckhoffClient.IsConnected;
+                loader = beckhoffClient.CreateSymbolInfoLoader();
+            }
 
-            // beckhoffClient.Connect("192.168.100.1.1.1", 851); //"164.4.4.112.1.1", 853);
-            beckhoffClient.Connect("164.4.4.112.1.1", 853); // Release-datorn
-            var isConnected = beckhoffClient.IsConnected;
-            var loader = beckhoffClient.CreateSymbolInfoLoader();
             var symbols = loader.GetSymbols(true);
 
             // var symbol = loader.FindSymbol("BackForthSequence.start_ui");

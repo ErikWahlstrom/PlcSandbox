@@ -47,7 +47,8 @@ namespace TwinCatAdsCommunication
             // Write data for handles into the ADS Stream
             using (var writer = new BinaryWriter(new AdsStream(wrLength)))
             {
-                foreach (var readableAddress in variables) // Byt till Immutable list!
+                // Byt till Immutable list!
+                foreach (var readableAddress in variables)
                 {
                     writer.Write((int)AdsReservedIndexGroups.SymbolValueByHandle);
                     writer.Write(readableAddress.Address.VariableHandle);

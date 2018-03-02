@@ -47,6 +47,18 @@ namespace TwinCatAdsCommunication
             this.unConnectedAddresses.Add(readableAddress);
         }
 
+        public void Dispose()
+        {
+            if (this.disposed)
+            {
+                return;
+            }
+
+            this.disposed = true;
+            this.client.Dispose();
+            this.disposable?.Dispose();
+        }
+
         private void ConnectedUnconnectedAddresses()
         {
             if (this.unConnectedAddresses.Count < 1)
@@ -80,18 +92,6 @@ namespace TwinCatAdsCommunication
                 var removeAddress = connectedFromUnconnected[index];
                 this.unConnectedAddresses.Remove(removeAddress);
             }
-        }
-
-        public void Dispose()
-        {
-            if (this.disposed)
-            {
-                return;
-            }
-
-            this.disposed = true;
-            this.client.Dispose();
-            this.disposable?.Dispose();
         }
 
         private void ThrowIfDisposed()

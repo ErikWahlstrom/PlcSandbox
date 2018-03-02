@@ -8,7 +8,6 @@ namespace TwinCatAdsCommunication
 
     public static class PlcWriter
     {
-
         private const int BitSizeSize = sizeof(int);
         private const int VariableHandleSize = sizeof(int);
         private const int SymbolValueByHandleSize = sizeof(int);

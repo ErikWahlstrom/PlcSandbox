@@ -2,7 +2,6 @@ namespace TwinCatAdsCommunication
 {
     using System;
     using System.IO;
-    using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
     public interface IAddressable
