@@ -8,6 +8,11 @@ namespace TwinCatAdsCommunication
 
     public static class PlcReader
     {
+        private const int BitSizeSize = sizeof(int);
+        private const int BitOffsetSize = sizeof(int);
+        private const int SymbolValueByHandleSize = sizeof(int);
+        
+
         internal static void ReadToAllValues(TcAdsClient adsClient, IList<IReadableAddress> addresses)
         {
             if (!addresses.Any())
@@ -37,7 +42,7 @@ namespace TwinCatAdsCommunication
 
             // Allocate memory
             int rdLength = variables.Count * 4;
-            int wrLength = variables.Count * 12;
+            int wrLength = (SymbolValueByHandleSize + BitOffsetSize + BitSizeSize) * variables.Count;
 
             // Write data for handles into the ADS Stream
             using (var writer = new BinaryWriter(new AdsStream(wrLength)))
@@ -45,7 +50,7 @@ namespace TwinCatAdsCommunication
                 foreach (var readableAddress in variables)
                 {
                     writer.Write((int)AdsReservedIndexGroups.SymbolValueByHandle);
-                    writer.Write(readableAddress.Address.BitOffset);
+                    writer.Write(readableAddress.Address.VariableHandle);
                     writer.Write(readableAddress.Address.BitSize);
                     rdLength += readableAddress.Address.BitSize;
                 }

@@ -40,7 +40,7 @@ namespace TwinCatAdsCommunication
                 foreach (var writableAddress in addresses)
                 {
                     writer.Write((int)AdsReservedIndexGroups.SymbolValueByHandle);
-                    writer.Write(writableAddress.Address.BitOffset);
+                    writer.Write(writableAddress.Address.VariableHandle);
                     writer.Write(writableAddress.Address.BitSize);
                 }
 

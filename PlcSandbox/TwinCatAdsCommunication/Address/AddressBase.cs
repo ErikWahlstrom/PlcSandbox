@@ -5,24 +5,24 @@ namespace TwinCatAdsCommunication.Address
 
     public abstract class AddressBase<T> : IAddress
     {
-        internal AddressBase(int bitSize, string name, long bitOffset)
+        internal AddressBase(string name, int bitSize, int variableHandle)
         {
             this.BitSize = bitSize;
             this.Name = name;
-            this.BitOffset = bitOffset;
+            this.VariableHandle = variableHandle;
         }
 
         public string Name { get; }
 
         public int BitSize { get; }
 
-        public long BitOffset { get; }
+        public int VariableHandle { get; }
 
         public Type Type { get; } = typeof(T);
 
         public override string ToString()
         {
-            return $"{this.Name}, {this.BitOffset}, {this.BitSize}";
+            return $"{this.Name}, {this.VariableHandle}, {this.BitSize}";
         }
 
         public abstract T ReadStream(BinaryReader reader);

@@ -10,7 +10,7 @@ namespace TwinCatAdsCommunication.Address
         public override IAddress GetConnectedAddress(IConnectedClient connectedReadClient)
         {
             var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
-            return new BoolAddress(symbolInfo.Size, symbolInfo.Name, symbolInfo.IndexOffset);
+            return new BoolAddress(this.Name, symbolInfo.Size, symbolInfo.Handle);
         }
     }
 }

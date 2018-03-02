@@ -4,8 +4,8 @@ namespace TwinCatAdsCommunication.Address
 
     public class UshortAddress : AddressBase<ushort>
     {
-        internal UshortAddress(int bitSize, string name, int bitOffset)
-            : base(bitSize, name, bitOffset)
+        internal UshortAddress(string name, int bitSize, int variableHandle)
+            : base(name, bitSize, variableHandle)
         {
         }
 

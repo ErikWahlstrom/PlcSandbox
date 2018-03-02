@@ -4,8 +4,8 @@ namespace TwinCatAdsCommunication.Address
 
     public class IntAddress : AddressBase<int>
     {
-        internal IntAddress(int bitSize, string name, long bitOffset)
-            : base(bitSize, name, bitOffset)
+        internal IntAddress(string name, int bitSize, int variableHandle)
+            : base(name, bitSize, variableHandle)
         {
         }
 

@@ -5,3 +5,9 @@ C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommuni
 C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommunication.pdb
 C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\obj\Debug\TwinCatAdsCommunication.csprojResolveAssemblyReference.cache
 C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\TwinCAT.Ads.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\System.Reactive.Core.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\System.Reactive.Interfaces.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\System.Reactive.Linq.dll
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\System.Reactive.Core.xml
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\System.Reactive.Interfaces.xml
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication\bin\Debug\System.Reactive.Linq.xml

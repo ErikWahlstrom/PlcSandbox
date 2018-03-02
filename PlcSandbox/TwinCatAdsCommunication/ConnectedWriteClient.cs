@@ -38,7 +38,7 @@ namespace TwinCatAdsCommunication
             return connectedClient;
         }
 
-        public ITcAdsSymbol ReadSymbolInfo(string name)
+        public VariableHandleAndSize ReadSymbolInfo(string name)
         {
             this.ThrowIfDisposed();
             if (this.client.IsConnected)
@@ -46,7 +46,7 @@ namespace TwinCatAdsCommunication
                 this.client.Connect(this.client.Address);
             }
 
-            return this.client.ReadSymbolInfo(name);
+            return this.client.ReadSymbolInfoAds(name);
         }
 
         public void RegisterCyclicWriting(IWritableAddress address)

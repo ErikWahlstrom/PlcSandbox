@@ -36,7 +36,7 @@ namespace TwinCatAdsCommunication
             return connectedClient;
         }
 
-        public ITcAdsSymbol ReadSymbolInfo(string name)
+        public VariableHandleAndSize ReadSymbolInfo(string name)
         {
             return this.client.ReadSymbolInfoAds(name);
         }

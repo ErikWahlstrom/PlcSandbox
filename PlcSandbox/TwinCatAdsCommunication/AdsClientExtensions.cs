@@ -3,9 +3,9 @@ namespace TwinCatAdsCommunication
     using System;
     using TwinCAT.Ads;
 
-    public static class AdsClientExtensions
+    internal static class AdsClientExtensions
     {
-        public static ITcAdsSymbol ReadSymbolInfoAds(this TcAdsClient client, string name)
+        internal static VariableHandleAndSize ReadSymbolInfoAds(this TcAdsClient client, string name)
         {
             if (!client.IsConnected)
             {
@@ -13,12 +13,26 @@ namespace TwinCatAdsCommunication
             }
 
             var info = client.ReadSymbolInfo(name);
+            var handle = client.CreateVariableHandle(name);
             if (info == null)
             {
                 throw new InvalidOperationException($"Address does not exist in PLC: {name}");
             }
 
-            return info;
+            return new VariableHandleAndSize(handle, info.Size);
         }
+    }
+
+    public class VariableHandleAndSize
+    {
+        public VariableHandleAndSize(int handle, int size)
+        {
+            this.Handle = handle;
+            this.Size = size;
+        }
+
+        public int Handle { get; }
+
+        public int Size { get; }
     }
 }

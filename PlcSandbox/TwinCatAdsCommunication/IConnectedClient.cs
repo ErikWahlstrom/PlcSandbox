@@ -4,6 +4,6 @@ namespace TwinCatAdsCommunication
 
     public interface IConnectedClient
     {
-        ITcAdsSymbol ReadSymbolInfo(string name);
+        VariableHandleAndSize ReadSymbolInfo(string name);
     }
 }
