@@ -83,6 +83,7 @@ namespace TwinCatAdsCommunication
                 catch (Exception e)
                 {
                     readableAddress.Error = AdsErrorCode.DeviceSymbolNotFound;
+                    readableAddress.Exception = e;
                     Console.WriteLine(e);
                 }
 

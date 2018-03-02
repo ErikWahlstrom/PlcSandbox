@@ -11,6 +11,7 @@ namespace TwinCatAdsCommunication
     {
         private AdsErrorCode error;
         private T valueToWrite;
+        private Exception exception;
         private UnconnectedAddressBase<T> unConnectedAddress;
         private AddressBase<T> address;
 
@@ -45,6 +46,21 @@ namespace TwinCatAdsCommunication
                 }
 
                 this.address = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public Exception Exception
+        {
+            get => this.exception;
+            set
+            {
+                if (ReferenceEquals(value, this.exception))
+                {
+                    return;
+                }
+
+                this.exception = value;
                 this.OnPropertyChanged();
             }
         }

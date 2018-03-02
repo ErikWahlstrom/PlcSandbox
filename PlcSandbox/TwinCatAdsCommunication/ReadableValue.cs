@@ -1,10 +1,8 @@
 namespace TwinCatAdsCommunication
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
@@ -14,6 +12,7 @@ namespace TwinCatAdsCommunication
         private readonly ConnectedReadClient connectedReadClient;
         private AddressBase<T> address;
         private AdsErrorCode error;
+        private Exception exception;
         private T lastReadValue;
 
         public ReadableValue(UnconnectedAddressBase<T> address, ConnectedReadClient connectedReadClient)
@@ -67,6 +66,21 @@ namespace TwinCatAdsCommunication
                 }
 
                 this.error = value;
+                this.OnPropertyChanged();
+            }
+        }
+
+        public Exception Exception
+        {
+            get => this.exception;
+            set
+            {
+                if (ReferenceEquals(value, this.exception))
+                {
+                    return;
+                }
+
+                this.exception = value;
                 this.OnPropertyChanged();
             }
         }

@@ -1,5 +1,6 @@
 namespace TwinCatAdsCommunication
 {
+    using System;
     using System.IO;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
@@ -9,6 +10,8 @@ namespace TwinCatAdsCommunication
         IAddress Address { get; set; }
 
         AdsErrorCode Error { get; set; }
+
+        Exception Exception { get; set; }
 
         IUnconnectedAddress UnconnectedAddress { get; }
     }
