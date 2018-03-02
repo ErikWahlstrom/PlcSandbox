@@ -9,9 +9,9 @@ namespace TwinCatAdsCommunication
     public static class PlcReader
     {
         private const int BitSizeSize = sizeof(int);
-        private const int BitOffsetSize = sizeof(int);
+        private const int VariableHandleSize = sizeof(int);
         private const int SymbolValueByHandleSize = sizeof(int);
-        
+        private const int ErrorSize = sizeof(int);
 
         internal static void ReadToAllValues(TcAdsClient adsClient, IList<IReadableAddress> addresses)
         {
@@ -24,7 +24,7 @@ namespace TwinCatAdsCommunication
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
-                    reader.CheckErrors((IList<IAddressable>) addresses);
+                    reader.CheckErrors(addresses.Select(x => (IAddressable)x).ToList());
                     foreach (var address in addresses)
                     {
                         address.UpdateValue(reader);
@@ -41,13 +41,13 @@ namespace TwinCatAdsCommunication
             }
 
             // Allocate memory
-            int rdLength = variables.Count * 4;
-            int wrLength = (SymbolValueByHandleSize + BitOffsetSize + BitSizeSize) * variables.Count;
+            int rdLength = variables.Count * ErrorSize;
+            int wrLength = (SymbolValueByHandleSize + VariableHandleSize + BitSizeSize) * variables.Count;
 
             // Write data for handles into the ADS Stream
             using (var writer = new BinaryWriter(new AdsStream(wrLength)))
             {
-                foreach (var readableAddress in variables)
+                foreach (var readableAddress in variables) // Byt till Immutable list!
                 {
                     writer.Write((int)AdsReservedIndexGroups.SymbolValueByHandle);
                     writer.Write(readableAddress.Address.VariableHandle);
@@ -56,11 +56,11 @@ namespace TwinCatAdsCommunication
                 }
 
                 // Sum command to read variables from the PLC
-                AdsStream rdStream = new AdsStream(rdLength);
-                adsClient.ReadWrite(0xF080, variables.Count, rdStream, (AdsStream)writer.BaseStream);
+                AdsStream dataAndErrorStream = new AdsStream(rdLength);
+                adsClient.ReadWrite(0xF080, variables.Count, dataAndErrorStream, (AdsStream)writer.BaseStream);
 
                 // Return the ADS error codes
-                return rdStream;
+                return dataAndErrorStream;
             }
         }
     }

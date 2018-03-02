@@ -8,6 +8,12 @@ namespace TwinCatAdsCommunication
 
     public static class PlcWriter
     {
+
+        private const int BitSizeSize = sizeof(int);
+        private const int VariableHandleSize = sizeof(int);
+        private const int SymbolValueByHandleSize = sizeof(int);
+        private const int ErrorSize = sizeof(int);
+
         internal static void WriteAllValues(TcAdsClient writeClient, IList<IWritableAddress> addresses)
         {
             if (!addresses.Any())
@@ -32,8 +38,8 @@ namespace TwinCatAdsCommunication
             }
 
             // Allocate memory
-            int rdLength = addresses.Count * 4;
-            int wrLength = (addresses.Count * 12) + 7; // Kolla den här med befintligt komm. Finns några mer logiska siffror (dock samma) att använda
+            int rdLength = addresses.Count * ErrorSize;
+            int wrLength = (addresses.Count * (SymbolValueByHandleSize + VariableHandleSize + BitSizeSize)) + 7; // Magic seven. Not sure why needed, needs to be looked up.
             using (var writer = new BinaryWriter(new AdsStream(wrLength)))
             {
                 // Write data for handles into the ADS stream
@@ -49,9 +55,8 @@ namespace TwinCatAdsCommunication
                     writableAddress.WriteValueToStream(writer);
                 }
 
-                // Sum command to write the data into the PLC
-                AdsStream rdStream = new AdsStream(rdLength);
-                adsClient.ReadWrite(0xF081, addresses.Count, rdStream, (AdsStream)writer.BaseStream);
+                AdsStream errorStream = new AdsStream(rdLength);
+                adsClient.ReadWrite(0xF081, addresses.Count, errorStream, (AdsStream)writer.BaseStream);
 
                 foreach (var writableAddress in addresses)
                 {
@@ -60,7 +65,7 @@ namespace TwinCatAdsCommunication
                 }
 
                 // Return the ADS error codes
-                return rdStream;
+                return errorStream;
             }
         }
     }
