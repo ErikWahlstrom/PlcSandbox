@@ -4,15 +4,13 @@ namespace TwinCatAdsCommunication
     using System.ComponentModel;
     using System.IO;
     using System.Threading.Tasks;
-    using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
     public class WriteableValue<T> : INotifyPropertyChanged, IWritableAddress
     {
-        private AdsErrorCode error;
+        private readonly UnconnectedAddressBase<T> unConnectedAddress;
         private T valueToWrite;
         private Exception exception;
-        private UnconnectedAddressBase<T> unConnectedAddress;
         private AddressBase<T> address;
 
         public WriteableValue(UnconnectedAddressBase<T> address, ConnectedWriteClient writeClient)

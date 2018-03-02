@@ -4,14 +4,12 @@ namespace TwinCatAdsCommunication
     using System.ComponentModel;
     using System.IO;
     using System.Threading.Tasks;
-    using TwinCAT.Ads;
     using TwinCatAdsCommunication.Address;
 
     public class ReadableValue<T> : INotifyPropertyChanged, IReadableAddress
     {
         private readonly ConnectedReadClient connectedReadClient;
         private AddressBase<T> address;
-        private AdsErrorCode error;
         private Exception exception;
         private T lastReadValue;
 

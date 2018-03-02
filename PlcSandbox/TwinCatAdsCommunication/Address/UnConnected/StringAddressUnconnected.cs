@@ -1,8 +1,8 @@
 namespace TwinCatAdsCommunication.Address
 {
-    public class BoolAddressInitial : UnconnectedAddressBase<bool>
+    public class StringAddressUnconnected : UnconnectedAddressBase<string>
     {
-        public BoolAddressInitial(int bitSize, string name)
+        public StringAddressUnconnected(int bitSize, string name)
             : base(bitSize, name)
         {
         }
@@ -10,7 +10,7 @@ namespace TwinCatAdsCommunication.Address
         public override IAddress GetConnectedAddress(IConnectedClient connectedReadClient)
         {
             var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
-            return new BoolAddress(this.Name, symbolInfo.Size, symbolInfo.Handle);
+            return new StringAddress(this.Name, symbolInfo.Size, symbolInfo.Handle);
         }
     }
 }

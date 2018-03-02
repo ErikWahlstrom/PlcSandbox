@@ -12,3 +12,9 @@ C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\TwinCatAdsCommunication.
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\TwinCatAdsCommunication.pdb
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\TwinCAT.Ads.dll
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\PlcTest.tmc
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Linq.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Core.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Interfaces.dll
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Linq.xml
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Core.xml
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Interfaces.xml

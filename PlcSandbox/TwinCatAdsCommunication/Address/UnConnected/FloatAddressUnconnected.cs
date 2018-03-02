@@ -1,8 +1,8 @@
 namespace TwinCatAdsCommunication.Address
 {
-    public class ByteAddressInitial : UnconnectedAddressBase<byte>
+    public class FloatAddressUnconnected : UnconnectedAddressBase<float>
     {
-        public ByteAddressInitial(int bitSize, string name)
+        public FloatAddressUnconnected(int bitSize, string name)
             : base(bitSize, name)
         {
         }
@@ -10,7 +10,7 @@ namespace TwinCatAdsCommunication.Address
         public override IAddress GetConnectedAddress(IConnectedClient connectedReadClient)
         {
             var symbolInfo = connectedReadClient.ReadSymbolInfo(this.Name);
-            return new ByteAddress(this.Name, symbolInfo.Size, symbolInfo.Handle);
+            return new FloatAddress(this.Name, symbolInfo.Size, symbolInfo.Handle);
         }
     }
 }
