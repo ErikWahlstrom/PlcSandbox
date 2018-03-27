@@ -14,7 +14,7 @@
     <local:MainWindowVm />
   </Window.DataContext>
   <Window.Resources>
-    <DataTemplate x:Key="ReadTemplate" DataType="twinCatAdsCommunication:ReadableBoolValue">
+    <DataTemplate x:Key="ReadBoolTemplate" DataType="twinCatAdsCommunication:ReadableBoolValue">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition />
@@ -26,7 +26,7 @@
         <TextBlock Grid.Row="2" Text="{Binding Exception}" />
       </Grid>
     </DataTemplate>
-    <DataTemplate x:Key="WriteTemplate" DataType="twinCatAdsCommunication:WritableBoolValue">
+    <DataTemplate x:Key="WriteBoolTemplate" DataType="twinCatAdsCommunication:WritableBoolValue">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition />
@@ -38,6 +38,37 @@
         <TextBlock Grid.Row="2" Text="{Binding Exception}" />
       </Grid>
     </DataTemplate>
+
+    <DataTemplate x:Key="ReadStringTemplate" DataType="twinCatAdsCommunication:ReadableStringValue">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Address}" />
+        <TextBlock Grid.Row="1" Text="Last read value"/>
+        <TextBlock Grid.Row="2" Text="{Binding LastReadValue, Mode=OneWay}"/>
+        <TextBlock Grid.Row="3" Text="{Binding Exception}" />
+      </Grid>
+    </DataTemplate>
+    <DataTemplate x:Key="WriteStringTemplate" DataType="twinCatAdsCommunication:WritableStringValue">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding Address}" />
+        <TextBlock Grid.Row="1" Text="Value to write"/>
+        <TextBox Grid.Row="2" Text="{Binding ValueToWrite, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="3" Text="{Binding Exception}" />
+      </Grid>
+    </DataTemplate>
+
+
   </Window.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -45,9 +76,12 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+      <RowDefinition />
     </Grid.RowDefinitions>
-    <ContentPresenter Grid.Row="0" Content="{Binding WriteValues.LightOn}" ContentTemplate="{StaticResource WriteTemplate}"/>
-    <ContentPresenter Grid.Row="1" Content="{Binding ReadValues.IsLightOn}" ContentTemplate="{StaticResource ReadTemplate}"/>
-    <ContentPresenter Grid.Row="2" Content="{Binding ReadValues.BuildingBoxConnected}" ContentTemplate="{StaticResource ReadTemplate}"/>
+    <ContentPresenter Grid.Row="0" Content="{Binding WriteValues.LightOn}" ContentTemplate="{StaticResource WriteBoolTemplate}"/>
+    <ContentPresenter Grid.Row="1" Content="{Binding ReadValues.IsLightOn}" ContentTemplate="{StaticResource ReadBoolTemplate}"/>
+    <ContentPresenter Grid.Row="2" Content="{Binding ReadValues.BuildingBoxConnected}" ContentTemplate="{StaticResource ReadBoolTemplate}"/>
+    <ContentPresenter Grid.Row="3" Content="{Binding ReadValues.StringOut}" ContentTemplate="{StaticResource ReadStringTemplate}"/>
+    <ContentPresenter Grid.Row="4" Content="{Binding WriteValues.StringIn}" ContentTemplate="{StaticResource WriteStringTemplate}"/>
   </Grid>
 </Window>

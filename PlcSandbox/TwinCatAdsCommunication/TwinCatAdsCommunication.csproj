@@ -85,9 +85,11 @@
     <Compile Include="PlcReader.cs" />
     <Compile Include="IAddressable.cs" />
     <Compile Include="ReadableBoolValue.cs" />
+    <Compile Include="ReadableStringValue.cs" />
     <Compile Include="ReadableValue.cs" />
     <Compile Include="VariableHandleAndSize.cs" />
     <Compile Include="WritableBoolValue.cs" />
+    <Compile Include="WritableStringValue.cs" />
     <Compile Include="WriteableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

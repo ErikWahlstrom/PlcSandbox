@@ -25,3 +25,4 @@ C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\System.Reactive.Interfaces.dll
 C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\System.Reactive.Linq.xml
 C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\System.Reactive.Core.xml
 C:\git\PlcSandbox\PlcSandbox\TestApp\bin\Debug\System.Reactive.Interfaces.xml
+C:\git\PlcSandbox\PlcSandbox\TestApp\obj\Debug\TestApp.csproj.CopyComplete
