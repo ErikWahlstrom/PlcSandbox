@@ -61,39 +61,39 @@
             switch (prop.Type)
             {
                 case "BOOL":
-                    WriteLine($"public static BoolAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new BoolAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static BoolAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new BoolAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "BYTE":
-                    WriteLine($"public static ByteAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new ByteAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static ByteAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ByteAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "REAL":
-                    WriteLine($"public static FloatAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new FloatAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static FloatAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new FloatAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "UDINT":
-                    WriteLine($"public static UintAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static UintAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "UINT":
-                    WriteLine($"public static UshortAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new UshortAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static UshortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UshortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "INT":
-                    WriteLine($"public static ShortAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static ShortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "DINT":
-                    WriteLine($"public static IntAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new IntAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static IntAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new IntAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "LREAL":
-                    WriteLine($"public static DoubleAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new DoubleAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static DoubleAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new DoubleAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "DWORD":
-                    WriteLine($"public static UintAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static UintAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;
                 case "WORD":
-                    WriteLine($"public static ShortAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                    WriteLine($"public static ShortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     break;                
                 default :
                     if (prop.Type.StartsWith("STRING"))
                     {
-                        WriteLine($"public static StringAddressInitial {prop.Name.Split('.').Last()} {{ get; }} = new StringAddressInitial({prop.BitSize}, \"{prop.Name}\");");
+                        WriteLine($"public static StringAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new StringAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                         break;
                     }
                     else

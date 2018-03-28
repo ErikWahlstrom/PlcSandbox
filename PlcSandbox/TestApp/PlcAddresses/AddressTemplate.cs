@@ -1,4 +1,4 @@
-// ReSharper disable InconsistentNaming
+﻿// ReSharper disable InconsistentNaming
 // ReSharper disable CheckNamespace
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
