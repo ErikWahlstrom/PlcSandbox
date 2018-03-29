@@ -51,6 +51,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="PlcSandbox.Tests.ruleset" />
+    <None Include="PlcTest.tmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlcSandbox\PlcSandbox.csproj">

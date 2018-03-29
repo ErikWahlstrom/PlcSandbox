@@ -18,3 +18,4 @@ C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Interfac
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Linq.xml
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Core.xml
 C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\bin\Debug\System.Reactive.Interfaces.xml
+C:\git\PlcSandbox\PlcSandbox\PlcSandbox.Tests\obj\Debug\PlcSandbox.Tests.csproj.CopyComplete

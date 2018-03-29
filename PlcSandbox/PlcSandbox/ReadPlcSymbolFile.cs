@@ -1,4 +1,4 @@
-﻿// Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
+// Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
 
 namespace PlcSandbox
 {
@@ -22,24 +22,18 @@ namespace PlcSandbox
 
             foreach (var dataArea in dataAreas)
             {
-                var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y => y.Value.ToString()).Distinct();
-                foreach (var dist in distinctName)
-                {
-                    var splitted = dist.Split('.');
-                    var currentClassName = string.Join(".", splitted.Take(splitted.Length - 1));
-                    if (classNames.Any(x => x.Contains(currentClassName) && x.StartsWith(currentClassName)))
-                    {
-                        continue;
-                    }
+                //var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y => y.Value.ToString()).Distinct();
+                //foreach (var dist in distinctName)
+                //{
+                //    var splitted = dist.Split('.');
+                //    var currentClassName = string.Join(".", splitted.Take(splitted.Length - 1));
+                //    if (classNames.Any(x => x.Contains(currentClassName) && x.StartsWith(currentClassName)))
+                //    {
+                //        continue;
+                //    }
 
-                    var existingClassName = classNames.SingleOrDefault(x => currentClassName.Contains(x) && currentClassName.StartsWith(x));
-                    if (existingClassName != null)
-                    {
-                        classNames.Remove(existingClassName);
-                    }
-
-                    classNames.Add(currentClassName);
-                }
+                //    classNames = CheckAndAddClass(currentClassName, classNames);
+                //}
 
                 foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
                 {
@@ -47,7 +41,14 @@ namespace PlcSandbox
                 }
             }
 
+            foreach (var plcSymbol in symbols)
+            {
+                classNames = CheckAndAddClass(plcSymbol.Name, classNames);
+            }
+
             var trees = new List<ClassTree>();
+
+            var distinctclassNames = classNames.Distinct().Count();
 
             foreach (var nameSpace in classNames.Distinct())
             {
@@ -60,6 +61,46 @@ namespace PlcSandbox
             }
 
             return trees;
+        }
+
+        public static List<string> CheckAndAddClass(string currentSymbolName, List<string> classNames)
+        {
+            var currentNames = currentSymbolName.Contains(".") ? currentSymbolName.Split('.') : new[] { currentSymbolName };
+            if (currentNames.Length < 2)
+            {
+                return classNames;
+            }
+
+            currentNames = currentNames.Take(currentNames.Length - 1).ToArray();
+
+            var existingClass = classNames.FirstOrDefault(x =>
+            {
+                var firstClassNameSplit = x.Contains(".") ? x.Split('.') : new[] { x };
+
+                var allEquals = true;
+                for (int i = 0; i < Math.Min(currentNames.Length, firstClassNameSplit.Length); i++)
+                {
+                    allEquals = allEquals && (firstClassNameSplit[i] == currentNames[i]);
+                }
+                return allEquals;
+            });
+
+            var currentName = currentNames.Length > 1 ? string.Join(".", currentNames) : currentNames[0];
+            if (existingClass != null)
+            {
+                if (existingClass.Length < currentName.Length)
+                {
+                    classNames.Remove(existingClass);
+                    classNames.Add(currentName);
+                }
+
+                return classNames;
+            }
+            else
+            {
+                classNames.Add(currentName);
+                return classNames;
+            }
         }
 
         public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
@@ -76,7 +117,21 @@ namespace PlcSandbox
                 throw new InvalidOperationException("Free flying symbol...");
             }
 
-            possibleTrees.Single(x => x.Name == choppedUpSymbol[choppedUpSymbol.Length - 2]).AddSymbol(symbol);
+            try
+            {
+                var selectedTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[choppedUpSymbol.Length - 2]).ToArray();
+                if (selectedTrees.Length > 1)
+                {
+                    ;
+                }
+
+                selectedTrees.First().AddSymbol(symbol);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 
