@@ -15,3 +15,4 @@ C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\System.Reac
 C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\System.Reactive.Linq.xml
 C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\System.Reactive.Core.xml
 C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\bin\Debug\System.Reactive.Interfaces.xml
+C:\git\PlcSandbox\PlcSandbox\TwinCatAdsCommunication.Tests\obj\Debug\TwinCatAdsCommunication.Tests.csproj.CopyComplete

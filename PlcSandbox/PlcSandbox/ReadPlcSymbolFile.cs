@@ -8,6 +8,8 @@ namespace PlcSandbox
     using System.Xml.Linq;
 
     // Copy from here
+        #region CopyRegion
+
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
     public class ParsePlcSymbolFile
@@ -161,7 +163,10 @@ namespace PlcSandbox
 
         public void AddSymbol(PlcSymbol symbol)
         {
-            this.Symbols.Add(symbol);
+            if (this.Symbols.All(x => x.Name != symbol.Name))
+            {
+                this.Symbols.Add(symbol);
+            }
         }
 
         public void AddToTree(string classPath)
@@ -179,7 +184,14 @@ namespace PlcSandbox
                 }
 
                 var childName = splitupName[1];
-                var childToAddTo = this.Children.FirstOrDefault(x => x?.Name == childName);
+                var childToAddTo = this.Children.FirstOrDefault(x =>
+                {
+                    if (x != null)
+                    {
+                        return x.Name == childName;
+                    }
+                    return false;
+                });
                 var remainderString = splitupName.Length > 1 ? string.Join(".", splitupName.Skip(1)) : splitupName[1];
                 if (childToAddTo == null)
                 {
@@ -207,7 +219,15 @@ namespace PlcSandbox
                 }
 
                 var childName = splitupName[1];
-                var childPath = this.Children?.FirstOrDefault(x => x?.Name == childName);
+                var childPath = this.Children.FirstOrDefault(x =>
+                {
+                    if (x == null)
+                    {
+                        return false;
+                    }
+
+                    return x.Name == childName;
+                });
                 if (childPath != null && splitupName.Length > 2)
                 {
                     return childPath.FindNode(string.Join(".", splitupName.Skip(1)));
@@ -221,6 +241,7 @@ namespace PlcSandbox
     }
 #pragma warning restore SA1649 // File name must match first type name
 #pragma warning restore SA1402 // File may only contain a single class
-
+    #endregion
+    
     // To here
 }

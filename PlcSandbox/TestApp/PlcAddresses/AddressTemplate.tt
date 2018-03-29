@@ -16,9 +16,8 @@
     var dte = serviceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
     var solutionDirectory = System.IO.Path.GetDirectoryName(dte.Solution.FullName);
 
-    var trees = ParsePlcSymbolFile.ReadFile("C:\\shared\\plc\\PLC_NCi.tmc"); //solutionDirectory + "\\PlcSandbox\\PlcTest.tmc");
-    WriteLine($"// ReSharper disable InconsistentNaming");
-    WriteLine($"// ReSharper disable CheckNamespace");
+	var trees = ParsePlcSymbolFile.ReadFile(solutionDirectory + "\\PlcSandbox\\PlcTest.tmc");
+    WriteLine($"// ReSharper disable All");
     WriteLine($"#pragma warning disable SA1300 // Element must begin with upper-case letter");
     WriteLine($"#pragma warning disable SA1649 // File name must match first type name");
     WriteLine($"#pragma warning disable SA1402 // File may only contain a single class");   
@@ -35,7 +34,9 @@
     WriteLine("}");
     WriteLine($"#pragma warning restore SA1300 // Element must begin with upper-case letter");  
     WriteLine($"#pragma warning restore SA1649 // File name must match first type name");
-    WriteLine($"#pragma warning restore SA1402 // File may only contain a single class");    
+    WriteLine($"#pragma warning restore SA1402 // File may only contain a single class");
+    WriteLine("");
+    WriteLine($"// ReSharper restore All");
 #>
 
 <#+	
@@ -104,9 +105,9 @@
             }
         }
 
-        if (tree.Children != null)
+        foreach (var childTree in tree.Children)
         {
-            PrintTree(tree.Children, true);            
+            PrintTree(childTree, true);            
         }
       
         PopIndent();
@@ -120,7 +121,8 @@
 }
 
     // Insert copy paste-code here from ReadPlcSymbolFile
-    
+
+
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
     public class ParsePlcSymbolFile
@@ -169,13 +171,11 @@
                 if (classTree.Name == firstChild)
                 {
                     classTree.AddToTree(classPath);
-                }
-                else
-                {
-                    trees.Add(new ClassTree(classPath));
+                    return trees;
                 }
             }
 
+            trees.Add(new ClassTree(classPath));
             return trees;
         }
 
@@ -221,33 +221,14 @@
 
         public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
         {
-            var choppedUpSymbol = symbol.Name.Split('.');
-            var possibleTrees = trees;
-            for (int i = 0; i < choppedUpSymbol.Length - 2; i++)
+            foreach (var classTree in trees)
             {
-                throw new NotImplementedException("Fixa nedanstående för multipla barn!");
-                possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x => x.Children.First()).ToArray();
-            }
-
-            if (!possibleTrees.Any())
-            {
-                throw new InvalidOperationException("Free flying symbol...");
-            }
-
-            try
-            {
-                var selectedTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[choppedUpSymbol.Length - 2]).ToArray();
-                if (selectedTrees.Length > 1)
+                var nodeToAddTo = classTree.FindNode(symbol.Name);
+                if (nodeToAddTo != null)
                 {
-                    ;
+                    nodeToAddTo.AddSymbol(symbol);
+                    return;
                 }
-
-                selectedTrees.First().AddSymbol(symbol);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
             }
         }
     }
@@ -275,6 +256,7 @@
     {
         public ClassTree(string name)
         {
+            this.Children = new List<ClassTree>();
             this.Symbols = new List<PlcSymbol>();
             if (name.Contains("."))
             {
@@ -284,13 +266,12 @@
             else
             {
                 this.Name = name;
-                this.Children = null;
             }
         }
 
         public string Name { get; }
 
-        public List<ClassTree> Children { get; } = new List<ClassTree>();
+        public List<ClassTree> Children { get; }
 
         public List<PlcSymbol> Symbols { get; }
 
@@ -314,7 +295,14 @@
                 }
 
                 var childName = splitupName[1];
-                var childToAddTo = this.Children.FirstOrDefault(x => x.Name == childName);
+                var childToAddTo = this.Children.FirstOrDefault(x =>
+                {
+                    if (x != null)
+                    {
+                        return x.Name == childName;
+                    }
+                    return false;
+                });
                 var remainderString = splitupName.Length > 1 ? string.Join(".", splitupName.Skip(1)) : splitupName[1];
                 if (childToAddTo == null)
                 {
@@ -326,10 +314,43 @@
                 }
             }
         }
+
+        public ClassTree FindNode(string name)
+        {
+            if (!name.Contains("."))
+            {
+                throw new InvalidOperationException($"Name must contain '.' but was: {name}");
+            }
+            else
+            {
+                var splitupName = name.Split('.');
+                if (splitupName.First() != this.Name)
+                {
+                    return null;
+                }
+
+                var childName = splitupName[1];
+                var childPath = this.Children.FirstOrDefault(x =>
+                {
+                    if (x == null)
+                    {
+                        return false;
+                    }
+
+                    return x.Name == childName;
+                });
+                if (childPath != null && splitupName.Length > 2)
+                {
+                    return childPath.FindNode(string.Join(".", splitupName.Skip(1)));
+                }
+                else
+                {
+                    return this;
+                }
+            }
+        }
     }
 #pragma warning restore SA1649 // File name must match first type name
-#pragma warning restore SA1402 // File may only contain a single class
-	
-
+#pragma warning restore SA1402 // File may only contain a single class    
     //End of copy paste code
 #>

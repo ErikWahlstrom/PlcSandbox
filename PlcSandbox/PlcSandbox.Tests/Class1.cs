@@ -109,6 +109,16 @@ namespace PlcSandbox.Tests
         }
 
         [Test]
+        public void AddSymbols()
+        {
+            var classTree = new ClassTree("Class1.Class2");
+            classTree.AddSymbol(new PlcSymbol("Variable1", "type", 1, 1));
+            classTree.AddSymbol(new PlcSymbol("Variable2", "type", 1, 1));
+            classTree.AddSymbol(new PlcSymbol("Variable1", "type", 1, 1));
+            Assert.AreEqual(2, classTree.Symbols.Count);
+        }
+
+        [Test]
         public void TestIt()
         {
             var parsedFile = ParsePlcSymbolFile.ReadFile("C:\\shared\\plc\\PLC_NCi.tmc"); //TestContext.CurrentContext.TestDirectory + "\\PlcTest.tmc");
