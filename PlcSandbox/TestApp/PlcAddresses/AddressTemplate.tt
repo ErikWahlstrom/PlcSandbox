@@ -16,7 +16,7 @@
     var dte = serviceProvider.GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
     var solutionDirectory = System.IO.Path.GetDirectoryName(dte.Solution.FullName);
 
-    var trees = ParsePlcSymbolFile.ReadFile(solutionDirectory + "\\PlcSandbox\\PlcTest.tmc");
+    var trees = ParsePlcSymbolFile.ReadFile("C:\\shared\\plc\\PLC_NCi.tmc"); //solutionDirectory + "\\PlcSandbox\\PlcTest.tmc");
     WriteLine($"// ReSharper disable InconsistentNaming");
     WriteLine($"// ReSharper disable CheckNamespace");
     WriteLine($"#pragma warning disable SA1300 // Element must begin with upper-case letter");
@@ -120,9 +120,8 @@
 }
 
     // Insert copy paste-code here from ReadPlcSymbolFile
-
-
-    #pragma warning disable SA1649 // File name must match first type name
+    
+#pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
     public class ParsePlcSymbolFile
     {
@@ -136,19 +135,6 @@
 
             foreach (var dataArea in dataAreas)
             {
-                //var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y => y.Value.ToString()).Distinct();
-                //foreach (var dist in distinctName)
-                //{
-                //    var splitted = dist.Split('.');
-                //    var currentClassName = string.Join(".", splitted.Take(splitted.Length - 1));
-                //    if (classNames.Any(x => x.Contains(currentClassName) && x.StartsWith(currentClassName)))
-                //    {
-                //        continue;
-                //    }
-
-                //    classNames = CheckAndAddClass(currentClassName, classNames);
-                //}
-
                 foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
                 {
                     symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value, int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value)));
@@ -162,16 +148,32 @@
 
             var trees = new List<ClassTree>();
 
-            var distinctclassNames = classNames.Distinct().Count();
-
-            foreach (var nameSpace in classNames.Distinct())
+            foreach (var classPath in classNames)
             {
-                trees.Add(new ClassTree(nameSpace));
+                trees = UpdateTreesFromPath(classPath, trees);
             }
 
             foreach (var plcSymbol in symbols)
             {
                 MapToTree(trees, plcSymbol);
+            }
+
+            return trees;
+        }
+
+        public static List<ClassTree> UpdateTreesFromPath(string classPath, List<ClassTree> trees)
+        {
+            var firstChild = classPath.Contains(".") ? classPath.Split('.').First() : classPath;
+            foreach (var classTree in trees)
+            {
+                if (classTree.Name == firstChild)
+                {
+                    classTree.AddToTree(classPath);
+                }
+                else
+                {
+                    trees.Add(new ClassTree(classPath));
+                }
             }
 
             return trees;
@@ -223,7 +225,8 @@
             var possibleTrees = trees;
             for (int i = 0; i < choppedUpSymbol.Length - 2; i++)
             {
-                possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x => x.Children).ToArray();
+                throw new NotImplementedException("Fixa nedanstående för multipla barn!");
+                possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x => x.Children.First()).ToArray();
             }
 
             if (!possibleTrees.Any())
@@ -276,31 +279,56 @@
             if (name.Contains("."))
             {
                 this.Name = name.Remove(name.IndexOf("."));
-                this.Children = new ClassTree(name.Remove(0, name.IndexOf(".") + 1));
+                this.Children.Add(new ClassTree(name.Remove(0, name.IndexOf(".") + 1)));
             }
             else
             {
                 this.Name = name;
+                this.Children = null;
             }
         }
 
         public string Name { get; }
 
-        public ClassTree Children { get; }
+        public List<ClassTree> Children { get; } = new List<ClassTree>();
 
-        public IList<PlcSymbol> Symbols { get; }
+        public List<PlcSymbol> Symbols { get; }
 
         public void AddSymbol(PlcSymbol symbol)
         {
             this.Symbols.Add(symbol);
         }
+
+        public void AddToTree(string classPath)
+        {
+            if (!classPath.Contains("."))
+            {
+                return;
+            }
+            else
+            {
+                var splitupName = classPath.Split('.');
+                if (splitupName.First() != this.Name)
+                {
+                    throw new InvalidOperationException("Wrong mapping");
+                }
+
+                var childName = splitupName[1];
+                var childToAddTo = this.Children.FirstOrDefault(x => x.Name == childName);
+                var remainderString = splitupName.Length > 1 ? string.Join(".", splitupName.Skip(1)) : splitupName[1];
+                if (childToAddTo == null)
+                {
+                    this.Children.Add(new ClassTree(remainderString));
+                }
+                else
+                {
+                    childToAddTo.AddToTree(remainderString);
+                }
+            }
+        }
     }
 #pragma warning restore SA1649 // File name must match first type name
 #pragma warning restore SA1402 // File may only contain a single class
-
-    
-
-    //End of copy paste code
 	
 
     //End of copy paste code

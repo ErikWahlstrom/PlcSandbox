@@ -22,19 +22,6 @@ namespace PlcSandbox
 
             foreach (var dataArea in dataAreas)
             {
-                //var distinctName = dataArea.Descendants(XName.Get("Symbol")).Elements().Where(x => x.Name == "Name").Select(y => y.Value.ToString()).Distinct();
-                //foreach (var dist in distinctName)
-                //{
-                //    var splitted = dist.Split('.');
-                //    var currentClassName = string.Join(".", splitted.Take(splitted.Length - 1));
-                //    if (classNames.Any(x => x.Contains(currentClassName) && x.StartsWith(currentClassName)))
-                //    {
-                //        continue;
-                //    }
-
-                //    classNames = CheckAndAddClass(currentClassName, classNames);
-                //}
-
                 foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
                 {
                     symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value, int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value)));
@@ -48,11 +35,9 @@ namespace PlcSandbox
 
             var trees = new List<ClassTree>();
 
-            var distinctclassNames = classNames.Distinct().Count();
-
-            foreach (var nameSpace in classNames.Distinct())
+            foreach (var classPath in classNames)
             {
-                trees.Add(new ClassTree(nameSpace));
+                trees = UpdateTreesFromPath(classPath, trees);
             }
 
             foreach (var plcSymbol in symbols)
@@ -60,6 +45,22 @@ namespace PlcSandbox
                 MapToTree(trees, plcSymbol);
             }
 
+            return trees;
+        }
+
+        public static List<ClassTree> UpdateTreesFromPath(string classPath, List<ClassTree> trees)
+        {
+            var firstChild = classPath.Contains(".") ? classPath.Split('.').First() : classPath;
+            foreach (var classTree in trees)
+            {
+                if (classTree.Name == firstChild)
+                {
+                    classTree.AddToTree(classPath);
+                    return trees;
+                }
+            }
+
+            trees.Add(new ClassTree(classPath));
             return trees;
         }
 
@@ -105,32 +106,14 @@ namespace PlcSandbox
 
         public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
         {
-            var choppedUpSymbol = symbol.Name.Split('.');
-            var possibleTrees = trees;
-            for (int i = 0; i < choppedUpSymbol.Length - 2; i++)
+            foreach (var classTree in trees)
             {
-                possibleTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[i]).Select(x => x.Children).ToArray();
-            }
-
-            if (!possibleTrees.Any())
-            {
-                throw new InvalidOperationException("Free flying symbol...");
-            }
-
-            try
-            {
-                var selectedTrees = possibleTrees.Where(x => x.Name == choppedUpSymbol[choppedUpSymbol.Length - 2]).ToArray();
-                if (selectedTrees.Length > 1)
+                var nodeToAddTo = classTree.FindNode(symbol.Name);
+                if (nodeToAddTo != null)
                 {
-                    ;
+                    nodeToAddTo.AddSymbol(symbol);
+                    return;
                 }
-
-                selectedTrees.First().AddSymbol(symbol);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
             }
         }
     }
@@ -162,7 +145,7 @@ namespace PlcSandbox
             if (name.Contains("."))
             {
                 this.Name = name.Remove(name.IndexOf("."));
-                this.Children = new ClassTree(name.Remove(0, name.IndexOf(".") + 1));
+                this.Children.Add(new ClassTree(name.Remove(0, name.IndexOf(".") + 1)));
             }
             else
             {
@@ -172,13 +155,68 @@ namespace PlcSandbox
 
         public string Name { get; }
 
-        public ClassTree Children { get; }
+        public List<ClassTree> Children { get; } = new List<ClassTree>();
 
-        public IList<PlcSymbol> Symbols { get; }
+        public List<PlcSymbol> Symbols { get; }
 
         public void AddSymbol(PlcSymbol symbol)
         {
             this.Symbols.Add(symbol);
+        }
+
+        public void AddToTree(string classPath)
+        {
+            if (!classPath.Contains("."))
+            {
+                return;
+            }
+            else
+            {
+                var splitupName = classPath.Split('.');
+                if (splitupName.First() != this.Name)
+                {
+                    throw new InvalidOperationException("Wrong mapping");
+                }
+
+                var childName = splitupName[1];
+                var childToAddTo = this.Children.FirstOrDefault(x => x?.Name == childName);
+                var remainderString = splitupName.Length > 1 ? string.Join(".", splitupName.Skip(1)) : splitupName[1];
+                if (childToAddTo == null)
+                {
+                    this.Children.Add(new ClassTree(remainderString));
+                }
+                else
+                {
+                    childToAddTo.AddToTree(remainderString);
+                }
+            }
+        }
+
+        public ClassTree FindNode(string name)
+        {
+            if (!name.Contains("."))
+            {
+                throw new InvalidOperationException($"Name must contain '.' but was: {name}");
+            }
+            else
+            {
+                var splitupName = name.Split('.');
+                if (splitupName.First() != this.Name)
+                {
+                    return null;
+                }
+
+                var childName = splitupName[1];
+                var childPath = this.Children?.FirstOrDefault(x => x?.Name == childName);
+                if (childPath != null && splitupName.Length > 2)
+                {
+                    return childPath.FindNode(string.Join(".", splitupName.Skip(1)));
+                }
+                else
+                {
+                    return this;
+                }
+            }
         }
     }
 #pragma warning restore SA1649 // File name must match first type name
