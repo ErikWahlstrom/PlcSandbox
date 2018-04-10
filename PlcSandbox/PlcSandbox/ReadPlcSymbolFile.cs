@@ -4,244 +4,391 @@ namespace PlcSandbox
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Xml.Linq;
+    using static PlcSandbox.PrintTreeClass.PrinterClass;
 
-    // Copy from here
+    public class PrintTreeClass
+    {
+#pragma warning disable SA1124 // Do not use regions
         #region CopyRegion
 
+        // Copy from here
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
-    public class ParsePlcSymbolFile
-    {
-        public static IEnumerable<ClassTree> ReadFile(string path)
+        public void PrintTree(ClassTree tree, bool child)
         {
-            var xml = XDocument.Load(path);
-            var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
-            var classNames = new List<string>();
-
-            var symbols = new List<PlcSymbol>();
-
-            foreach (var dataArea in dataAreas)
+            if (child)
             {
-                foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
+                WriteLine(string.Empty);
+            }
+
+            WriteLine($"public static class {tree.Name}");
+            WriteLine("{");
+            PushIndent("    ");
+            var written = false;
+            foreach (var prop in tree.Symbols)
+            {
+                if (written)
                 {
-                    symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value, int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value)));
+                    WriteLine(string.Empty);
+                }
+
+                written = true;
+                switch (prop.Type)
+                {
+                    case "BOOL":
+                        WriteLine(
+                            $"public static BoolAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new BoolAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "BYTE":
+                        WriteLine(
+                            $"public static ByteAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ByteAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "REAL":
+                        WriteLine(
+                            $"public static FloatAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new FloatAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "UDINT":
+                        WriteLine(
+                            $"public static UintAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "UINT":
+                        WriteLine(
+                            $"public static UshortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UshortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "INT":
+                        WriteLine(
+                            $"public static ShortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "DINT":
+                        WriteLine(
+                            $"public static IntAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new IntAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "LREAL":
+                        WriteLine(
+                            $"public static DoubleAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new DoubleAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "DWORD":
+                        WriteLine(
+                            $"public static UintAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    case "WORD":
+                        WriteLine(
+                            $"public static ShortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        break;
+                    default:
+                        if (prop.Type.StartsWith("STRING"))
+                        {
+                            WriteLine(
+                                $"public static StringAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new StringAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                            break;
+                        }
+                        else
+                        {
+                            written = false;
+                        }
+                        break;
                 }
             }
 
-            foreach (var plcSymbol in symbols)
+            foreach (var childTree in tree.Children)
             {
-                classNames = CheckAndAddClass(plcSymbol.Name, classNames);
+                PrintTree(childTree, true);
             }
 
-            var trees = new List<ClassTree>();
-
-            foreach (var classPath in classNames)
+            PopIndent();
+            WriteLine("}");
+            if (!child)
             {
-                trees = UpdateTreesFromPath(classPath, trees);
+                WriteLine(string.Empty);
+
             }
 
-            foreach (var plcSymbol in symbols)
-            {
-                MapToTree(trees, plcSymbol);
-            }
-
-            return trees;
         }
 
-        public static List<ClassTree> UpdateTreesFromPath(string classPath, List<ClassTree> trees)
+
+        public class ParsePlcSymbolFile
         {
-            var firstChild = classPath.Contains(".") ? classPath.Split('.').First() : classPath;
-            foreach (var classTree in trees)
+            public static IEnumerable<ClassTree> ReadFile(string path)
             {
-                if (classTree.Name == firstChild)
+                var xml = XDocument.Load(path);
+                var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
+                var classNames = new List<string>();
+
+                var symbols = new List<PlcSymbol>();
+
+                foreach (var dataArea in dataAreas)
                 {
-                    classTree.AddToTree(classPath);
-                    return trees;
+                    foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
+                    {
+                        var arrInfo = symbol.Descendants(XName.Get("ArrayInfo")).FirstOrDefault();
+                        symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value,
+                            int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value),
+                            arrInfo != null
+                                ? new ArrayInfo(int.Parse(arrInfo.Element("LBound").Value),
+                                    int.Parse(arrInfo.Element("Elements").Value))
+                                : null));
+                    }
                 }
+
+                foreach (var plcSymbol in symbols)
+                {
+                    classNames = CheckAndAddClass(plcSymbol.Name, classNames);
+                }
+
+                var trees = new List<ClassTree>();
+
+                foreach (var classPath in classNames)
+                {
+                    trees = UpdateTreesFromPath(classPath, trees);
+                }
+
+                foreach (var plcSymbol in symbols)
+                {
+                    MapToTree(trees, plcSymbol);
+                }
+
+                return trees;
             }
 
-            trees.Add(new ClassTree(classPath));
-            return trees;
-        }
-
-        public static List<string> CheckAndAddClass(string currentSymbolName, List<string> classNames)
-        {
-            var currentNames = currentSymbolName.Contains(".") ? currentSymbolName.Split('.') : new[] { currentSymbolName };
-            if (currentNames.Length < 2)
+            public static List<ClassTree> UpdateTreesFromPath(string classPath, List<ClassTree> trees)
             {
-                return classNames;
+                var firstChild = classPath.Contains(".") ? classPath.Split('.').First() : classPath;
+                foreach (var classTree in trees)
+                {
+                    if (classTree.Name == firstChild)
+                    {
+                        classTree.AddToTree(classPath);
+                        return trees;
+                    }
+                }
+
+                trees.Add(new ClassTree(classPath));
+                return trees;
             }
 
-            currentNames = currentNames.Take(currentNames.Length - 1).ToArray();
-
-            var existingClass = classNames.FirstOrDefault(x =>
+            public static List<string> CheckAndAddClass(string currentSymbolName, List<string> classNames)
             {
-                var firstClassNameSplit = x.Contains(".") ? x.Split('.') : new[] { x };
-
-                var allEquals = true;
-                for (int i = 0; i < Math.Min(currentNames.Length, firstClassNameSplit.Length); i++)
+                var currentNames = currentSymbolName.Contains(".")
+                    ? currentSymbolName.Split('.')
+                    : new[] {currentSymbolName};
+                if (currentNames.Length < 2)
                 {
-                    allEquals = allEquals && (firstClassNameSplit[i] == currentNames[i]);
+                    return classNames;
                 }
-                return allEquals;
-            });
 
-            var currentName = currentNames.Length > 1 ? string.Join(".", currentNames) : currentNames[0];
-            if (existingClass != null)
-            {
-                if (existingClass.Length < currentName.Length)
+                currentNames = currentNames.Take(currentNames.Length - 1).ToArray();
+
+                var existingClass = classNames.FirstOrDefault(x =>
                 {
-                    classNames.Remove(existingClass);
+                    var firstClassNameSplit = x.Contains(".") ? x.Split('.') : new[] {x};
+
+                    var allEquals = true;
+                    for (int i = 0; i < Math.Min(currentNames.Length, firstClassNameSplit.Length); i++)
+                    {
+                        allEquals = allEquals && (firstClassNameSplit[i] == currentNames[i]);
+                    }
+                    return allEquals;
+                });
+
+                var currentName = currentNames.Length > 1 ? string.Join(".", currentNames) : currentNames[0];
+                if (existingClass != null)
+                {
+                    if (existingClass.Length < currentName.Length)
+                    {
+                        classNames.Remove(existingClass);
+                        classNames.Add(currentName);
+                    }
+
+                    return classNames;
+                }
+                else
+                {
                     classNames.Add(currentName);
+                    return classNames;
                 }
-
-                return classNames;
             }
-            else
-            {
-                classNames.Add(currentName);
-                return classNames;
-            }
-        }
 
-        public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
-        {
-            foreach (var classTree in trees)
+            public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
             {
-                var nodeToAddTo = classTree.FindNode(symbol.Name);
-                if (nodeToAddTo != null)
+                foreach (var classTree in trees)
                 {
-                    nodeToAddTo.AddSymbol(symbol);
-                    return;
+                    var nodeToAddTo = classTree.FindNode(symbol.Name);
+                    if (nodeToAddTo != null)
+                    {
+                        nodeToAddTo.AddSymbol(symbol);
+                        return;
+                    }
                 }
             }
         }
-    }
 
-    public class PlcSymbol
-    {
-        public PlcSymbol(string name, string type, int bitSize, int bitOffset)
+        public class PlcSymbol
         {
-            this.Name = name;
-            this.Type = type;
-            this.BitSize = bitSize;
-            this.BitOffset = bitOffset;
-        }
-
-        public string Name { get; }
-
-        public string Type { get; }
-
-        public int BitSize { get; }
-
-        public int BitOffset { get; }
-    }
-
-    public class ClassTree
-    {
-        public ClassTree(string name)
-        {
-            this.Symbols = new List<PlcSymbol>();
-            if (name.Contains("."))
-            {
-                this.Name = name.Remove(name.IndexOf("."));
-                this.Children.Add(new ClassTree(name.Remove(0, name.IndexOf(".") + 1)));
-            }
-            else
+            public PlcSymbol(string name, string type, int bitSize, int bitOffset, ArrayInfo arrayInfo)
             {
                 this.Name = name;
+                this.Type = type;
+                this.BitSize = bitSize;
+                this.BitOffset = bitOffset;
+                this.ArrayInfo = arrayInfo;
             }
+
+            public string Name { get; }
+
+            public string Type { get; }
+
+            public int BitSize { get; }
+
+            public int BitOffset { get; }
+
+            public ArrayInfo ArrayInfo { get; }
         }
 
-        public string Name { get; }
-
-        public List<ClassTree> Children { get; } = new List<ClassTree>();
-
-        public List<PlcSymbol> Symbols { get; }
-
-        public void AddSymbol(PlcSymbol symbol)
+        public class ArrayInfo
         {
-            if (this.Symbols.All(x => x.Name != symbol.Name))
+            public ArrayInfo(int lowerBound, int elements)
             {
-                this.Symbols.Add(symbol);
+                this.LowerBound = lowerBound;
+                this.Elements = elements;
             }
+
+            public int LowerBound { get; }
+
+            public int Elements { get; }
         }
 
-        public void AddToTree(string classPath)
+        public class ClassTree
         {
-            if (!classPath.Contains("."))
+            public ClassTree(string name)
             {
-                return;
-            }
-            else
-            {
-                var splitupName = classPath.Split('.');
-                if (splitupName.First() != this.Name)
+                Children = new List<ClassTree>();
+                this.Symbols = new List<PlcSymbol>();
+                if (name.Contains("."))
                 {
-                    throw new InvalidOperationException("Wrong mapping");
-                }
-
-                var childName = splitupName[1];
-                var childToAddTo = this.Children.FirstOrDefault(x =>
-                {
-                    if (x != null)
-                    {
-                        return x.Name == childName;
-                    }
-                    return false;
-                });
-                var remainderString = splitupName.Length > 1 ? string.Join(".", splitupName.Skip(1)) : splitupName[1];
-                if (childToAddTo == null)
-                {
-                    this.Children.Add(new ClassTree(remainderString));
+                    this.Name = name.Remove(name.IndexOf("."));
+                    this.Children.Add(new ClassTree(name.Remove(0, name.IndexOf(".") + 1)));
                 }
                 else
                 {
-                    childToAddTo.AddToTree(remainderString);
+                    this.Name = name;
                 }
             }
-        }
 
-        public ClassTree FindNode(string name)
-        {
-            if (!name.Contains("."))
+            public string Name { get; }
+
+            public List<ClassTree> Children { get; }
+
+            public List<PlcSymbol> Symbols { get; }
+
+            public void AddSymbol(PlcSymbol symbol)
             {
-                throw new InvalidOperationException($"Name must contain '.' but was: {name}");
-            }
-            else
-            {
-                var splitupName = name.Split('.');
-                if (splitupName.First() != this.Name)
+                if (this.Symbols.All(x => x.Name != symbol.Name))
                 {
-                    return null;
+                    this.Symbols.Add(symbol);
                 }
+            }
 
-                var childName = splitupName[1];
-                var childPath = this.Children.FirstOrDefault(x =>
+            public void AddToTree(string classPath)
+            {
+                if (!classPath.Contains("."))
                 {
-                    if (x == null)
+                    return;
+                }
+                else
+                {
+                    var splitupName = classPath.Split('.');
+                    if (splitupName.First() != this.Name)
                     {
+                        throw new InvalidOperationException("Wrong mapping");
+                    }
+
+                    var childName = splitupName[1];
+                    var childToAddTo = this.Children.FirstOrDefault(x =>
+                    {
+                        if (x != null)
+                        {
+                            return x.Name == childName;
+                        }
                         return false;
+                    });
+                    var remainderString =
+                        splitupName.Length > 1 ? string.Join(".", splitupName.Skip(1)) : splitupName[1];
+                    if (childToAddTo == null)
+                    {
+                        this.Children.Add(new ClassTree(remainderString));
                     }
+                    else
+                    {
+                        childToAddTo.AddToTree(remainderString);
+                    }
+                }
+            }
 
-                    return x.Name == childName;
-                });
-                if (childPath != null && splitupName.Length > 2)
+            public ClassTree FindNode(string name)
+            {
+                if (!name.Contains("."))
                 {
-                    return childPath.FindNode(string.Join(".", splitupName.Skip(1)));
+                    throw new InvalidOperationException($"Name must contain '.' but was: {name}");
                 }
                 else
                 {
-                    return this;
+                    var splitupName = name.Split('.');
+                    if (splitupName.First() != this.Name)
+                    {
+                        return null;
+                    }
+
+                    var childName = splitupName[1];
+                    var childPath = this.Children.FirstOrDefault(x =>
+                    {
+                        if (x == null)
+                        {
+                            return false;
+                        }
+
+                        return x.Name == childName;
+                    });
+                    if (childPath != null && splitupName.Length > 2)
+                    {
+                        return childPath.FindNode(string.Join(".", splitupName.Skip(1)));
+                    }
+                    else
+                    {
+                        return this;
+                    }
                 }
+            }
+        }
+#pragma warning restore SA1649 // File name must match first type name
+#pragma warning restore SA1402 // File may only contain a single class
+
+        //Stop copying here
+        #endregion
+
+        public class PrinterClass
+        {
+            public static List<string> Indent { get; } = new List<string>();
+
+            public static StringWriter Writer { get; } = new StringWriter();
+
+            public static void WriteLine(string line)
+            {
+                string indentString = Indent.Aggregate(string.Empty, (current, indent) => current + indent);
+                Writer.WriteLine(indentString + line);
+            }
+
+            public static void PushIndent(string indent)
+            {
+                Indent.Add(indent);
+            }
+
+            public static void PopIndent()
+            {
+                Indent.Remove(Indent.Last());
             }
         }
     }
-#pragma warning restore SA1649 // File name must match first type name
-#pragma warning restore SA1402 // File may only contain a single class
-    #endregion
-    
-    // To here
 }

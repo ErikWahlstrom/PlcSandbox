@@ -1,4 +1,4 @@
-﻿// ReSharper disable All
+// ReSharper disable All
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
@@ -12,11 +12,11 @@ namespace GeneratedAddress
 
         public static BoolAddressUnconnected bError { get; } = new BoolAddressUnconnected(8, "MC.bError");
 
-        public static BoolAddressUnconnected bBusyToHmi { get; } = new BoolAddressUnconnected(8, "MC.bBusyToHmi");
-
         public static FloatAddressUnconnected lrActPosToHmi { get; } = new FloatAddressUnconnected(32, "MC.lrActPosToHmi");
 
         public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC.iErrorId");
+
+        public static BoolAddressUnconnected bBusyToHmi { get; } = new BoolAddressUnconnected(8, "MC.bBusyToHmi");
 
         public static BoolAddressUnconnected startPulse { get; } = new BoolAddressUnconnected(8, "MC.startPulse");
 
@@ -32,6 +32,8 @@ namespace GeneratedAddress
 
         public static DoubleAddressUnconnected lrDeceleration { get; } = new DoubleAddressUnconnected(64, "MC.lrDeceleration");
 
+        public static DoubleAddressUnconnected lrSampleArray { get; } = new DoubleAddressUnconnected(32384, "MC.lrSampleArray");
+
         public static class AxisRef
         {
         }
@@ -41,17 +43,17 @@ namespace GeneratedAddress
     {
         public static BoolAddressUnconnected bDone { get; } = new BoolAddressUnconnected(8, "MC_2.bDone");
 
-        public static BoolAddressUnconnected bError { get; } = new BoolAddressUnconnected(8, "MC_2.bError");
-
         public static FloatAddressUnconnected lrActPos { get; } = new FloatAddressUnconnected(32, "MC_2.lrActPos");
 
-        public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC_2.iErrorId");
+        public static BoolAddressUnconnected bError { get; } = new BoolAddressUnconnected(8, "MC_2.bError");
 
         public static BoolAddressUnconnected bBusyToHmi { get; } = new BoolAddressUnconnected(8, "MC_2.bBusyToHmi");
 
         public static BoolAddressUnconnected startPulse { get; } = new BoolAddressUnconnected(8, "MC_2.startPulse");
 
         public static BoolAddressUnconnected bResetServo { get; } = new BoolAddressUnconnected(8, "MC_2.bResetServo");
+
+        public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC_2.iErrorId");
 
         public static DoubleAddressUnconnected lrVelocity { get; } = new DoubleAddressUnconnected(64, "MC_2.lrVelocity");
 
@@ -349,8 +351,6 @@ namespace GeneratedAddress
 
         public static BoolAddressUnconnected bProtectionCoverClosed { get; } = new BoolAddressUnconnected(8, "MAIN.bProtectionCoverClosed");
 
-        public static BoolAddressUnconnected bPower { get; } = new BoolAddressUnconnected(8, "MAIN.bPower");
-
         public static IntAddressUnconnected iDairyHeightBuildBox { get; } = new IntAddressUnconnected(32, "MAIN.iDairyHeightBuildBox");
 
         public static IntAddressUnconnected iDairyHeightPowderBox1 { get; } = new IntAddressUnconnected(32, "MAIN.iDairyHeightPowderBox1");
@@ -358,6 +358,8 @@ namespace GeneratedAddress
         public static IntAddressUnconnected iDairyHeightPowderBox2 { get; } = new IntAddressUnconnected(32, "MAIN.iDairyHeightPowderBox2");
 
         public static FloatAddressUnconnected rWaterLevel { get; } = new FloatAddressUnconnected(32, "MAIN.rWaterLevel");
+
+        public static BoolAddressUnconnected bPower { get; } = new BoolAddressUnconnected(8, "MAIN.bPower");
 
         public static BoolAddressUnconnected bGreen { get; } = new BoolAddressUnconnected(8, "MAIN.bGreen");
 
@@ -373,19 +375,17 @@ namespace GeneratedAddress
 
         public static BoolAddressUnconnected bRun { get; } = new BoolAddressUnconnected(8, "MAIN.bRun");
 
-        public static BoolAddressUnconnected TestBoolIn { get; } = new BoolAddressUnconnected(8, "MAIN.TestBoolIn");
-
         public static ShortAddressUnconnected rWaterLevel2 { get; } = new ShortAddressUnconnected(16, "MAIN.rWaterLevel2");
 
         public static FloatAddressUnconnected rPosition { get; } = new FloatAddressUnconnected(32, "MAIN.rPosition");
+
+        public static BoolAddressUnconnected TestBoolIn { get; } = new BoolAddressUnconnected(8, "MAIN.TestBoolIn");
 
         public static BoolAddressUnconnected TestBoolOut { get; } = new BoolAddressUnconnected(8, "MAIN.TestBoolOut");
 
         public static BoolAddressUnconnected LightOn { get; } = new BoolAddressUnconnected(8, "MAIN.LightOn");
 
         public static BoolAddressUnconnected IsLightOn { get; } = new BoolAddressUnconnected(8, "MAIN.IsLightOn");
-
-        public static BoolAddressUnconnected TrigSequenceRequest { get; } = new BoolAddressUnconnected(8, "MAIN.TrigSequenceRequest");
 
         public static IntAddressUnconnected TestIntIn { get; } = new IntAddressUnconnected(32, "MAIN.TestIntIn");
 
@@ -395,17 +395,19 @@ namespace GeneratedAddress
 
         public static StringAddressUnconnected TestStringOut { get; } = new StringAddressUnconnected(648, "MAIN.TestStringOut");
 
+        public static BoolAddressUnconnected TrigSequenceRequest { get; } = new BoolAddressUnconnected(8, "MAIN.TrigSequenceRequest");
+
         public static BoolAddressUnconnected SequenceRequest { get; } = new BoolAddressUnconnected(8, "MAIN.SequenceRequest");
 
         public static BoolAddressUnconnected SequenceDone { get; } = new BoolAddressUnconnected(8, "MAIN.SequenceDone");
-
-        public static IntAddressUnconnected SequenceError { get; } = new IntAddressUnconnected(32, "MAIN.SequenceError");
 
         public static BoolAddressUnconnected lXAxisEnable { get; } = new BoolAddressUnconnected(8, "MAIN.lXAxisEnable");
 
         public static BoolAddressUnconnected bBoolToMove1m { get; } = new BoolAddressUnconnected(8, "MAIN.bBoolToMove1m");
 
         public static BoolAddressUnconnected bBoolToMove1 { get; } = new BoolAddressUnconnected(8, "MAIN.bBoolToMove1");
+
+        public static IntAddressUnconnected SequenceError { get; } = new IntAddressUnconnected(32, "MAIN.SequenceError");
 
         public static BoolAddressUnconnected bMovedBool1 { get; } = new BoolAddressUnconnected(8, "MAIN.bMovedBool1");
 
@@ -444,11 +446,11 @@ namespace GeneratedAddress
 
         public static BoolAddressUnconnected bSimulationMode { get; } = new BoolAddressUnconnected(8, "Constants.bSimulationMode");
 
-        public static BoolAddressUnconnected bFPUSupport { get; } = new BoolAddressUnconnected(8, "Constants.bFPUSupport");
-
         public static ShortAddressUnconnected nRegisterSize { get; } = new ShortAddressUnconnected(16, "Constants.nRegisterSize");
 
         public static UshortAddressUnconnected nPackMode { get; } = new UshortAddressUnconnected(16, "Constants.nPackMode");
+
+        public static BoolAddressUnconnected bFPUSupport { get; } = new BoolAddressUnconnected(8, "Constants.bFPUSupport");
 
         public static UintAddressUnconnected RuntimeVersionNumeric { get; } = new UintAddressUnconnected(32, "Constants.RuntimeVersionNumeric");
 
