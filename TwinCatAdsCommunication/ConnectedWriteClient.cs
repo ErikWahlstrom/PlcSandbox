@@ -2,6 +2,7 @@ namespace TwinCatAdsCommunication
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Reactive.Linq;
     using TwinCAT.Ads;
@@ -92,7 +93,11 @@ namespace TwinCatAdsCommunication
                     this.addresses.Add(readableAddress);
                     using (var stream = PlcReader.ReadValue(this.client, readableAddress))
                     {
-                        readableAddress.SetInitialValue(stream);
+                        using (var reader = new BinaryReader(stream))
+                        {
+                            reader.CheckErrors(new List<IAddressable>() { readableAddress });
+                            readableAddress.SetInitialValue(reader);
+                        }
                     }
                 }
             }

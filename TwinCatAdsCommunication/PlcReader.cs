@@ -33,7 +33,7 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        internal static BinaryReader ReadValue(TcAdsClient adsClient, IAddressable address)
+        internal static AdsStream ReadValue(TcAdsClient adsClient, IAddressable address)
         {
             if (address == null)
             {
@@ -45,10 +45,7 @@ namespace TwinCatAdsCommunication
                 address
             };
 
-            var stream = BatchRead(adsClient, addressList);
-            var reader = new BinaryReader(stream);
-            reader.CheckErrors(addressList.Select(x => (IAddressable)x).ToList());
-            return reader;
+            return BatchRead(adsClient, addressList);
         }
 
         private static AdsStream BatchRead(TcAdsClient adsClient, IList<IAddressable> variables)
