@@ -1,11 +1,19 @@
 namespace TestApp
 {
+    using System.ComponentModel;
+    using System.Windows;
+
     public sealed class MainWindowVm : System.IDisposable
     {
         private bool disposed;
 
         public MainWindowVm()
         {
+            if (DesignerProperties.GetIsInDesignMode(new DependencyObject()))
+            {
+                return;
+            }
+
             this.ReadValues = new ConnectedReadValues();
             this.WriteValues = new ConnectedWriteValues();
         }

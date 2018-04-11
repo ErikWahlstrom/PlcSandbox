@@ -45,21 +45,20 @@
       </Grid>
     </DataTemplate>
 
+    <local:ValueToArrayConverter x:Key="ValueToArrayConverter" />
+    
     <DataTemplate x:Key="WriteDoubleArrayTemplate" DataType="twinCatAdsCommunication:WriteDoubleArrayValue">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
           <RowDefinition />
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Address}" />
-        <DataGrid Grid.Row="1" ItemsSource="{Binding ValueToWrite}" AutoGenerateColumns="False" HorizontalAlignment="Stretch"
-                  Margin="5" Name="resultDataGrid1" VerticalAlignment="Stretch">
-          <DataGrid.Columns>
-            <DataGridTextColumn Header="Values"  Binding="{Binding}" />
-          </DataGrid.Columns>
-        </DataGrid>
+        <ListBox Grid.Row="1" ItemsSource="{Binding ValueToWrite}" HorizontalAlignment="Stretch" Margin="5" x:Name="ArrayBox"/>
         <TextBlock Grid.Row="2" Text="{Binding Exception}" />
+        <TextBox Grid.Row="3" Text="{Binding ValueToWrite[2]}"></TextBox>
       </Grid>
     </DataTemplate>
 

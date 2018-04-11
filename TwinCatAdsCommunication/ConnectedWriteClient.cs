@@ -10,16 +10,14 @@ namespace TwinCatAdsCommunication
     public sealed class ConnectedWriteClient : IDisposable, IConnectedClient
     {
         private readonly TcAdsClient client;
-        private readonly TimeSpan cycleTime;
         private readonly IList<IWritableAddress> addresses;
+        private readonly IList<IWritableAddress> unConnectedAddresses;
         private readonly IDisposable disposable;
         private bool disposed;
-        private IList<IWritableAddress> unConnectedAddresses;
 
         private ConnectedWriteClient(TimeSpan cycleTime)
         {
             this.client = new TcAdsClient();
-            this.cycleTime = cycleTime;
             this.unConnectedAddresses = new List<IWritableAddress>();
             this.addresses = new List<IWritableAddress>();
             this.disposable = Observable.Interval(cycleTime).Subscribe(_ =>
