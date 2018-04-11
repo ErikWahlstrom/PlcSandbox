@@ -90,6 +90,10 @@ namespace TwinCatAdsCommunication
                 if (readableAddress.Address != null)
                 {
                     this.addresses.Add(readableAddress);
+                    using (var stream = PlcReader.ReadValue(this.client, readableAddress))
+                    {
+                        readableAddress.SetInitialValue(stream);
+                    }
                 }
             }
 

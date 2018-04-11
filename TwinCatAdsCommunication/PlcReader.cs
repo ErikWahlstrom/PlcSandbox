@@ -20,7 +20,7 @@ namespace TwinCatAdsCommunication
                 throw new InvalidOperationException("addresses should not be empty");
             }
 
-            using (var stream = BatchRead(adsClient, addresses))
+            using (var stream = BatchRead(adsClient, addresses.Select(x => (IAddressable)x).ToList()))
             {
                 using (BinaryReader reader = new BinaryReader(stream))
                 {
@@ -33,7 +33,25 @@ namespace TwinCatAdsCommunication
             }
         }
 
-        private static AdsStream BatchRead(TcAdsClient adsClient, IList<IReadableAddress> variables)
+        internal static BinaryReader ReadValue(TcAdsClient adsClient, IAddressable address)
+        {
+            if (address == null)
+            {
+                throw new ArgumentNullException(nameof(address));
+            }
+
+            var addressList = new List<IAddressable>()
+            {
+                address
+            };
+
+            var stream = BatchRead(adsClient, addressList);
+            var reader = new BinaryReader(stream);
+            reader.CheckErrors(addressList.Select(x => (IAddressable)x).ToList());
+            return reader;
+        }
+
+        private static AdsStream BatchRead(TcAdsClient adsClient, IList<IAddressable> variables)
         {
             if (!variables.Any())
             {

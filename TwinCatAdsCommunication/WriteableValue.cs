@@ -104,6 +104,11 @@ namespace TwinCatAdsCommunication
             this.OnWrittenToPlc();
         }
 
+        public void SetInitialValue(BinaryReader reader)
+        {
+            this.ValueToWrite = this.Address.ReadStream(reader);
+        }
+
         protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

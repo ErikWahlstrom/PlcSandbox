@@ -108,7 +108,8 @@
 
 
   </Window.Resources>
-  <Grid>
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
@@ -126,4 +127,5 @@
     <ContentPresenter Grid.Row="5" Content="{Binding ReadValues.ReadArray}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>
     <ContentPresenter Grid.Row="6" Content="{Binding WriteValues.WriteArray}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>
   </Grid>
+  </ScrollViewer>
 </Window>
