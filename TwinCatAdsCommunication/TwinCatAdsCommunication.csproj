@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1A46264D-C800-4916-98D2-1FCB2806E259}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TwinCatAdsCommunication</RootNamespace>
+    <AssemblyName>TwinCatAdsCommunication</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>TwinCatAdsCommunication.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>TwinCatAdsCommunication.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TwinCAT.Ads, Version=4.2.147.0, Culture=neutral, PublicKeyToken=180016cd49e5e8c3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\TwinCAT.Ads.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address\DoubleArrayAddress.cs" />
+    <Compile Include="Address\UnConnected\BoolAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\ByteAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\DoubleAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\DoubleArrayAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\FloatAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\IntAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\ShortAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\StringAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\UintAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\UnconnectedAddressBase.cs" />
+    <Compile Include="Address\BoolAddress.cs" />
+    <Compile Include="Address\ByteAddress.cs" />
+    <Compile Include="Address\DoubleAddress.cs" />
+    <Compile Include="Address\FloatAddress.cs" />
+    <Compile Include="Address\IAddress.cs" />
+    <Compile Include="Address\AddressBase.cs" />
+    <Compile Include="Address\IntAddress.cs" />
+    <Compile Include="Address\ShortAddress.cs" />
+    <Compile Include="Address\StringAddress.cs" />
+    <Compile Include="Address\UintAddress.cs" />
+    <Compile Include="Address\UshortAddress.cs" />
+    <Compile Include="Address\UnConnected\UshortAddressUnconnected.cs" />
+    <Compile Include="AdsClientExtensions.cs" />
+    <Compile Include="AdsStreamExtension.cs" />
+    <Compile Include="ConnectedReadClient.cs" />
+    <Compile Include="ConnectedWriteClient.cs" />
+    <Compile Include="IConnectedClient.cs" />
+    <Compile Include="PlcWriter.cs" />
+    <Compile Include="PlcReader.cs" />
+    <Compile Include="IAddressable.cs" />
+    <Compile Include="ReadableBoolValue.cs" />
+    <Compile Include="ReadableDoubleArrayValue.cs" />
+    <Compile Include="ReadableStringValue.cs" />
+    <Compile Include="ReadableValue.cs" />
+    <Compile Include="VariableHandleAndSize.cs" />
+    <Compile Include="WritableBoolValue.cs" />
+    <Compile Include="WritableStringValue.cs" />
+    <Compile Include="WriteableValue.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WriteDoubleArrayValue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="TwinCatAdsCommunication.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\IDisposableAnalyzers.0.1.4.4-dev\analyzers\dotnet\cs\IDisposableAnalyzers.Analyzers.dll" />
+    <Analyzer Include="..\packages\IDisposableAnalyzers.0.1.4.4-dev\analyzers\dotnet\cs\IDisposableAnalyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.2.0\analyzers\dotnet\cs\PropertyChangedAnalyzers.Analyzers.dll" />
+    <Analyzer Include="..\packages\PropertyChangedAnalyzers.2.5.2.0\analyzers\dotnet\cs\PropertyChangedAnalyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\TwinCAT.Ads.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
