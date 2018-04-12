@@ -40,7 +40,7 @@
 #>
 
 <#+	
-     //Insert copied code here       
+     //Insert copied code here               
 
         // Copy from here
 #pragma warning disable SA1649 // File name must match first type name
@@ -66,7 +66,7 @@
                 written = true;
                 if (prop.ArrayInfo != null)
                 {
-                    var typeString = this.GetCsharpTypeAsString(prop.Type);
+                    var typeString = this.GetCsharpTypeAsClassNameString(prop.Type);
                     if (typeString == string.Empty)
                     {
                         written = false;
@@ -74,7 +74,7 @@
                     else
                     {
                         WriteLine(
-                            $"public static ArrayAddress2dUnconnected<{typeString}> {prop.Name.Split('.').Last()} {{ get; }} = new ArrayAddress2dUnconnected<{typeString}>({prop.BitSize}, \"{prop.Name}\");");
+                            $"public static {typeString}ArrayAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     }
                 }
                 else
@@ -396,7 +396,7 @@
             }
         }
 #pragma warning restore SA1649 // File name must match first type name
-#pragma warning restore SA1402 // File may only contain a single class        
-
+#pragma warning restore SA1402 // File may only contain a single class
+        
     //End of copy paste code
 #>

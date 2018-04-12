@@ -38,7 +38,7 @@ namespace PlcSandbox
                 written = true;
                 if (prop.ArrayInfo != null)
                 {
-                    var typeString = this.GetCsharpTypeAsString(prop.Type);
+                    var typeString = this.GetCsharpTypeAsClassNameString(prop.Type);
                     if (typeString == string.Empty)
                     {
                         written = false;
@@ -46,7 +46,7 @@ namespace PlcSandbox
                     else
                     {
                         WriteLine(
-                            $"public static ArrayAddress2dUnconnected<{typeString}> {prop.Name.Split('.').Last()} {{ get; }} = new ArrayAddress2dUnconnected<{typeString}>({prop.BitSize}, \"{prop.Name}\");");
+                            $"public static {typeString}ArrayAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     }
                 }
                 else
