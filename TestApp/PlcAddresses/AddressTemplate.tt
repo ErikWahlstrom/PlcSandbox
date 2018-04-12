@@ -95,7 +95,7 @@
                         break;
                     case "LREAL":
                         WriteLine(
-                            $"public static Double{(prop.ArrayInfo != null ? "Array" : string.Empty)}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new Double{(prop.ArrayInfo != null ? "Array" : string.Empty)}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                            $"public static DoubleAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new DoubleAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                         break;
                     case "DWORD":
                         WriteLine(

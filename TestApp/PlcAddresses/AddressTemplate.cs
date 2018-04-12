@@ -1,4 +1,4 @@
-// ReSharper disable All
+﻿// ReSharper disable All
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
@@ -32,7 +32,7 @@ namespace GeneratedAddress
 
         public static DoubleAddressUnconnected lrDeceleration { get; } = new DoubleAddressUnconnected(64, "MC.lrDeceleration");
 
-        public static DoubleArrayAddressUnconnected lrSampleArray { get; } = new DoubleArrayAddressUnconnected(32384, "MC.lrSampleArray");
+        public static DoubleAddressUnconnected lrSampleArray { get; } = new DoubleAddressUnconnected(32384, "MC.lrSampleArray");
 
         public static class AxisRef
         {

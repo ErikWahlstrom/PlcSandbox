@@ -139,6 +139,8 @@ namespace PlcSandbox.Tests
             {
                 classRef.PrintTree(parsedFileClassTree, false);
             }
+
+            Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
 
         private void PrintTree(PrintTreeClass.ClassTree parsedFileClassTree, int indent = 0)

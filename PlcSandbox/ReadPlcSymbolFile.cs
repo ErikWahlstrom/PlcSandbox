@@ -36,60 +36,15 @@ namespace PlcSandbox
                 }
 
                 written = true;
-                switch (prop.Type)
+                var stringType = this.GetCsharpTypeAsClassNameString(prop.Type);
+                if (stringType == string.Empty)
                 {
-                    case "BOOL":
-                        WriteLine(
-                            $"public static BoolAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new BoolAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "BYTE":
-                        WriteLine(
-                            $"public static ByteAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ByteAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "REAL":
-                        WriteLine(
-                            $"public static FloatAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new FloatAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "UDINT":
-                        WriteLine(
-                            $"public static UintAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "UINT":
-                        WriteLine(
-                            $"public static UshortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UshortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "INT":
-                        WriteLine(
-                            $"public static ShortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "DINT":
-                        WriteLine(
-                            $"public static IntAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new IntAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "LREAL":
-                        WriteLine(
-                            $"public static Double{(prop.ArrayInfo != null ? "Array" : string.Empty)}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new Double{(prop.ArrayInfo != null ? "Array" : string.Empty)}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "DWORD":
-                        WriteLine(
-                            $"public static UintAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new UintAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    case "WORD":
-                        WriteLine(
-                            $"public static ShortAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new ShortAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                        break;
-                    default:
-                        if (prop.Type.StartsWith("STRING"))
-                        {
-                            WriteLine(
-                                $"public static StringAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new StringAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
-                            break;
-                        }
-                        else
-                        {
-                            written = false;
-                        }
-                        break;
+                    written = false;
+                }
+                else
+                {
+                    WriteLine(
+                        $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
                 }
             }
 
@@ -103,9 +58,43 @@ namespace PlcSandbox
             if (!child)
             {
                 WriteLine(string.Empty);
-
             }
+        }
 
+        private string GetCsharpTypeAsClassNameString(string prop)
+        {
+            switch (prop)
+            {
+                case "BOOL":
+                    return "Bool";
+                case "BYTE":
+                    return "Byte";
+                case "REAL":
+                    return "Float";
+                case "UDINT":
+                    return "Uint";
+                case "UINT":
+                    return "Ushort";
+                case "INT":
+                    return "Short";
+                case "DINT":
+                    return "Int";
+                case "LREAL":
+                    return "Double";
+                case "DWORD":
+                    return "Uint";
+                case "WORD":
+                    return "Short";
+                default:
+                    if (prop.StartsWith("STRING"))
+                    {
+                        return "String";
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+            }
         }
 
 
