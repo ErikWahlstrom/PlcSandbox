@@ -15,14 +15,17 @@ namespace TestApp
             this.LightOn = new WriteableValue<bool>(GeneratedAddress.MAIN.LightOn, this.connectedWriteClient);
             this.connectedWriteClient.RegisterCyclicWriting(this.LightOn);
             this.StringIn = new WriteableValue<string>(GeneratedAddress.MAIN.TestStringIn, this.connectedWriteClient);
-            this.WriteArray = new WriteableValue<double[]>(GeneratedAddress.MC.lrSampleArray, this.connectedWriteClient);
+            this.WriteArray = new WriteableValue<float[]>(GeneratedAddress.MC.lrSampleArray, this.connectedWriteClient);
+            this.WriteArrayLong = new WriteableValue<double[]>(GeneratedAddress.MC.lrLongSampleArray, this.connectedWriteClient);
         }
 
         public WriteableValue<string> StringIn { get; }
 
         public WriteableValue<bool> LightOn { get; }
 
-        public WriteableValue<double[]> WriteArray { get; }
+        public WriteableValue<float[]> WriteArray { get; }
+
+        public WriteableValue<double[]> WriteArrayLong { get; }
 
         public void Dispose()
         {

@@ -117,6 +117,8 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <ContentPresenter Grid.Row="0" Content="{Binding WriteValues.LightOn}" ContentTemplate="{StaticResource WriteBoolTemplate}"/>
     <ContentPresenter Grid.Row="1" Content="{Binding ReadValues.IsLightOn}" ContentTemplate="{StaticResource ReadBoolTemplate}"/>
@@ -125,6 +127,8 @@
     <ContentPresenter Grid.Row="4" Content="{Binding WriteValues.StringIn}" ContentTemplate="{StaticResource WriteStringTemplate}"/>
     <ContentPresenter Grid.Row="5" Content="{Binding ReadValues.ReadArray}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>
     <ContentPresenter Grid.Row="6" Content="{Binding WriteValues.WriteArray}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>
-  </Grid>
+    <ContentPresenter Grid.Row="7" Content="{Binding ReadValues.ReadArrayLong}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>
+    <ContentPresenter Grid.Row="8" Content="{Binding WriteValues.WriteArrayLong}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>
+    </Grid>
   </ScrollViewer>
 </Window>

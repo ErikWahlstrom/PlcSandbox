@@ -15,10 +15,13 @@ namespace TestApp
             this.IsLightOn = new ReadableValue<bool>(GeneratedAddress.MAIN.IsLightOn, this.connectedReadClient);
             this.BuildingBoxConnected = new ReadableValue<bool>(GeneratedAddress.MAIN.bBuildingBoxConnected, this.connectedReadClient);
             this.StringOut = new ReadableValue<string>(GeneratedAddress.MAIN.TestStringOut, this.connectedReadClient);
-            this.ReadArray = new ReadableValue<double[]>(GeneratedAddress.MC.lrSampleArray, this.connectedReadClient);
+            this.ReadArray = new ReadableValue<float[]>(GeneratedAddress.MC.lrSampleArray, this.connectedReadClient);
+            this.ReadArrayLong = new ReadableValue<double[]>(GeneratedAddress.MC.lrLongSampleArray, this.connectedReadClient);
         }
 
-        public ReadableValue<double[]> ReadArray { get; }
+        public ReadableValue<float[]> ReadArray { get; }
+
+        public ReadableValue<double[]> ReadArrayLong { get; }
 
         public ReadableValue<string> StringOut { get; }
 

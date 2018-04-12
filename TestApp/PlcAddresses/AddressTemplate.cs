@@ -1,4 +1,4 @@
-// ReSharper disable All
+﻿// ReSharper disable All
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
@@ -32,7 +32,11 @@ namespace GeneratedAddress
 
         public static DoubleAddressUnconnected lrDeceleration { get; } = new DoubleAddressUnconnected(64, "MC.lrDeceleration");
 
-        public static DoubleArrayAddressUnconnected lrSampleArray { get; } = new DoubleArrayAddressUnconnected(32384, "MC.lrSampleArray");
+        public static ShortAddressUnconnected i { get; } = new ShortAddressUnconnected(16, "MC.i");
+
+        public static DoubleArrayAddressUnconnected lrLongSampleArray { get; } = new DoubleArrayAddressUnconnected(512, "MC.lrLongSampleArray");
+
+        public static FloatArrayAddressUnconnected lrSampleArray { get; } = new FloatArrayAddressUnconnected(256, "MC.lrSampleArray");
 
         public static class AxisRef
         {
@@ -43,17 +47,17 @@ namespace GeneratedAddress
     {
         public static BoolAddressUnconnected bDone { get; } = new BoolAddressUnconnected(8, "MC_2.bDone");
 
-        public static FloatAddressUnconnected lrActPos { get; } = new FloatAddressUnconnected(32, "MC_2.lrActPos");
-
         public static BoolAddressUnconnected bError { get; } = new BoolAddressUnconnected(8, "MC_2.bError");
 
         public static BoolAddressUnconnected bBusyToHmi { get; } = new BoolAddressUnconnected(8, "MC_2.bBusyToHmi");
 
+        public static FloatAddressUnconnected lrActPos { get; } = new FloatAddressUnconnected(32, "MC_2.lrActPos");
+
+        public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC_2.iErrorId");
+
         public static BoolAddressUnconnected startPulse { get; } = new BoolAddressUnconnected(8, "MC_2.startPulse");
 
         public static BoolAddressUnconnected bResetServo { get; } = new BoolAddressUnconnected(8, "MC_2.bResetServo");
-
-        public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC_2.iErrorId");
 
         public static DoubleAddressUnconnected lrVelocity { get; } = new DoubleAddressUnconnected(64, "MC_2.lrVelocity");
 
