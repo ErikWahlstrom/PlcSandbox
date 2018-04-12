@@ -1,4 +1,16 @@
-﻿// ReSharper disable All
+
+
+
+
+
+
+
+
+
+
+
+
+// ReSharper disable All
 #pragma warning disable SA1300 // Element must begin with upper-case letter
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
@@ -467,4 +479,5 @@ namespace GeneratedAddress
 #pragma warning restore SA1402 // File may only contain a single class
 
 // ReSharper restore All
+
 
