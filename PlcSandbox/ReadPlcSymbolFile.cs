@@ -36,21 +36,37 @@ namespace PlcSandbox
                 }
 
                 written = true;
-                var stringType = this.GetCsharpTypeAsClassNameString(prop.Type);
-                if (stringType == string.Empty)
+                if (prop.ArrayInfo != null)
                 {
-                    written = false;
+                    var typeString = this.GetCsharpTypeAsString(prop.Type);
+                    if (typeString == string.Empty)
+                    {
+                        written = false;
+                    }
+                    else
+                    {
+                        WriteLine(
+                            $"public static ArrayAddress2dUnconnected<{typeString}> {prop.Name.Split('.').Last()} {{ get; }} = new ArrayAddress2dUnconnected<{typeString}>({prop.BitSize}, \"{prop.Name}\");");
+                    }
                 }
                 else
                 {
-                    WriteLine(
-                        $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                    var stringType = this.GetCsharpTypeAsClassNameString(prop.Type);
+                    if (stringType == string.Empty)
+                    {
+                        written = false;
+                    }
+                    else
+                    {
+                        WriteLine(
+                            $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                    }
                 }
             }
 
             foreach (var childTree in tree.Children)
             {
-                PrintTree(childTree, true);
+                this.PrintTree(childTree, true);
             }
 
             PopIndent();
@@ -97,6 +113,10 @@ namespace PlcSandbox
             }
         }
 
+        private string GetCsharpTypeAsString(string prop)
+        {
+            return this.GetCsharpTypeAsClassNameString(prop).ToLower();
+        }
 
         public class ParsePlcSymbolFile
         {
@@ -253,7 +273,7 @@ namespace PlcSandbox
         {
             public ClassTree(string name)
             {
-                Children = new List<ClassTree>();
+                this.Children = new List<ClassTree>();
                 this.Symbols = new List<PlcSymbol>();
                 if (name.Contains("."))
                 {
@@ -282,11 +302,7 @@ namespace PlcSandbox
 
             public void AddToTree(string classPath)
             {
-                if (!classPath.Contains("."))
-                {
-                    return;
-                }
-                else
+                if (classPath.Contains("."))
                 {
                     var splitupName = classPath.Split('.');
                     if (splitupName.First() != this.Name)

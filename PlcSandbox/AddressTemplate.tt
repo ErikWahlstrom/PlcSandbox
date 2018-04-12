@@ -40,10 +40,9 @@
 #>
 
 <#+	
-       //Insert copied code here       
+     //Insert copied code here       
 
-
-
+        // Copy from here
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
         public void PrintTree(ClassTree tree, bool child)
@@ -65,21 +64,37 @@
                 }
 
                 written = true;
-                var stringType = this.GetCsharpTypeAsClassNameString(prop.Type);
-                if (stringType == string.Empty)
+                if (prop.ArrayInfo != null)
                 {
-                    written = false;
+                    var typeString = this.GetCsharpTypeAsString(prop.Type);
+                    if (typeString == string.Empty)
+                    {
+                        written = false;
+                    }
+                    else
+                    {
+                        WriteLine(
+                            $"public static ArrayAddress2dUnconnected<{typeString}> {prop.Name.Split('.').Last()} {{ get; }} = new ArrayAddress2dUnconnected<{typeString}>({prop.BitSize}, \"{prop.Name}\");");
+                    }
                 }
                 else
                 {
-                    WriteLine(
-                        $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                    var stringType = this.GetCsharpTypeAsClassNameString(prop.Type);
+                    if (stringType == string.Empty)
+                    {
+                        written = false;
+                    }
+                    else
+                    {
+                        WriteLine(
+                            $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                    }
                 }
             }
 
             foreach (var childTree in tree.Children)
             {
-                PrintTree(childTree, true);
+                this.PrintTree(childTree, true);
             }
 
             PopIndent();
@@ -126,6 +141,10 @@
             }
         }
 
+        private string GetCsharpTypeAsString(string prop)
+        {
+            return this.GetCsharpTypeAsClassNameString(prop).ToLower();
+        }
 
         public class ParsePlcSymbolFile
         {
@@ -282,7 +301,7 @@
         {
             public ClassTree(string name)
             {
-                Children = new List<ClassTree>();
+                this.Children = new List<ClassTree>();
                 this.Symbols = new List<PlcSymbol>();
                 if (name.Contains("."))
                 {
@@ -311,11 +330,7 @@
 
             public void AddToTree(string classPath)
             {
-                if (!classPath.Contains("."))
-                {
-                    return;
-                }
-                else
+                if (classPath.Contains("."))
                 {
                     var splitupName = classPath.Split('.');
                     if (splitupName.First() != this.Name)
@@ -381,8 +396,7 @@
             }
         }
 #pragma warning restore SA1649 // File name must match first type name
-#pragma warning restore SA1402 // File may only contain a single class       
-
+#pragma warning restore SA1402 // File may only contain a single class        
 
     //End of copy paste code
 #>
