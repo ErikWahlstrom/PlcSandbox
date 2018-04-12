@@ -32,7 +32,7 @@ namespace GeneratedAddress
 
         public static DoubleAddressUnconnected lrDeceleration { get; } = new DoubleAddressUnconnected(64, "MC.lrDeceleration");
 
-        public static DoubleAddressUnconnected lrSampleArray { get; } = new DoubleAddressUnconnected(32384, "MC.lrSampleArray");
+        public static ArrayAddress2dUnconnected<double> lrSampleArray { get; } = new ArrayAddress2dUnconnected<double>(32384, "MC.lrSampleArray");
 
         public static class AxisRef
         {

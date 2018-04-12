@@ -1,34 +1,46 @@
 namespace TwinCatAdsCommunication.Address
 {
+    using System;
     using System.IO;
+    using System.Runtime.InteropServices;
     using System.Security;
 
-    public class DoubleArrayAddress : AddressBase<double[]>
+    public class Array2dAddress<T> : AddressBase<T[]>
+        where T : struct
     {
-        internal DoubleArrayAddress(string name, int bitSize, int variableHandle)
+        internal Array2dAddress(string name, int bitSize, int variableHandle)
             : base(name, bitSize, variableHandle)
         {
         }
 
-        public override double[] ReadStream(BinaryReader reader)
+        public override T[] ReadStream(BinaryReader reader)
         {
-            int valueAmount = this.BitSize / sizeof(double);
-            var array = new double[valueAmount];
-            for (int i = 0; i < array.Length; i++)
+            if (typeof(T) == typeof(double))
             {
-                array[i] = reader.ReadDouble();
+                int valueAmount = this.BitSize / sizeof(double);
+                var array = new double[valueAmount];
+                for (int i = 0; i < array.Length; i++)
+                {
+                    array[i] = reader.ReadDouble();
+                }
+
+                return (T[])(object)array;
             }
 
-            return array;
+            throw new NotImplementedException();
         }
 
-        public override void WriteToStream(BinaryWriter writer, double[] value)
+        public override void WriteToStream(BinaryWriter writer, T[] value)
         {
             if (value != null)
             {
-                foreach (var doubleValue in value)
+                if (typeof(T) == typeof(double))
                 {
-                    writer.Write(doubleValue);
+                    foreach (var doubleValue in value)
+                    {
+                        double hej = (double)(object)doubleValue;
+                        writer.Write(hej);
+                    }
                 }
             }
         }
