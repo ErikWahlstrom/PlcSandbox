@@ -57,6 +57,7 @@
     <None Include="PlcSandbox.ruleset" />
     <None Include="PlcTest.tmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

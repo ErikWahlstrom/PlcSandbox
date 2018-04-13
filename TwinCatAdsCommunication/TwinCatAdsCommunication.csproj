@@ -55,14 +55,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address\DoubleArray2DAddress.cs" />
     <Compile Include="Address\DoubleArrayAddress.cs" />
     <Compile Include="Address\FloatArrayAddress.cs" />
     <Compile Include="Address\UnConnected\BoolAddressUnconnected.cs" />
     <Compile Include="Address\UnConnected\ByteAddressUnconnected.cs" />
     <Compile Include="Address\UnConnected\DoubleAddressUnconnected.cs" />
-    <Compile Include="Address\UnConnected\DoubleArrayAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\DoubleArrayAddress1dUnconnected.cs" />
+    <Compile Include="Address\UnConnected\DoubleArrayAddress2DUnconnected.cs" />
     <Compile Include="Address\UnConnected\FloatAddressUnconnected.cs" />
-    <Compile Include="Address\UnConnected\FloatArrayAddressUnconnected.cs" />
+    <Compile Include="Address\UnConnected\FloatArrayAddress1dUnconnected.cs" />
     <Compile Include="Address\UnConnected\IntAddressUnconnected.cs" />
     <Compile Include="Address\UnConnected\ShortAddressUnconnected.cs" />
     <Compile Include="Address\UnConnected\StringAddressUnconnected.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="PlcReader.cs" />
     <Compile Include="IAddressable.cs" />
     <Compile Include="ReadableBoolValue.cs" />
+    <Compile Include="ReadableDoubleArray2DValue.cs" />
     <Compile Include="ReadableDoubleArrayValue.cs" />
     <Compile Include="ReadableStringValue.cs" />
     <Compile Include="ReadableValue.cs" />
@@ -97,6 +100,7 @@
     <Compile Include="WritableStringValue.cs" />
     <Compile Include="WriteableValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WriteDoubleArray2DValue.cs" />
     <Compile Include="WriteDoubleArrayValue.cs" />
   </ItemGroup>
   <ItemGroup>

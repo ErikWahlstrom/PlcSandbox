@@ -122,7 +122,7 @@ namespace PlcSandbox.Tests
         public void AddArray()
         {
             var classTree = new PrintTreeClass.ClassTree("Class1.Class2");
-            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("ArrayVariable1", "LREAL", 1, 1, new PrintTreeClass.ArrayInfo(1, 506)));
+            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("ArrayVariable1", "LREAL", 1, 1, new[] { new PrintTreeClass.ArrayInfo(1, 506) }));
             Assert.AreEqual(1, classTree.Symbols.Count);
             var classRef = new PrintTreeClass();
             classRef.PrintTree(classTree, false);
@@ -141,36 +141,6 @@ namespace PlcSandbox.Tests
             }
 
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
-        }
-
-        private void PrintTree(PrintTreeClass.ClassTree parsedFileClassTree, int indent = 0)
-        {
-            Console.WriteLine("__TreeName");
-            this.WriteLineWithIndent(parsedFileClassTree.Name, indent);
-            Console.WriteLine("__Symbols");
-            foreach (var plcSymbol in parsedFileClassTree.Symbols)
-            {
-                var arrayString = plcSymbol.ArrayInfo != null ? $"[{plcSymbol.ArrayInfo.LowerBound}..{plcSymbol.ArrayInfo.LowerBound + plcSymbol.ArrayInfo.Elements - 1}]" : string.Empty;
-                this.WriteLineWithIndent($"{plcSymbol.Name} { arrayString } : {plcSymbol.Type} __ : {plcSymbol.BitOffset} :  {plcSymbol.BitSize} ", indent + 1);
-            }
-
-            foreach (var child in parsedFileClassTree.Children)
-            {
-                if (child != null)
-                {
-                    this.PrintTree(child, indent + 1);
-                }
-            }
-        }
-
-        private void WriteLineWithIndent(string message, int indent)
-        {
-            for (int i = 0; i < indent; i++)
-            {
-                Console.Write("\t");
-            }
-
-            Console.WriteLine(message);
         }
     }
 }

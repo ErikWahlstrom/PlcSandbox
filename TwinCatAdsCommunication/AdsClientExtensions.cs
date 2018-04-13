@@ -1,6 +1,7 @@
 namespace TwinCatAdsCommunication
 {
     using System;
+    using System.Linq;
     using TwinCAT.Ads;
 
     internal static class AdsClientExtensions
@@ -19,7 +20,8 @@ namespace TwinCatAdsCommunication
                 throw new InvalidOperationException($"Address does not exist in PLC: {name}");
             }
 
-            return new VariableHandleAndSize(handle, info.Size);
+            var infor = (ITcAdsSymbol5)info;
+            return new VariableHandleAndSize(handle, info.Size, infor.DataType.Dimensions.Select(x => x.ElementCount));
         }
     }
 }

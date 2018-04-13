@@ -1,8 +1,8 @@
 namespace TwinCatAdsCommunication.Address
 {
-    public class FloatArrayAddressUnconnected : UnconnectedAddressBase<float[]>
+    public class FloatArrayAddress1DUnconnected : UnconnectedAddressBase<float[]>
     {
-        public FloatArrayAddressUnconnected(int bitSize, string name)
+        public FloatArrayAddress1DUnconnected(int bitSize, string name)
             : base(bitSize, name)
         {
         }

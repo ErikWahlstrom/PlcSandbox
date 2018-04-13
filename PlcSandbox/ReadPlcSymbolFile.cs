@@ -46,7 +46,7 @@ namespace PlcSandbox
                     else
                     {
                         WriteLine(
-                            $"public static {typeString}ArrayAddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                            $"public static {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"{prop.Name}\");");
                     }
                 }
                 else
@@ -132,13 +132,22 @@ namespace PlcSandbox
                 {
                     foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
                     {
-                        var arrInfo = symbol.Descendants(XName.Get("ArrayInfo")).FirstOrDefault();
+                        var arrInfos = symbol.Descendants(XName.Get("ArrayInfo"));
+                        List<ArrayInfo> arrInfoList = null;
+                        if (arrInfos.Any())
+                        {
+                            arrInfoList = new List<ArrayInfo>();
+                            foreach (var arrInfo in arrInfos)
+                            {
+                                arrInfoList.Add(
+                                    new ArrayInfo(int.Parse(arrInfo.Element("LBound").Value),
+                                        int.Parse(arrInfo.Element("Elements").Value)));
+                            }
+                        }
+
                         symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value,
                             int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value),
-                            arrInfo != null
-                                ? new ArrayInfo(int.Parse(arrInfo.Element("LBound").Value),
-                                    int.Parse(arrInfo.Element("Elements").Value))
-                                : null));
+                            arrInfoList));
                     }
                 }
 
@@ -236,7 +245,7 @@ namespace PlcSandbox
 
         public class PlcSymbol
         {
-            public PlcSymbol(string name, string type, int bitSize, int bitOffset, ArrayInfo arrayInfo)
+            public PlcSymbol(string name, string type, int bitSize, int bitOffset, IEnumerable<ArrayInfo> arrayInfo)
             {
                 this.Name = name;
                 this.Type = type;
@@ -253,7 +262,7 @@ namespace PlcSandbox
 
             public int BitOffset { get; }
 
-            public ArrayInfo ArrayInfo { get; }
+            public IEnumerable<ArrayInfo> ArrayInfo { get; }
         }
 
         public class ArrayInfo

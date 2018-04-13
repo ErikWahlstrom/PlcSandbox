@@ -17,6 +17,7 @@ namespace TestApp
             this.StringIn = new WriteableValue<string>(GeneratedAddress.MAIN.TestStringIn, this.connectedWriteClient);
             this.WriteArray = new WriteableValue<float[]>(GeneratedAddress.MC.lrSampleArray, this.connectedWriteClient);
             this.WriteArrayLong = new WriteableValue<double[]>(GeneratedAddress.MC.lrLongSampleArray, this.connectedWriteClient);
+            this.WriteArrayLong2D = new WriteableValue<double[,]>(GeneratedAddress.MC.lrLong2DSampleArray, this.connectedWriteClient);
         }
 
         public WriteableValue<string> StringIn { get; }
@@ -26,6 +27,8 @@ namespace TestApp
         public WriteableValue<float[]> WriteArray { get; }
 
         public WriteableValue<double[]> WriteArrayLong { get; }
+
+        public WriteableValue<double[,]> WriteArrayLong2D { get; }
 
         public void Dispose()
         {

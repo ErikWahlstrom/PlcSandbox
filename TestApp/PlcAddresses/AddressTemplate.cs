@@ -34,9 +34,11 @@ namespace GeneratedAddress
 
         public static ShortAddressUnconnected i { get; } = new ShortAddressUnconnected(16, "MC.i");
 
-        public static DoubleArrayAddressUnconnected lrLongSampleArray { get; } = new DoubleArrayAddressUnconnected(512, "MC.lrLongSampleArray");
+        public static DoubleArrayAddress2DUnconnected lrLong2DSampleArray { get; } = new DoubleArrayAddress2DUnconnected(1024, "MC.lrLong2DSampleArray");
 
-        public static FloatArrayAddressUnconnected lrSampleArray { get; } = new FloatArrayAddressUnconnected(256, "MC.lrSampleArray");
+        public static DoubleArrayAddress1DUnconnected lrLongSampleArray { get; } = new DoubleArrayAddress1DUnconnected(512, "MC.lrLongSampleArray");
+
+        public static FloatArrayAddress1DUnconnected lrSampleArray { get; } = new FloatArrayAddress1DUnconnected(256, "MC.lrSampleArray");
 
         public static class AxisRef
         {

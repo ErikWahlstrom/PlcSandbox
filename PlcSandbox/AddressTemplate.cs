@@ -44,7 +44,13 @@ namespace GeneratedAddress
 
         public static DoubleAddressUnconnected lrDeceleration { get; } = new DoubleAddressUnconnected(64, "MC.lrDeceleration");
 
-        public static DoubleArrayAddressUnconnected lrSampleArray { get; } = new DoubleArrayAddressUnconnected(32384, "MC.lrSampleArray");
+        public static ShortAddressUnconnected i { get; } = new ShortAddressUnconnected(16, "MC.i");
+
+        public static DoubleArrayAddress2DUnconnected lrLong2DSampleArray { get; } = new DoubleArrayAddress2DUnconnected(1024, "MC.lrLong2DSampleArray");
+
+        public static DoubleArrayAddress1DUnconnected lrLongSampleArray { get; } = new DoubleArrayAddress1DUnconnected(512, "MC.lrLongSampleArray");
+
+        public static FloatArrayAddress1DUnconnected lrSampleArray { get; } = new FloatArrayAddress1DUnconnected(256, "MC.lrSampleArray");
 
         public static class AxisRef
         {
@@ -55,17 +61,17 @@ namespace GeneratedAddress
     {
         public static BoolAddressUnconnected bDone { get; } = new BoolAddressUnconnected(8, "MC_2.bDone");
 
-        public static FloatAddressUnconnected lrActPos { get; } = new FloatAddressUnconnected(32, "MC_2.lrActPos");
-
         public static BoolAddressUnconnected bError { get; } = new BoolAddressUnconnected(8, "MC_2.bError");
 
         public static BoolAddressUnconnected bBusyToHmi { get; } = new BoolAddressUnconnected(8, "MC_2.bBusyToHmi");
 
+        public static FloatAddressUnconnected lrActPos { get; } = new FloatAddressUnconnected(32, "MC_2.lrActPos");
+
+        public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC_2.iErrorId");
+
         public static BoolAddressUnconnected startPulse { get; } = new BoolAddressUnconnected(8, "MC_2.startPulse");
 
         public static BoolAddressUnconnected bResetServo { get; } = new BoolAddressUnconnected(8, "MC_2.bResetServo");
-
-        public static UintAddressUnconnected iErrorId { get; } = new UintAddressUnconnected(32, "MC_2.iErrorId");
 
         public static DoubleAddressUnconnected lrVelocity { get; } = new DoubleAddressUnconnected(64, "MC_2.lrVelocity");
 
