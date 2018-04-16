@@ -8,6 +8,8 @@ namespace TwinCatAdsCommunication.Address
 
     public class DoubleArrayAddress : AddressBase<ReadOnlyArray<double>>
     {
+        private double[] array;
+
         internal DoubleArrayAddress(string name, int bitSize, int variableHandle)
             : base(name, bitSize, variableHandle)
         {
@@ -16,13 +18,17 @@ namespace TwinCatAdsCommunication.Address
         public override ReadOnlyArray<double> ReadStream(BinaryReader reader)
         {
             int valueAmount = this.BitSize / sizeof(double);
-            var array = new double[valueAmount];
-            for (int i = 0; i < array.Length; i++)
+            if (this.array == null)
             {
-                array[i] = reader.ReadDouble();
+                this.array = new double[valueAmount];
             }
 
-            return new ReadOnlyArray<double>(array);
+            for (int i = 0; i < this.array.Length; i++)
+            {
+                this.array[i] = reader.ReadDouble();
+            }
+
+            return new ReadOnlyArray<double>(this.array);
         }
 
         public override void WriteToStream(BinaryWriter writer, ReadOnlyArray<double> value)
