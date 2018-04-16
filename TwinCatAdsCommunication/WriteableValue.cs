@@ -1,6 +1,7 @@
 namespace TwinCatAdsCommunication
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel;
     using System.IO;
     using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace TwinCatAdsCommunication
     public class WriteableValue<T> : INotifyPropertyChanged, IWritableAddress
     {
         private readonly UnconnectedAddressBase<T> unConnectedAddress;
+        private readonly ConnectedWriteClient writeClient;
         private T valueToWrite;
         private Exception exception;
         private AddressBase<T> address;
@@ -16,6 +18,7 @@ namespace TwinCatAdsCommunication
         public WriteableValue(UnconnectedAddressBase<T> address, ConnectedWriteClient writeClient)
         {
             this.unConnectedAddress = address;
+            this.writeClient = writeClient;
             writeClient.RegisterCyclicWriting(this);
         }
 
@@ -29,6 +32,15 @@ namespace TwinCatAdsCommunication
             set
             {
                 this.address = (AddressBase<T>)value;
+                using (var stream = PlcReader.ReadValue(this.writeClient.Client, this))
+                {
+                    using (var reader = new BinaryReader(stream))
+                    {
+                        reader.CheckErrors(new List<IAddressable>() { this });
+                        this.ValueToWrite = this.Address.ReadStream(reader);
+                    }
+                }
+
                 this.OnPropertyChanged(nameof(this.Address));
             }
         }
@@ -102,11 +114,6 @@ namespace TwinCatAdsCommunication
         public void NotifyWritten()
         {
             this.OnWrittenToPlc();
-        }
-
-        public void SetInitialValue(BinaryReader reader)
-        {
-            this.ValueToWrite = this.Address.ReadStream(reader);
         }
 
         protected virtual void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)

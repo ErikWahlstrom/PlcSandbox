@@ -30,7 +30,5 @@ namespace TwinCatAdsCommunication
         void WriteValueToStream(BinaryWriter writer);
 
         void NotifyWritten();
-
-        void SetInitialValue(BinaryReader writer);
     }
 }

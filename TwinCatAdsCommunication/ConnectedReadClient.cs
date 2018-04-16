@@ -2,6 +2,7 @@ namespace TwinCatAdsCommunication
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.Immutable;
     using System.Linq;
     using System.Reactive.Linq;
     using TwinCAT.Ads;
@@ -10,7 +11,7 @@ namespace TwinCatAdsCommunication
     {
         private readonly TcAdsClient client;
         private readonly IList<IReadableAddress> addresses;
-        private readonly IList<IReadableAddress> unConnectedAddresses;
+        private ImmutableList<IReadableAddress> unConnectedAddresses;
         private readonly IDisposable disposable;
         private bool disposed;
 
@@ -18,7 +19,7 @@ namespace TwinCatAdsCommunication
         {
             this.client = new TcAdsClient();
             this.addresses = new List<IReadableAddress>();
-            this.unConnectedAddresses = new List<IReadableAddress>();
+            this.unConnectedAddresses = ImmutableList<IReadableAddress>.Empty;
             this.disposable = Observable.Interval(cycle).Subscribe(_ =>
             {
                 this.ConnectedUnconnectedAddresses();
@@ -44,7 +45,7 @@ namespace TwinCatAdsCommunication
         public void RegisterForCyclicReading(IReadableAddress readableAddress)
         {
             this.ThrowIfDisposed();
-            this.unConnectedAddresses.Add(readableAddress);
+            this.unConnectedAddresses = this.unConnectedAddresses.Add(readableAddress);
         }
 
         public void Dispose()
@@ -87,10 +88,9 @@ namespace TwinCatAdsCommunication
 
             var connectedFromUnconnected = this.unConnectedAddresses.Where(x => x.Address != null).ToArray();
 
-            for (var index = 0; index < connectedFromUnconnected.Length; index++)
+            foreach (var removeAddress in connectedFromUnconnected)
             {
-                var removeAddress = connectedFromUnconnected[index];
-                this.unConnectedAddresses.Remove(removeAddress);
+                this.unConnectedAddresses = this.unConnectedAddresses.Remove(removeAddress);
             }
         }
 
