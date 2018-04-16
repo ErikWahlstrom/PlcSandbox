@@ -3,6 +3,7 @@ namespace TestApp
     using System;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication;
+    using TwinCatAdsCommunication.Address;
 
     public sealed class ConnectedWriteValues : IDisposable
     {
@@ -16,7 +17,7 @@ namespace TestApp
             this.connectedWriteClient.RegisterCyclicWriting(this.LightOn);
             this.StringIn = new WriteableValue<string>(GeneratedAddress.MAIN.TestStringIn, this.connectedWriteClient);
             this.WriteArray = new WriteableValue<float[]>(GeneratedAddress.MC.lrSampleArray, this.connectedWriteClient);
-            this.WriteArrayLong = new WriteableValue<double[]>(GeneratedAddress.MC.lrLongSampleArray, this.connectedWriteClient);
+            this.WriteArrayLong = new WriteableValue<ReadOnlyArray<double>>(GeneratedAddress.MC.lrLongSampleArray, this.connectedWriteClient);
             this.WriteArrayLong2D = new WriteableValue<double[,]>(GeneratedAddress.MC.lrLong2DSampleArray, this.connectedWriteClient);
         }
 
@@ -26,7 +27,7 @@ namespace TestApp
 
         public WriteableValue<float[]> WriteArray { get; }
 
-        public WriteableValue<double[]> WriteArrayLong { get; }
+        public WriteableValue<ReadOnlyArray<double>> WriteArrayLong { get; }
 
         public WriteableValue<double[,]> WriteArrayLong2D { get; }
 

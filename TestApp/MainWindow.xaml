@@ -166,12 +166,13 @@
       <ContentPresenter Grid.Row="2" Content="{Binding ReadValues.BuildingBoxConnected}" ContentTemplate="{StaticResource ReadBoolTemplate}"/>
       <ContentPresenter Grid.Row="3" Content="{Binding ReadValues.StringOut}" ContentTemplate="{StaticResource ReadStringTemplate}"/>
       <ContentPresenter Grid.Row="4" Content="{Binding WriteValues.StringIn}" ContentTemplate="{StaticResource WriteStringTemplate}"/>
-      <ContentPresenter Grid.Row="5" Content="{Binding ReadValues.ReadArray}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>
-      <ContentPresenter Grid.Row="6" Content="{Binding WriteValues.WriteArray}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>
-      <ContentPresenter Grid.Row="7" Content="{Binding ReadValues.ReadArrayLong}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>
-      <ContentPresenter Grid.Row="8" Content="{Binding WriteValues.WriteArrayLong}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>
+      <!--<ContentPresenter Grid.Row="5" Content="{Binding ReadValues.ReadArray}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>-->
+      <!--<ContentPresenter Grid.Row="6" Content="{Binding WriteValues.WriteArray}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>-->
+      <!--<ContentPresenter Grid.Row="7" Content="{Binding ReadValues.ReadArrayLong}" ContentTemplate="{StaticResource ReadDoubleArrayTemplate}"/>-->
+      
+      <!--<ContentPresenter Grid.Row="8" Content="{Binding WriteValues.WriteArrayLong}" ContentTemplate="{StaticResource WriteDoubleArrayTemplate}"/>
       <ContentPresenter Grid.Row="9" Content="{Binding ReadValues.ReadArrayLong2D}" ContentTemplate="{StaticResource ReadDoubleArray2DTemplate}"/>
-      <ContentPresenter Grid.Row="10" Content="{Binding WriteValues.WriteArrayLong2D}" ContentTemplate="{StaticResource WriteDoubleArray2DTemplate}"/>
+      <ContentPresenter Grid.Row="10" Content="{Binding WriteValues.WriteArrayLong2D}" ContentTemplate="{StaticResource WriteDoubleArray2DTemplate}"/>-->
     </Grid>
   </ScrollViewer>
 </Window>

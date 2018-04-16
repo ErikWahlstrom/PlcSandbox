@@ -1,6 +1,6 @@
 namespace TwinCatAdsCommunication.Address
 {
-    public class DoubleArrayAddress1DUnconnected : UnconnectedAddressBase<double[]>
+    public class DoubleArrayAddress1DUnconnected : UnconnectedAddressBase<ReadOnlyArray<double>>
     {
         public DoubleArrayAddress1DUnconnected(int bitSize, string name)
             : base(bitSize, name)

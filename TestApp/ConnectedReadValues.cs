@@ -3,6 +3,7 @@ namespace TestApp
     using System;
     using TwinCAT.Ads;
     using TwinCatAdsCommunication;
+    using TwinCatAdsCommunication.Address;
 
     public sealed class ConnectedReadValues : IDisposable
     {
@@ -16,13 +17,13 @@ namespace TestApp
             this.BuildingBoxConnected = new ReadableValue<bool>(GeneratedAddress.MAIN.bBuildingBoxConnected, this.connectedReadClient);
             this.StringOut = new ReadableValue<string>(GeneratedAddress.MAIN.TestStringOut, this.connectedReadClient);
             this.ReadArray = new ReadableValue<float[]>(GeneratedAddress.MC.lrSampleArray, this.connectedReadClient);
-            this.ReadArrayLong = new ReadableValue<double[]>(GeneratedAddress.MC.lrLongSampleArray, this.connectedReadClient);
+            this.ReadArrayLong = new ReadableValue<ReadOnlyArray<double>>(GeneratedAddress.MC.lrLongSampleArray, this.connectedReadClient);
             this.ReadArrayLong2D = new ReadableValue<double[,]>(GeneratedAddress.MC.lrLong2DSampleArray, this.connectedReadClient);
         }
 
         public ReadableValue<float[]> ReadArray { get; }
 
-        public ReadableValue<double[]> ReadArrayLong { get; }
+        public ReadableValue<ReadOnlyArray<double>> ReadArrayLong { get; }
 
         public ReadableValue<double[,]> ReadArrayLong2D { get; }
 
