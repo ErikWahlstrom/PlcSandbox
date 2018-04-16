@@ -82,6 +82,11 @@ namespace TwinCatAdsCommunication
             get => this.valueToWrite;
             set
             {
+                if (this.address == null)
+                {
+                    throw new InvalidOperationException("The value has not yet been updated from the Plc");
+                }
+
                 if (System.Collections.Generic.EqualityComparer<T>.Default.Equals(value, this.valueToWrite))
                 {
                     return;
