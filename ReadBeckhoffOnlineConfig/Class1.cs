@@ -160,13 +160,29 @@ namespace ReadBeckhoffOnlineConfig
         public void LoggTest()
         {
             var eventlogger = new TcEventLogger();
-            eventlogger.Connect("192.168.100.1.1.1");
+            eventlogger.Connect("164.4.3.67.1.1"); // "192.168.100.1.1.1");
             var isConnected = eventlogger.IsConnected;
-            var events = eventlogger.GetLoggedEvents(10000);
-            var lksdjf = eventlogger.ActiveAlarms;
-            foreach (TcLoggedEvent eEvent in events)
+
+            eventlogger.MessageSent += obj =>
             {
-                Console.WriteLine(eEvent.SourceName);
+                Console.WriteLine(obj.EventClass);
+            };
+
+            while (true)
+            {
+                var events = eventlogger.GetLoggedEvents(10000);
+                var alarms = eventlogger.ActiveAlarms;
+                foreach (TcLoggedEvent eEvent in events)
+                {
+                    Console.WriteLine(eEvent.SourceName);
+                }
+
+                foreach (TcLoggedEvent alarm in alarms)
+                {
+                    Console.WriteLine(alarm.SourceName);
+                }
+
+                Thread.Sleep(100);
             }
         }
 

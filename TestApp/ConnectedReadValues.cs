@@ -12,7 +12,7 @@ namespace TestApp
 
         public ConnectedReadValues()
         {
-            this.connectedReadClient = ConnectedReadClient.CreateAndConnect(new AmsNetId("164.4.3.67.1.1"), 851, TimeSpan.FromMilliseconds(100));
+            this.connectedReadClient = ConnectedReadClient.CreateAndConnect(new AmsNetId("127.0.0.1.1.1"), 851, TimeSpan.FromMilliseconds(100));
             this.IsLightOn = new ReadableValue<bool>(GeneratedAddress.MAIN.IsLightOn, this.connectedReadClient);
             this.BuildingBoxConnected = new ReadableValue<bool>(GeneratedAddress.MAIN.bBuildingBoxConnected, this.connectedReadClient);
             this.StringOut = new ReadableValue<string>(GeneratedAddress.MAIN.TestStringOut, this.connectedReadClient);

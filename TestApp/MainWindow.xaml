@@ -25,7 +25,7 @@
           <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Text="{Binding Address}" />
-        <CheckBox Grid.Row="1" IsChecked="{Binding LastReadValue, Mode=OneWay}" Content="Last read value"/>
+        <ToggleButton Grid.Row="1" IsChecked="{Binding LastReadValue, Mode=OneWay}" Content="Last read value"/>
         <TextBlock Grid.Row="2" Text="{Binding Exception}" />
       </Grid>
     </DataTemplate>
