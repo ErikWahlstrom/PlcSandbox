@@ -146,14 +146,16 @@ namespace PlcSandbox.Tests
         [Test]
         public void VariableFromFunctionBlock()
         {
-            var classRef = new PrintTreeClass();
-            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcRun.tmc");
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcRun.tmc").ToArray();
+            Assert.AreEqual(
+                "BOOL",
+                parsedFile.First(x => x.Name == "MAIN").Children.First(x => x.Name == "mainFbTest").Symbols.First(x => x.Name == "MAIN.mainFbTest.InputBool").Type);
             Console.WriteLine("____________ClassTrees_________________");
+            var classRef = new PrintTreeClass();
             foreach (var parsedFileClassTree in parsedFile)
             {
                 classRef.PrintTree(parsedFileClassTree, false);
             }
-
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
     }
