@@ -142,5 +142,19 @@ namespace PlcSandbox.Tests
 
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
+
+        [Test]
+        public void VariableFromFunctionBlock()
+        {
+            var classRef = new PrintTreeClass();
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcRun.tmc");
+            Console.WriteLine("____________ClassTrees_________________");
+            foreach (var parsedFileClassTree in parsedFile)
+            {
+                classRef.PrintTree(parsedFileClassTree, false);
+            }
+
+            Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
+        }
     }
 }

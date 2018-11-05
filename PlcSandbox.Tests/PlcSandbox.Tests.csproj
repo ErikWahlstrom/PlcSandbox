@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="PLCRun.tmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="PlcSandbox.Tests.ruleset" />
     <None Include="PlcTest.tmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

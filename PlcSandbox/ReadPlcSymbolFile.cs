@@ -123,6 +123,44 @@ namespace PlcSandbox
             public static IEnumerable<ClassTree> ReadFile(string path)
             {
                 var xml = XDocument.Load(path);
+                var dataTypes = xml.Root.Descendants(XName.Get("DataTypes"));
+
+                var types = new List<PlcType>();
+
+                foreach (var dataType2 in dataTypes)
+                {
+                    var dataTypes2 = dataType2.Descendants(XName.Get("DataType"));
+                    foreach (var dataType in dataTypes2)
+                    {
+
+                        var type = new PlcType(dataType.Element("Name").Value);
+                        foreach (var symbol in dataType.Descendants(XName.Get("SubItem")))
+                        {
+                            var arrInfos = symbol.Descendants(XName.Get("ArrayInfo"));
+                            List<ArrayInfo> arrInfoList = null;
+                            if (arrInfos.Any())
+                            {
+                                arrInfoList = new List<ArrayInfo>();
+                                foreach (var arrInfo in arrInfos)
+                                {
+                                    arrInfoList.Add(
+                                        new ArrayInfo(int.Parse(arrInfo.Element("LBound").Value),
+                                            int.Parse(arrInfo.Element("Elements").Value)));
+                                }
+                            }
+
+                            var parsedSymbol = new PlcSymbol(symbol.Element("Name").Value,
+                                symbol.Element("Type").Value,
+                                int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value),
+                                arrInfoList);
+
+                            type.AddSymbol(parsedSymbol);
+                        }
+
+                        types.Add(type);
+                    }
+                }
+
                 var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
                 var classNames = new List<string>();
 
@@ -276,6 +314,23 @@ namespace PlcSandbox
             public int LowerBound { get; }
 
             public int Elements { get; }
+        }
+
+        public class PlcType
+        {
+            public PlcType(string name)
+            {
+                this.Name = name;
+            }
+
+            public string Name { get; }
+
+            public void AddSymbol(PlcSymbol symbol)
+            {
+                this.Symbols.Add(symbol);
+            }
+
+            public IList<PlcSymbol> Symbols { get; } = new List<PlcSymbol>();
         }
 
         public class ClassTree
