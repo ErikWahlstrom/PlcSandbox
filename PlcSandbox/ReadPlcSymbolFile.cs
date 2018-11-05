@@ -189,7 +189,9 @@ namespace PlcSandbox
                     }
                 }
 
-                foreach (var plcSymbol in symbols)
+                var replacedSymbols = ReplaceTypeWithSymbol(symbols, types);
+
+                foreach (var plcSymbol in replacedSymbols)
                 {
                     classNames = CheckAndAddClass(plcSymbol.Name, classNames);
                 }
@@ -201,7 +203,7 @@ namespace PlcSandbox
                     trees = UpdateTreesFromPath(classPath, trees);
                 }
 
-                foreach (var plcSymbol in symbols)
+                foreach (var plcSymbol in replacedSymbols)
                 {
                     MapToTree(trees, plcSymbol);
                 }
@@ -267,6 +269,35 @@ namespace PlcSandbox
                 }
             }
 
+            public static PlcSymbol[] ReplaceTypeWithSymbol(IEnumerable<PlcSymbol> symbols, IEnumerable<PlcType> type)
+            {
+                if (symbols == null)
+                {
+                    throw new ArgumentException();
+                }
+
+                var newList = new List<PlcSymbol>();
+                var plcSymbols = symbols.ToArray();
+                var plcTypes = type.ToArray();
+
+                foreach (var plcSymbol in plcSymbols)
+                {
+                    var compoundType = plcTypes.SingleOrDefault(x => x.TypeName == plcSymbol.Type);
+                    if (compoundType == null)
+                    {
+                        continue;
+                    }
+
+                    foreach (var compoundTypeSymbol in compoundType.Symbols)
+                    {
+                        newList.Add(new PlcSymbol($"{plcSymbol.Name}.{compoundTypeSymbol.Name}", compoundTypeSymbol.Type, compoundTypeSymbol.BitSize, compoundTypeSymbol.BitOffset, compoundTypeSymbol.ArrayInfo));
+                    }
+                }
+
+                newList.AddRange(plcSymbols);
+                return newList.ToArray();
+            }
+
             public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
             {
                 foreach (var classTree in trees)
@@ -318,12 +349,12 @@ namespace PlcSandbox
 
         public class PlcType
         {
-            public PlcType(string name)
+            public PlcType(string typeName)
             {
-                this.Name = name;
+                this.TypeName = typeName;
             }
 
-            public string Name { get; }
+            public string TypeName { get; }
 
             public void AddSymbol(PlcSymbol symbol)
             {
