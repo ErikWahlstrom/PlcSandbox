@@ -189,7 +189,18 @@ namespace PlcSandbox
                     }
                 }
 
-                var replacedSymbols = ReplaceTypeWithSymbol(symbols, types);
+                var replacedSymbols = symbols.ToArray();
+                var lastCount = replacedSymbols.Length;
+                while (true)
+                {
+                    replacedSymbols = ReplaceTypeWithSymbol(replacedSymbols, types, new List<string>());
+                    if (lastCount == replacedSymbols.Length)
+                    {
+                        break;
+                    }
+
+                    lastCount = replacedSymbols.Length;
+                }
 
                 foreach (var plcSymbol in replacedSymbols)
                 {
@@ -269,8 +280,9 @@ namespace PlcSandbox
                 }
             }
 
-            public static PlcSymbol[] ReplaceTypeWithSymbol(IEnumerable<PlcSymbol> symbols, IEnumerable<PlcType> type)
+            public static PlcSymbol[] ReplaceTypeWithSymbol(IEnumerable<PlcSymbol> symbols, IEnumerable<PlcType> type, List<string> handledTypes)
             {
+                var handledStart = handledTypes.Count;
                 if (symbols == null)
                 {
                     throw new ArgumentException();
@@ -282,11 +294,13 @@ namespace PlcSandbox
 
                 foreach (var plcSymbol in plcSymbols)
                 {
-                    var compoundType = plcTypes.SingleOrDefault(x => x.TypeName == plcSymbol.Type);
+                    var compoundType = plcTypes.Where(x => !handledTypes.Contains(x.TypeName)).SingleOrDefault(x => x.TypeName == plcSymbol.Type);
                     if (compoundType == null)
                     {
                         continue;
                     }
+
+                    handledTypes.Add(compoundType.TypeName);
 
                     foreach (var compoundTypeSymbol in compoundType.Symbols)
                     {
@@ -295,6 +309,12 @@ namespace PlcSandbox
                 }
 
                 newList.AddRange(plcSymbols);
+
+                if (handledTypes.Count != plcTypes.Length)
+                {
+                    return ReplaceTypeWithSymbol(newList, plcTypes, handledTypes);
+                }
+
                 return newList.ToArray();
             }
 

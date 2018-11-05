@@ -6,7 +6,7 @@ namespace PlcSandbox.Tests
     using NUnit.Framework;
     using NUnit.Framework.Internal;
 
-    public class Class1
+    public class ParseTmcTests
     {
         [TestCase("Class.newString", null, new[] { "Class" })]
         [TestCase("Class1.newVariable", new[] { "Class1.Class2", "Class1.Class3" }, new[] { "Class1.Class2", "Class1.Class3" })]
@@ -156,7 +156,32 @@ namespace PlcSandbox.Tests
             {
                 classRef.PrintTree(parsedFileClassTree, false);
             }
+
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
+
+        [Test]
+        public void VariableFromFunctionBlockWithDut()
+        {
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcRun2.tmc").ToArray();
+            Assert.AreEqual(
+                "BOOL",
+                parsedFile.First(x => x.Name == "MAIN").Children.First(x => x.Name == "mainFbTest").Symbols.First(x => x.Name == "MAIN.mainFbTest.InputBool").Type);
+
+
+            Assert.AreEqual(
+                "BOOL",
+                parsedFile.First(x => x.Name == "MAIN").Children.First(x => x.Name == "mainFbTest").Children.First(x => x.Name == "DuttStruct").Symbols.First(x => x.Name == "MAIN.mainFbTest.DuttStruct.StructBool").Type);
+
+            Console.WriteLine("____________ClassTrees_________________");
+            var classRef = new PrintTreeClass();
+            foreach (var parsedFileClassTree in parsedFile)
+            {
+                classRef.PrintTree(parsedFileClassTree, false);
+            }
+
+            Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
+        }
+
     }
 }
