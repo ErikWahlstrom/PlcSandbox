@@ -183,5 +183,22 @@ namespace PlcSandbox.Tests
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
 
+
+        [Test]
+        public void SomeDeeperStructure()
+        {
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcTest2.tmc").ToArray();
+            Assert.AreEqual(16, parsedFile.Length);
+
+            Console.WriteLine("____________ClassTrees_________________");
+            var classRef = new PrintTreeClass();
+            foreach (var parsedFileClassTree in parsedFile)
+            {
+                classRef.PrintTree(parsedFileClassTree, false);
+            }
+
+            Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
+        }
+
     }
 }

@@ -60,6 +60,9 @@
     <None Include="PlcTest.tmc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="PlcTest2.tmc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlcSandbox\PlcSandbox.csproj">

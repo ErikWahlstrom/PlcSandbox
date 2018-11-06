@@ -190,17 +190,7 @@ namespace PlcSandbox
                 }
 
                 var replacedSymbols = symbols.ToArray();
-                var lastCount = replacedSymbols.Length;
-                while (true)
-                {
-                    replacedSymbols = ReplaceTypeWithSymbol(replacedSymbols, types, new List<string>());
-                    if (lastCount == replacedSymbols.Length)
-                    {
-                        break;
-                    }
-
-                    lastCount = replacedSymbols.Length;
-                }
+                replacedSymbols = ReplaceTypeWithSymbol(replacedSymbols, types, new List<string>());
 
                 foreach (var plcSymbol in replacedSymbols)
                 {
@@ -282,7 +272,8 @@ namespace PlcSandbox
 
             public static PlcSymbol[] ReplaceTypeWithSymbol(IEnumerable<PlcSymbol> symbols, IEnumerable<PlcType> type, List<string> handledTypes)
             {
-                var handledStart = handledTypes.Count;
+                var countAtStart = handledTypes.Count;
+
                 if (symbols == null)
                 {
                     throw new ArgumentException();
@@ -310,7 +301,7 @@ namespace PlcSandbox
 
                 newList.AddRange(plcSymbols);
 
-                if (handledTypes.Count != plcTypes.Length)
+                if (countAtStart != handledTypes.Count)
                 {
                     return ReplaceTypeWithSymbol(newList, plcTypes, handledTypes);
                 }
