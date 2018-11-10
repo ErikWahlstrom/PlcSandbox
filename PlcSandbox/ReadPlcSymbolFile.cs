@@ -51,6 +51,7 @@ namespace PlcSandbox
                     var typeString = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
                     if (typeString == string.Empty)
                     {
+                        typeString = prop.Type.TypeName;
                         if (knownTypes.Select(x => x.TypeName).Contains(typeString))
                         {
                             WriteLine(
@@ -72,9 +73,10 @@ namespace PlcSandbox
                     var stringType = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
                     if (stringType == string.Empty)
                     {
+                        stringType = prop.Type.TypeName;
                         if (knownTypes.Select(x => x.TypeName).Contains(stringType))
                         {
-                            WriteLine($"public static {stringType} {{ get; }} = new {stringType} ({prop.BitSize}, \"{prop.Name}\");");
+                            WriteLine($"public static {stringType} {prop.Name.Split('.').Last()} {{ get; }} = new {stringType} (\"{prop.Name}\");");
                         }
                         else
                         {
