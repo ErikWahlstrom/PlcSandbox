@@ -237,7 +237,6 @@ namespace PlcSandbox.Tests
             var parsedClasses = PrintTreeClass.ParsePlcSymbolFile.ReadDataArea(TestContext.CurrentContext.TestDirectory + "\\PlcTestMore.tmc").ToArray();
             Assert.AreEqual(parsedTypes.Length, parsedTypes.Length);
 
-            Console.WriteLine("____________TypeTrees_________________");
             var classRef = new PrintTreeClass();
             foreach (var parsedFileClassTree in parsedClasses)
             {

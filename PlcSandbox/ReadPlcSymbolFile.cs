@@ -38,6 +38,8 @@ namespace PlcSandbox
             WriteLine("{");
             PushIndent("    ");
             var written = false;
+            var writtenProps = new List<string>();
+
             foreach (var prop in tree.Symbols)
             {
                 if (written)
@@ -54,8 +56,9 @@ namespace PlcSandbox
                         typeString = prop.Type.TypeName;
                         if (knownTypes.Select(x => x.TypeName).Contains(typeString))
                         {
-                            WriteLine(
-                                $"public static {typeString}{prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                            var propName = prop.Name.Split('.').Last();
+                            WriteLine($"public static {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {propName} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                            writtenProps.Add(propName);
                         }
                         else
                         {
@@ -64,8 +67,9 @@ namespace PlcSandbox
                     }
                     else
                     {
-                        WriteLine(
-                            $"public static {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        var propName = prop.Name.Split('.').Last();
+                        WriteLine($"public static {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {propName} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        writtenProps.Add(propName);
                     }
                 }
                 else
@@ -76,7 +80,9 @@ namespace PlcSandbox
                         stringType = prop.Type.TypeName;
                         if (knownTypes.Select(x => x.TypeName).Contains(stringType))
                         {
-                            WriteLine($"public static {stringType} {prop.Name.Split('.').Last()} {{ get; }} = new {stringType} (\"{prop.Name}\");");
+                            var propName = prop.Name.Split('.').Last();
+                            WriteLine($"public static {stringType} {propName} {{ get; }} = new {stringType} (\"{prop.Name}\");");
+                            writtenProps.Add(propName);
                         }
                         else
                         {
@@ -85,15 +91,20 @@ namespace PlcSandbox
                     }
                     else
                     {
-                        WriteLine(
-                            $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        var propName = prop.Name.Split('.').Last();
+                        WriteLine($"public static {stringType}AddressUnconnected {propName} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        writtenProps.Add(propName);
                     }
                 }
             }
 
+            ;
             foreach (var childTree in tree.Children)
             {
-                this.PrintTree(childTree, true, knownTypes);
+                if (!writtenProps.Contains(childTree.Name))
+                {
+                    this.PrintTree(childTree, true, knownTypes);
+                }
             }
 
             PopIndent();
