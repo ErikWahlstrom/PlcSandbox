@@ -53,7 +53,7 @@ namespace PlcSandbox.Tests
                 new PrintTreeClass.ClassTree("Class1.Class2")
             };
             treeStructure = PrintTreeClass.ParsePlcSymbolFile.UpdateTreesFromPath("Class1.Class3", treeStructure);
-            PrintTreeClass.ParsePlcSymbolFile.MapToTree(treeStructure, new PrintTreeClass.PlcSymbol("Class1.Class2.Variable12", "string", 1, 3, null));
+            PrintTreeClass.ParsePlcSymbolFile.MapToTree(treeStructure, new PrintTreeClass.PlcSymbol("Class1.Class2.Variable12", new PrintTreeClass.PlcType("string"), 1, 3, null));
             Assert.AreEqual("Class1.Class2.Variable12", treeStructure.First().Children.First().Symbols.First().Name);
         }
 
@@ -112,9 +112,9 @@ namespace PlcSandbox.Tests
         public void AddSymbols()
         {
             var classTree = new PrintTreeClass.ClassTree("Class1.Class2");
-            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("Variable1", "type", 1, 1, null));
-            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("Variable2", "type", 1, 1, null));
-            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("Variable1", "type", 1, 1, null));
+            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("Variable1", new PrintTreeClass.PlcType("type"), 1, 1, null));
+            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("Variable2", new PrintTreeClass.PlcType("type"), 1, 1, null));
+            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("Variable1", new PrintTreeClass.PlcType("type"), 1, 1, null));
             Assert.AreEqual(2, classTree.Symbols.Count);
         }
 
@@ -122,10 +122,10 @@ namespace PlcSandbox.Tests
         public void AddArray()
         {
             var classTree = new PrintTreeClass.ClassTree("Class1.Class2");
-            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("ArrayVariable1", "LREAL", 1, 1, new[] { new PrintTreeClass.ArrayInfo(1, 506) }));
+            classTree.AddSymbol(new PrintTreeClass.PlcSymbol("ArrayVariable1", new PrintTreeClass.PlcType("LREAL"), 1, 1, new[] { new PrintTreeClass.ArrayInfo(1, 506) }));
             Assert.AreEqual(1, classTree.Symbols.Count);
             var classRef = new PrintTreeClass();
-            classRef.PrintTree(classTree, false);
+            classRef.PrintTree(classTree, false, new List<PrintTreeClass.PlcType>());
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
 
@@ -133,11 +133,11 @@ namespace PlcSandbox.Tests
         public void TestIt()
         {
             var classRef = new PrintTreeClass();
-            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcTest.tmc");
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadDataArea(TestContext.CurrentContext.TestDirectory + "\\PlcTest.tmc");
             Console.WriteLine("____________ClassTrees_________________");
             foreach (var parsedFileClassTree in parsedFile)
             {
-                classRef.PrintTree(parsedFileClassTree, false);
+                classRef.PrintTree(parsedFileClassTree, false, new List<PrintTreeClass.PlcType>());
             }
 
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
@@ -146,7 +146,7 @@ namespace PlcSandbox.Tests
         [Test]
         public void VariableFromFunctionBlock()
         {
-            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcRun.tmc").ToArray();
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadDataArea(TestContext.CurrentContext.TestDirectory + "\\PlcRun.tmc").ToArray();
             Assert.AreEqual(
                 "BOOL",
                 parsedFile.First(x => x.Name == "MAIN").Children.First(x => x.Name == "mainFbTest").Symbols.First(x => x.Name == "MAIN.mainFbTest.InputBool").Type);
@@ -154,7 +154,7 @@ namespace PlcSandbox.Tests
             var classRef = new PrintTreeClass();
             foreach (var parsedFileClassTree in parsedFile)
             {
-                classRef.PrintTree(parsedFileClassTree, false);
+                classRef.PrintTree(parsedFileClassTree, false, new List<PrintTreeClass.PlcType>());
             }
 
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
@@ -163,7 +163,7 @@ namespace PlcSandbox.Tests
         [Test]
         public void VariableFromFunctionBlockWithDut()
         {
-            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcRun2.tmc").ToArray();
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadDataArea(TestContext.CurrentContext.TestDirectory + "\\PlcRun2.tmc").ToArray();
             Assert.AreEqual(
                 "BOOL",
                 parsedFile.First(x => x.Name == "MAIN").Children.First(x => x.Name == "mainFbTest").Symbols.First(x => x.Name == "MAIN.mainFbTest.InputBool").Type);
@@ -177,24 +177,55 @@ namespace PlcSandbox.Tests
             var classRef = new PrintTreeClass();
             foreach (var parsedFileClassTree in parsedFile)
             {
-                classRef.PrintTree(parsedFileClassTree, false);
+                classRef.PrintTree(parsedFileClassTree, false, new List<PrintTreeClass.PlcType>());
             }
 
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
 
-
         [Test]
         public void SomeDeeperStructure()
         {
-            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadFile(TestContext.CurrentContext.TestDirectory + "\\PlcTest2.tmc").ToArray();
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadDataArea(TestContext.CurrentContext.TestDirectory + "\\PlcTest2.tmc").ToArray();
             Assert.AreEqual(16, parsedFile.Length);
 
             Console.WriteLine("____________ClassTrees_________________");
             var classRef = new PrintTreeClass();
             foreach (var parsedFileClassTree in parsedFile)
             {
-                classRef.PrintTree(parsedFileClassTree, false);
+                classRef.PrintTree(parsedFileClassTree, false, new List<PrintTreeClass.PlcType>());
+            }
+
+            Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
+        }
+
+        [Test]
+        public void AxisRef()
+        {
+            var parsedFile = PrintTreeClass.ParsePlcSymbolFile.ReadDataArea(TestContext.CurrentContext.TestDirectory + "\\NyttPLC.tmc").ToArray();
+            Assert.AreEqual(4, parsedFile.Length);
+
+            Console.WriteLine("____________ClassTrees_________________");
+            var classRef = new PrintTreeClass();
+            foreach (var parsedFileClassTree in parsedFile)
+            {
+                classRef.PrintTree(parsedFileClassTree, false, new List<PrintTreeClass.PlcType>());
+            }
+
+            Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
+        }
+
+        [Test]
+        public void SomeDeeperStructureTypes()
+        {
+            var parsedTypes = PrintTreeClass.ParsePlcSymbolFile.ReadTypes(TestContext.CurrentContext.TestDirectory + "\\PlcTestMore.tmc").ToArray();
+            Assert.AreEqual(parsedTypes.Length, parsedTypes.Length);
+
+            Console.WriteLine("____________TypeTrees_________________");
+            var classRef = new PrintTreeClass();
+            foreach (var parsedFileClassTree in parsedTypes)
+            {
+                classRef.PrintType(parsedFileClassTree);
             }
 
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());

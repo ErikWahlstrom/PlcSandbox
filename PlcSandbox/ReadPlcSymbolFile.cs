@@ -1,5 +1,9 @@
 // Copy paste from this class to the address template. It should only be used as is for tests (there should not be a call to here from the template).
 
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using GeneratedAddress;
+
 namespace PlcSandbox
 {
     using System;
@@ -17,8 +21,14 @@ namespace PlcSandbox
         // Copy from here
 #pragma warning disable SA1649 // File name must match first type name
 #pragma warning disable SA1402 // File may only contain a single class
-        public void PrintTree(ClassTree tree, bool child)
+        public void PrintTree(ClassTree tree, bool child, IEnumerable<PlcType> knownTypes)
         {
+            if (knownTypes == null)
+            {
+                throw new ArgumentException("knownTypes must not be null", nameof(knownTypes));
+            }
+
+            knownTypes = knownTypes.ToArray();
             if (child)
             {
                 WriteLine(string.Empty);
@@ -38,10 +48,18 @@ namespace PlcSandbox
                 written = true;
                 if (prop.ArrayInfo != null)
                 {
-                    var typeString = this.GetCsharpTypeAsClassNameString(prop.Type);
+                    var typeString = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
                     if (typeString == string.Empty)
                     {
-                        written = false;
+                        if (knownTypes.Select(x => x.TypeName).Contains(typeString))
+                        {
+                            WriteLine(
+                                $"public static {typeString}{prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"{prop.Name}\");");
+                        }
+                        else
+                        {
+                            written = false;
+                        }
                     }
                     else
                     {
@@ -51,10 +69,17 @@ namespace PlcSandbox
                 }
                 else
                 {
-                    var stringType = this.GetCsharpTypeAsClassNameString(prop.Type);
+                    var stringType = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
                     if (stringType == string.Empty)
                     {
-                        written = false;
+                        if (knownTypes.Select(x => x.TypeName).Contains(stringType))
+                        {
+                            WriteLine($"public static {stringType} {{ get; }} = new {stringType} ({prop.BitSize}, \"{prop.Name}\");");
+                        }
+                        else
+                        {
+                            written = false;
+                        }
                     }
                     else
                     {
@@ -66,7 +91,7 @@ namespace PlcSandbox
 
             foreach (var childTree in tree.Children)
             {
-                this.PrintTree(childTree, true);
+                this.PrintTree(childTree, true, knownTypes);
             }
 
             PopIndent();
@@ -75,6 +100,65 @@ namespace PlcSandbox
             {
                 WriteLine(string.Empty);
             }
+        }
+
+        public void PrintType(PlcType type)
+        {
+            PushIndent("    ");
+            WriteLine($"public class {type.TypeName}");
+            WriteLine("{");
+            PushIndent("    ");
+            WriteLine("private string namedAddress;");
+            WriteLine(string.Empty);
+            WriteLine($"public {type.TypeName}(string namedAddress)");
+            WriteLine("{");
+            PushIndent("    ");
+            WriteLine("this.namedAddress == namedAddress");
+            PopIndent();
+            WriteLine("}");
+            WriteLine(string.Empty);
+            var written = false;
+            foreach (var prop in type.Symbols)
+            {
+                if (written)
+                {
+                    WriteLine(string.Empty);
+                }
+
+                //written = true;
+                if (prop.ArrayInfo != null)
+                {
+                    var typeString = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
+                    if (typeString == string.Empty)
+                    {
+                        written = false;
+                        WriteLine($"public {prop.Type.TypeName} {{ get; }} = new {prop.Type.TypeName}(this.namedAddress);");
+                    }
+                    else
+                    {
+                        WriteLine(
+                            $"public {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"this.namedAddress+.{prop.Name}\");");
+                    }
+                }
+                else
+                {
+                    var stringType = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
+                    if (stringType == string.Empty)
+                    {
+                        written = false;
+                        WriteLine($"public {prop.Type.TypeName} {{ get; }} = new {prop.Type.TypeName}(this.namedAddress)");
+                    }
+                    else
+                    {
+                        WriteLine(
+                            $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"this.namedAddress+.{prop.Name}\");");
+                    }
+                }
+            }
+
+            PopIndent();
+            WriteLine("}");
+            PopIndent();
         }
 
         private string GetCsharpTypeAsClassNameString(string prop)
@@ -113,14 +197,68 @@ namespace PlcSandbox
             }
         }
 
-        private string GetCsharpTypeAsString(string prop)
-        {
-            return this.GetCsharpTypeAsClassNameString(prop).ToLower();
-        }
+        //private string GetCsharpTypeAsString(string prop)
+        //{
+        //    return this.GetCsharpTypeAsClassNameString(prop).ToLower();
+        //}
 
         public class ParsePlcSymbolFile
         {
-            public static IEnumerable<ClassTree> ReadFile(string path)
+            public static IEnumerable<ClassTree> ReadDataArea(string path)
+            {
+                var xml = XDocument.Load(path);
+
+                var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
+                var classNames = new List<string>();
+
+                var symbols = new List<PlcSymbol>();
+
+                foreach (var dataArea in dataAreas)
+                {
+                    foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
+                    {
+                        var arrInfos = symbol.Descendants(XName.Get("ArrayInfo"));
+                        List<ArrayInfo> arrInfoList = null;
+                        if (arrInfos.Any())
+                        {
+                            arrInfoList = new List<ArrayInfo>();
+                            foreach (var arrInfo in arrInfos)
+                            {
+                                arrInfoList.Add(
+                                    new ArrayInfo(int.Parse(arrInfo.Element("LBound").Value),
+                                        int.Parse(arrInfo.Element("Elements").Value)));
+                            }
+                        }
+
+                        symbols.Add(new PlcSymbol(symbol.Element("Name").Value, new PlcType(symbol.Element("BaseType").Value),
+                            int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value),
+                            arrInfoList));
+                    }
+                }
+
+                var replacedSymbols = symbols.ToArray();
+
+                foreach (var plcSymbol in replacedSymbols)
+                {
+                    classNames = CheckAndAddClass(plcSymbol.Name, classNames);
+                }
+
+                var trees = new List<ClassTree>();
+
+                foreach (var classPath in classNames)
+                {
+                    trees = UpdateTreesFromPath(classPath, trees);
+                }
+
+                foreach (var plcSymbol in replacedSymbols)
+                {
+                    MapToTree(trees, plcSymbol);
+                }
+
+                return trees;
+            }
+
+            public static IEnumerable<PlcType> ReadTypes(string path)
             {
                 var xml = XDocument.Load(path);
                 var dataTypes = xml.Root.Descendants(XName.Get("DataTypes"));
@@ -150,7 +288,7 @@ namespace PlcSandbox
                             }
 
                             var parsedSymbol = new PlcSymbol(symbol.Element("Name").Value,
-                                symbol.Element("Type").Value,
+                                new PlcType(symbol.Element("Type").Value),
                                 int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value),
                                 arrInfoList);
 
@@ -161,55 +299,14 @@ namespace PlcSandbox
                     }
                 }
 
-                var dataAreas = xml.Root.Descendants(XName.Get("DataArea"));
-                var classNames = new List<string>();
+                var nestedTypes = new List<PlcType>();
 
-                var symbols = new List<PlcSymbol>();
-
-                foreach (var dataArea in dataAreas)
+                foreach (var plcType in types)
                 {
-                    foreach (var symbol in dataArea.Descendants(XName.Get("Symbol")))
-                    {
-                        var arrInfos = symbol.Descendants(XName.Get("ArrayInfo"));
-                        List<ArrayInfo> arrInfoList = null;
-                        if (arrInfos.Any())
-                        {
-                            arrInfoList = new List<ArrayInfo>();
-                            foreach (var arrInfo in arrInfos)
-                            {
-                                arrInfoList.Add(
-                                    new ArrayInfo(int.Parse(arrInfo.Element("LBound").Value),
-                                        int.Parse(arrInfo.Element("Elements").Value)));
-                            }
-                        }
-
-                        symbols.Add(new PlcSymbol(symbol.Element("Name").Value, symbol.Element("BaseType").Value,
-                            int.Parse(symbol.Element("BitSize").Value), int.Parse(symbol.Element("BitOffs").Value),
-                            arrInfoList));
-                    }
+                    nestedTypes.Add(GetFlattenedType(plcType));
                 }
 
-                var replacedSymbols = symbols.ToArray();
-                replacedSymbols = ReplaceTypeWithSymbol(replacedSymbols, types, new List<string>());
-
-                foreach (var plcSymbol in replacedSymbols)
-                {
-                    classNames = CheckAndAddClass(plcSymbol.Name, classNames);
-                }
-
-                var trees = new List<ClassTree>();
-
-                foreach (var classPath in classNames)
-                {
-                    trees = UpdateTreesFromPath(classPath, trees);
-                }
-
-                foreach (var plcSymbol in replacedSymbols)
-                {
-                    MapToTree(trees, plcSymbol);
-                }
-
-                return trees;
+                return nestedTypes;
             }
 
             public static List<ClassTree> UpdateTreesFromPath(string classPath, List<ClassTree> trees)
@@ -270,43 +367,17 @@ namespace PlcSandbox
                 }
             }
 
-            public static PlcSymbol[] ReplaceTypeWithSymbol(IEnumerable<PlcSymbol> symbols, IEnumerable<PlcType> type, List<string> handledTypes)
+            public static PlcType GetFlattenedType(PlcType type)
             {
-                var countAtStart = handledTypes.Count;
-
-                if (symbols == null)
+                if (type.Symbols.Any())
                 {
-                    throw new ArgumentException();
-                }
-
-                var newList = new List<PlcSymbol>();
-                var plcSymbols = symbols.ToArray();
-                var plcTypes = type.ToArray();
-
-                foreach (var plcSymbol in plcSymbols)
-                {
-                    var compoundType = plcTypes.Where(x => !handledTypes.Contains(x.TypeName)).SingleOrDefault(x => x.TypeName == plcSymbol.Type);
-                    if (compoundType == null)
+                    foreach (var symbol in type.Symbols)
                     {
-                        continue;
-                    }
-
-                    handledTypes.Add(compoundType.TypeName);
-
-                    foreach (var compoundTypeSymbol in compoundType.Symbols)
-                    {
-                        newList.Add(new PlcSymbol($"{plcSymbol.Name}.{compoundTypeSymbol.Name}", compoundTypeSymbol.Type, compoundTypeSymbol.BitSize, compoundTypeSymbol.BitOffset, compoundTypeSymbol.ArrayInfo));
+                        type.AddType(GetFlattenedType(symbol.Type));
                     }
                 }
 
-                newList.AddRange(plcSymbols);
-
-                if (countAtStart != handledTypes.Count)
-                {
-                    return ReplaceTypeWithSymbol(newList, plcTypes, handledTypes);
-                }
-
-                return newList.ToArray();
+                return type;
             }
 
             public static void MapToTree(IEnumerable<ClassTree> trees, PlcSymbol symbol)
@@ -325,7 +396,7 @@ namespace PlcSandbox
 
         public class PlcSymbol
         {
-            public PlcSymbol(string name, string type, int bitSize, int bitOffset, IEnumerable<ArrayInfo> arrayInfo)
+            public PlcSymbol(string name, PlcType type, int bitSize, int bitOffset, IEnumerable<ArrayInfo> arrayInfo)
             {
                 this.Name = name;
                 this.Type = type;
@@ -336,7 +407,7 @@ namespace PlcSandbox
 
             public string Name { get; }
 
-            public string Type { get; }
+            public PlcType Type { get; }
 
             public int BitSize { get; }
 
@@ -363,16 +434,25 @@ namespace PlcSandbox
             public PlcType(string typeName)
             {
                 this.TypeName = typeName;
+                this.Symbols = new List<PlcSymbol>();
+                this.Types = new List<PlcType>();
             }
 
             public string TypeName { get; }
+
+            public IList<PlcSymbol> Symbols { get; }
+
+            public IList<PlcType> Types { get; }
 
             public void AddSymbol(PlcSymbol symbol)
             {
                 this.Symbols.Add(symbol);
             }
 
-            public IList<PlcSymbol> Symbols { get; } = new List<PlcSymbol>();
+            public void AddType(PlcType type)
+            {
+                this.Types.Add(type);
+            }
         }
 
         public class ClassTree
