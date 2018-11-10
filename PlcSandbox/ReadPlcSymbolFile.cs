@@ -231,11 +231,6 @@ namespace PlcSandbox
             }
         }
 
-        //private string GetCsharpTypeAsString(string prop)
-        //{
-        //    return this.GetCsharpTypeAsClassNameString(prop).ToLower();
-        //}
-
         public class ParsePlcSymbolFile
         {
             public static IEnumerable<ClassTree> ReadDataArea(string path)
