@@ -104,40 +104,37 @@ namespace PlcSandbox
 
         public void PrintType(PlcType type)
         {
+            var constructorInitializer = new List<string>();
             PushIndent("    ");
             WriteLine($"public class {type.TypeName}");
             WriteLine("{");
             PushIndent("    ");
             WriteLine("private string namedAddress;");
             WriteLine(string.Empty);
-            WriteLine($"public {type.TypeName}(string namedAddress)");
-            WriteLine("{");
-            PushIndent("    ");
-            WriteLine("this.namedAddress == namedAddress");
-            PopIndent();
-            WriteLine("}");
-            WriteLine(string.Empty);
-            var written = false;
             foreach (var prop in type.Symbols)
             {
-                if (written)
-                {
-                    WriteLine(string.Empty);
-                }
-
-                //written = true;
                 if (prop.ArrayInfo != null)
                 {
                     var typeString = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
                     if (typeString == string.Empty)
                     {
-                        written = false;
-                        WriteLine($"public {prop.Type.TypeName} {{ get; }} = new {prop.Type.TypeName}(this.namedAddress);");
+                        typeString = prop.Type.TypeName;
+                        if (typeString == "GUID" || typeString == "TIME" || typeString == "OTCID" || typeString == "PVOID" || typeString == "DT" || typeString == "ITComObjectServer")
+                        {
+                        }
+                        else
+                        {
+                            WriteLine($"public {prop.Type.TypeName} {prop.Name.Split('.').Last()} {{ get; }}");
+                            constructorInitializer.Add(
+                                $"{prop.Name.Split('.').Last()} = new {prop.Type.TypeName}(this.namedAddress);");
+                        }
                     }
                     else
                     {
                         WriteLine(
-                            $"public {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, \"this.namedAddress+.{prop.Name}\");");
+                            $"public {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected {prop.Name.Split('.').Last()} {{ get; }}");
+                        constructorInitializer.Add(
+                            $"{prop.Name.Split('.').Last()} = new {typeString}ArrayAddress{prop.ArrayInfo.Count()}DUnconnected({prop.BitSize}, this.namedAddress + \".{prop.Name}\");");
                     }
                 }
                 else
@@ -145,16 +142,37 @@ namespace PlcSandbox
                     var stringType = this.GetCsharpTypeAsClassNameString(prop.Type.TypeName);
                     if (stringType == string.Empty)
                     {
-                        written = false;
-                        WriteLine($"public {prop.Type.TypeName} {{ get; }} = new {prop.Type.TypeName}(this.namedAddress)");
+                        stringType = prop.Type.TypeName;
+                        if (stringType == "GUID" || stringType == "TIME" || stringType == "OTCID" || stringType == "PVOID" || stringType == "DT" || stringType == "ITComObjectServer")
+                        {
+                        }
+                        else
+                        {
+                            WriteLine($"public {prop.Type.TypeName} {prop.Name.Split('.').Last()} {{ get; }}");
+                            constructorInitializer.Add(
+                                $"{prop.Name.Split('.').Last()} =  new {prop.Type.TypeName}(this.namedAddress);");
+                        }
                     }
                     else
                     {
-                        WriteLine(
-                            $"public static {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }} = new {stringType}AddressUnconnected({prop.BitSize}, \"this.namedAddress+.{prop.Name}\");");
+                        WriteLine($"public {stringType}AddressUnconnected {prop.Name.Split('.').Last()} {{ get; }}");
+                        constructorInitializer.Add($" {prop.Name.Split('.').Last()} = new {stringType}AddressUnconnected({prop.BitSize}, this.namedAddress + \".{prop.Name}\");");
                     }
                 }
             }
+
+            WriteLine($"public {type.TypeName}(string namedAddress)");
+            WriteLine("{");
+            PushIndent("    ");
+            WriteLine("this.namedAddress = namedAddress;");
+            foreach (var addressAssignment in constructorInitializer)
+            {
+                WriteLine(addressAssignment);
+            }
+
+            PopIndent();
+            WriteLine("}");
+            WriteLine(string.Empty);
 
             PopIndent();
             WriteLine("}");
@@ -166,6 +184,7 @@ namespace PlcSandbox
             switch (prop)
             {
                 case "BOOL":
+                case "BIT":
                     return "Bool";
                 case "BYTE":
                     return "Byte";
@@ -179,6 +198,8 @@ namespace PlcSandbox
                     return "Short";
                 case "DINT":
                     return "Int";
+                case "LINT":
+                    return "Long";
                 case "LREAL":
                     return "Double";
                 case "DWORD":
@@ -329,7 +350,7 @@ namespace PlcSandbox
             {
                 var currentNames = currentSymbolName.Contains(".")
                     ? currentSymbolName.Split('.')
-                    : new[] {currentSymbolName};
+                    : new[] { currentSymbolName };
                 if (currentNames.Length < 2)
                 {
                     return classNames;
@@ -339,7 +360,7 @@ namespace PlcSandbox
 
                 var existingClass = classNames.FirstOrDefault(x =>
                 {
-                    var firstClassNameSplit = x.Contains(".") ? x.Split('.') : new[] {x};
+                    var firstClassNameSplit = x.Contains(".") ? x.Split('.') : new[] { x };
 
                     var allEquals = true;
                     for (int i = 0; i < Math.Min(currentNames.Length, firstClassNameSplit.Length); i++)
