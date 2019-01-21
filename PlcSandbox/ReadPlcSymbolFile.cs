@@ -139,7 +139,7 @@ namespace PlcSandbox
                         {
                             WriteLine($"public {prop.Type.TypeName} {prop.Name.Split('.').Last()} {{ get; }}");
                             constructorInitializer.Add(
-                                $"{prop.Name.Split('.').Last()} = new {prop.Type.TypeName}(this.namedAddress);");
+                                $"{prop.Name.Split('.').Last()} = new {prop.Type.TypeName}(this.namedAddress + \".{prop.Name}\");");
                         }
                     }
                     else
@@ -163,7 +163,7 @@ namespace PlcSandbox
                         {
                             WriteLine($"public {prop.Type.TypeName} {prop.Name.Split('.').Last()} {{ get; }}");
                             constructorInitializer.Add(
-                                $"{prop.Name.Split('.').Last()} =  new {prop.Type.TypeName}(this.namedAddress);");
+                                $"{prop.Name.Split('.').Last()} =  new {prop.Type.TypeName}(this.namedAddress + \".{prop.Name}\");");
                         }
                     }
                     else

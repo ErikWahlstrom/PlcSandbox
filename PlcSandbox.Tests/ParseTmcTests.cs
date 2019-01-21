@@ -227,6 +227,7 @@ namespace PlcSandbox.Tests
             {
                 classRef.PrintType(parsedFileClassTree);
             }
+
             Console.WriteLine(PrintTreeClass.PrinterClass.Writer.ToString());
         }
 
